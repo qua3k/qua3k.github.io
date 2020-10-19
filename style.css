@@ -1,0 +1,46 @@
+a {
+  color: #72b4f6;
+}
+
+body {
+  background-color: #36393e;
+  color: #ddd;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  margin: 0px 2.5rem 0px 2.5rem;
+}
+
+h1 {
+  font-size: calc(1rem + 3vw);
+  margin: 3rem 0px 0px;
+}
+
+h5 {
+  margin: 2em 0px 0px 2.3em;
+}
+
+p {
+  font-size: calc(0.76rem + 1vw);
+  margin: 1rem 0px 2rem;
+}
+
+@media (min-width: 600px) { 
+  h1 {
+    font-size: 230%; 
+    }
+    p {
+    font-size: 120%;
+    margin: 1.4rem 0px 1.5rem;
+    }
+  } 
+@media (max-width: 200px) { 
+  
+  h1 {
+    font-size: calc(0.5rem + 3vw);
+    margin: 2rem 0px, 0px, 0px;
+    text-align: center;
+    }
+    p {
+    font-size: calc(0.5rem + 1vw);
+    margin: 1.4rem 0px 1.5rem;
+    }
+  } 
