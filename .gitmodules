@@ -1,0 +1,3 @@
+[submodule "quiz-time"]
+	path = quiz-time
+	url = https://codeberg.org/duck/quiz-time.git
