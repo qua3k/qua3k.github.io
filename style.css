@@ -5,8 +5,7 @@ a {
 body {
   background-color: #36393e;
   color: #ddd;
-  font-family: Tahoma, Verdana, Arial, sans-serif;
-  margin: 0px 2.5rem 0px 2.5rem;
+  font-family: sans-serif;
 }
 
 h1 {
@@ -20,27 +19,34 @@ h5 {
 
 p {
   font-size: calc(0.76rem + 1vw);
-  margin: 1rem 0px 2rem;
 }
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 
 @media (min-width: 600px) { 
   h1 {
     font-size: 230%; 
-    }
-    p {
+  }
+    
+  p {
     font-size: 120%;
-    margin: 1.4rem 0px 1.5rem;
-    }
-  } 
+  }
+} 
+
 @media (max-width: 200px) { 
-  
   h1 {
     font-size: calc(0.5rem + 3vw);
-    margin: 2rem 0px, 0px, 0px;
     text-align: center;
-    }
-    p {
+  }
+ 
+  p {
     font-size: calc(0.5rem + 1vw);
-    margin: 1.4rem 0px 1.5rem;
-    }
-  } 
+  }
+} 
