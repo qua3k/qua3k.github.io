@@ -15,17 +15,16 @@ a.text-decoration-none {
   text-decoration: none;
 }
 
+li.first {
+  margin-right: auto;
+}
+
 ul.navbar {
   display: flex;
 }
 
 ul.navbar li {
   list-style-type: none;
-  margin-right: 1em;
-}
-
-li.right-align {
-  margin-right: auto;
 }
 
 .container {
@@ -34,6 +33,12 @@ li.right-align {
   margin-right: auto;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.regular-content {
+  li {
+   margin-right: 1em;
+  }
 }
 
 @media (min-width: 580px) {
