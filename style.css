@@ -11,8 +11,21 @@ h5 {
   margin: 2em 0px 0px 2.3em;
 }
 
+a.text-decoration-none {
+  text-decoration: none;
+}
+
+li.right-align {
+  margin-right: auto;
+}
+
 ul.navbar {
   display: flex;
+}
+
+ul.navbar li {
+  list-style-type: none;
+  margin-right: 1em;
 }
 
 .container {
