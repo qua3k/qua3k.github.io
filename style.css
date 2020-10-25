@@ -25,6 +25,9 @@ li.regular {
 
 ul.navbar {
   display: flex;
+  border-bottom: .2em solid black;
+  padding-bottom: .3em;
+  padding-left: 0;
 }
 
 ul.navbar li {
