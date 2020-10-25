@@ -1,6 +1,10 @@
 @media (prefers-color-scheme: dark) {
+  a {
+    color: #72b4f6;
+ }
+
   body {
-    background-color: #000;
+    background-color: #212121;
     color: #fff;
  }
 }
