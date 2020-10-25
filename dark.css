@@ -1,7 +1,13 @@
 @media (prefers-color-scheme: dark) {
   a {
-    color: #72b4f6;
+    color: #fff;
   }
+
+  a:hover {
+    background-color: #000;
+    color: #fff;
+    padding: 0.2em;
+  }  
 
   body {
     background-color: #212121;

@@ -15,6 +15,12 @@ a.no-decoration {
   text-decoration: none;
 }
 
+a:hover {
+  background-color: #000;
+  color: #fff;
+  padding: 0.2em;
+}
+
 li.first {
   margin-right: auto;
 }
@@ -26,7 +32,7 @@ li.regular {
 ul.navbar {
   display: flex;
   border-bottom: .2em solid black;
-  padding-bottom: .3em;
+  padding-bottom: .4em;
   padding-left: 0;
 }
 
