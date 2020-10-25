@@ -15,10 +15,6 @@ a.text-decoration-none {
   text-decoration: none;
 }
 
-li.right-align {
-  margin-right: auto;
-}
-
 ul.navbar {
   display: flex;
 }
@@ -26,6 +22,10 @@ ul.navbar {
 ul.navbar li {
   list-style-type: none;
   margin-right: 1em;
+}
+
+li.right-align {
+  margin-right: auto;
 }
 
 .container {
