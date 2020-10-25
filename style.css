@@ -1,18 +1,14 @@
 body {
   font-family: sans-serif;
+  font-size: 1rem;
 }
 
 h1 {
-  font-size: calc(1rem + 3vw);
   margin: 3rem 0px 0px;
 }
 
 h5 {
   margin: 2em 0px 0px 2.3em;
-}
-
-p {
-  font-size: calc(0.76rem + 1vw);
 }
 
 ul.navbar {
@@ -27,24 +23,26 @@ ul.navbar {
   padding-right: 10px;
 }
 
+@media (min-width: 580px) {
+  .container {
+      max-width: 530px;
+  }
+}
 
-@media (min-width: 600px) { 
-  h1 {
-    font-size: 230%; 
-  }
-    
-  p {
-    font-size: 120%;
-  }
-} 
+@media (min-width: 780px) {
+  .container {
+      max-width: 720px;
+    }
+}
 
-@media (max-width: 200px) { 
-  h1 {
-    font-size: calc(0.5rem + 3vw);
-    text-align: center;
-  }
- 
-  p {
-    font-size: calc(0.5rem + 1vw);
-  }
+@media (min-width: 1000px) {
+  .container {
+      max-width: 950px;
+    }
+}
+
+@media (min-width: 1150px) {
+  .container {
+      max-width: 1125px;
+    }
 }
