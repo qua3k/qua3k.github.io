@@ -1,10 +1,4 @@
-a {
-  color: #72b4f6;
-}
-
 body {
-  background-color: #36393e;
-  color: #ddd;
   font-family: sans-serif;
 }
 
@@ -49,4 +43,4 @@ p {
   p {
     font-size: calc(0.5rem + 1vw);
   }
-} 
+}
