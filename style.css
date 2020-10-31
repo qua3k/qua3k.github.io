@@ -45,7 +45,8 @@ li.regular {
   display: flex;
   margin: 0;
   padding: 0;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .navbar li {
