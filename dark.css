@@ -1,23 +1,16 @@
 @media (prefers-color-scheme: dark) {
+
   a {
     color: #fff;
   }
-
-  a:visited {
-    color: #fff;
-  }
-
-  a:hover {
-    background-color: #000;
-    color: #fff;
-  }  
-
+  
   body {
     background-color: #212121;
     color: #fff;
   }
   
-  ul.navbar {
-
+  header {
+    background-color: #0a3c50;  
   }
+
 }
