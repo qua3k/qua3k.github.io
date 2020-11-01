@@ -7,20 +7,33 @@ body {
   margin: 0;
 }
 
+h2 {
+  margin-right: 20px;
+}
+
 header {
   background-color: #146987;
   color: #fff;
-  text-align: center;
   width: 100%;
 }
 
 nav {
-  padding: 10px 0 50px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 a.item {
   text-decoration: none;
   color: #fff;
+  opacity: .8;
+}
+
+a.active {
+  opacity: inherit;
+}
+
+a.item:hover {
+  opacity: inherit;
 }
 
 li.regular {
@@ -28,7 +41,7 @@ li.regular {
 }
 
 .outer {
-  padding: 0 5vw;
+  padding: 0 3vw;
 }
 
 .container {
