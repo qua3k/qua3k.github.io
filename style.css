@@ -81,25 +81,6 @@ li.regular {
 }
 
 @media (max-width: 470px) {
-    .container h2 {
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-        width: 100vw;
-    }
-    
-    nav li {
-        flex-wrap: wrap;
-    }
-    
-    nav {
-        margin-left: auto;
-        margin-right: auto;
-        padding-bottom: 20px;
-    }
-}
-
-@media (max-width: 470px) {
   
     header {
         background-color: #146987;
@@ -126,4 +107,3 @@ li.regular {
         padding: 2vw 3vw 6vw; 
     }
 }
-
