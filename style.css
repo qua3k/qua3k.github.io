@@ -1,8 +1,9 @@
 a {  
   color: #000;
 }
+
 body {
-  font-family: sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 1em;
   margin: 0;
 }
@@ -23,9 +24,9 @@ nav {
 }
 
 a.item {
-  text-decoration: none;
   color: #fff;
   opacity: .8;
+  text-decoration: none; 
 }
 
 a.active {
@@ -41,7 +42,7 @@ li.regular {
 }
 
 .outer {
-  padding: 0 3vw;
+  padding: 0 5vw;
 }
 
 .container {
@@ -51,15 +52,19 @@ li.regular {
 }
 
 .content {
-  padding: 0 20px;
+  padding: 0 10px;
+}
+
+.mobile {
+  display: none;
 }
 
 .navbar {
   display: flex;
   margin: 0;
   padding: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
+  /* overflow-x: auto;
+  overflow-y: hidden; */
   white-space: nowrap;
 }
 
@@ -74,3 +79,51 @@ li.regular {
 .site-header {
   padding: 2vw 3vw 3vw; 
 }
+
+@media (max-width: 470px) {
+    .container h2 {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        width: 100vw;
+    }
+    
+    nav li {
+        flex-wrap: wrap;
+    }
+    
+    nav {
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 20px;
+    }
+}
+
+@media (max-width: 470px) {
+  
+    header {
+        background-color: #146987;
+        color: #fff;
+        text-align: center;
+        width: 100%;
+    }
+
+    nav {
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px 0 50px;
+    }
+
+    .desktop {
+        display: none;
+    }
+    
+    .mobile {
+        display: block;
+    }
+
+    .site-header {
+        padding: 2vw 3vw 6vw; 
+    }
+}
+

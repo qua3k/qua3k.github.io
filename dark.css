@@ -1,16 +1,18 @@
 @media (prefers-color-scheme: dark) {
+  
+  :root {
+    background-color: #212121;
+  }
 
   a {
     color: #fff;
   }
   
   body {
-    background-color: #212121;
     color: #fff;
   }
   
   header {
     background-color: #0a3c50;  
   }
-
 }
