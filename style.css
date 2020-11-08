@@ -3,8 +3,7 @@ a {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 1em;
+  font: 1em -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   margin: 0;
 }
 
@@ -23,21 +22,21 @@ nav {
   margin-bottom: auto;
 }
 
-a.item {
+.item {
   color: #fff;
   opacity: .8;
   text-decoration: none; 
 }
 
-a.active {
+.active {
   opacity: inherit;
 }
 
-a.item:hover {
+.item:hover {
   opacity: inherit;
 }
 
-li.regular {
+.regular {
   align-self: flex-end;
 }
 
