@@ -36,10 +36,6 @@ nav {
   opacity: inherit;
 }
 
-.regular {
-  align-self: flex-end;
-}
-
 .outer {
   padding: 0 5vw;
 }
@@ -56,53 +52,21 @@ nav {
 
 .mobile {
   display: none;
+  padding: 0 3vw 3vw; 
 }
 
 .navbar {
   display: flex;
   margin: 0;
   padding: 0;
-  /* overflow-x: auto;
-  overflow-y: hidden; */
   white-space: nowrap;
+}
+
+.navbar a {
+  display: block;
+  padding: 20px;
 }
 
 .navbar li {
   list-style-type: none;
-}
-
-.navbar li a {
-  padding: 20px;	
-}
-
-.site-header {
-  padding: 2vw 3vw 3vw; 
-}
-
-@media (max-width: 470px) {
-  
-    header {
-        background-color: #146987;
-        color: #fff;
-        text-align: center;
-        width: 100%;
-    }
-
-    nav {
-        margin-left: auto;
-        margin-right: auto;
-        padding: 10px 0 50px;
-    }
-
-    .desktop {
-        display: none;
-    }
-    
-    .mobile {
-        display: block;
-    }
-
-    .site-header {
-        padding: 2vw 3vw 6vw; 
-    }
 }
