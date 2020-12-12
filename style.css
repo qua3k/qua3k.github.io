@@ -7,10 +7,6 @@ body {
   margin: 0;
 }
 
-h2 {
-  margin-right: 20px;
-}
-
 header {
   background-color: #146987;
   color: #fff;
@@ -18,7 +14,15 @@ header {
 }
 
 nav {
-  margin: auto inherit;
+  margin: auto 0;
+}
+
+.content {
+  padding: 0 10px;
+}
+
+.desktop {
+  margin-right: 20px;
 }
 
 .item {
@@ -42,15 +46,8 @@ nav {
 .container {
   display: flex;
   flex-wrap: wrap;
-  padding-top: 10px;
-}
-
-.content {
-  padding: 0 10px;
-}
-
-.content-header {
-  margin: inherit auto;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 .mobile {
