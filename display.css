@@ -32,7 +32,7 @@
 @media (max-width: 463px) {
 
     .navbar a {
-        padding: 40px;
+        margin: 40px;
     }
 
 }
@@ -40,7 +40,7 @@
 @media (max-width: 403px) {
 
     .navbar a {
-        padding: 30px;
+        margin: 30px;
     }
 
 }
@@ -48,7 +48,7 @@
 @media (max-width: 343px) {
 
     .navbar a {
-        padding: 20px;
+        margin: 20px;
     }
 
 }
