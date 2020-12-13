@@ -1,7 +1,6 @@
 @media (max-width: 640px) {  
 
     header {
-
         text-align: center;
         width: 100%;
     }
@@ -20,10 +19,9 @@
         display: block;
     }
 
-    	
-	.navbar a {
-		padding: 50px;
-	}
+    .navbar a {
+        margin: 50px;
+    }
 
     .site-header {
         padding: 2vw 3vw 6vw; 
@@ -32,44 +30,51 @@
 }
 
 @media (max-width: 463px) {
+
     .navbar a {
-  	    padding: 40px;
+        padding: 40px;
     }
+
 }
 
 @media (max-width: 403px) {
-	.navbar a {
-		padding: 30px;
-	}
+
+    .navbar a {
+        padding: 30px;
+    }
+
 }
 
 @media (max-width: 343px) {
-	.navbar a {
-		padding: 20px;
-	}
+
+    .navbar a {
+        padding: 20px;
+    }
+
 }
 
 @media (max-width: 283px) {
-	.navbar a {
-		padding: 15px;
-	}
+    .navbar a {
+        padding: 15px;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
 
-  :root {
-    background-color: #212121;
-  }
+    :root {
+        background-color: #212121;
+    }
 
-  a {
-    color: #fff;
-  }
+    a {
+        color: #fff;
+    }
 
-  body {
-    color: #fff;
-  }
+    body {
+        color: #fff;
+    }
 
-  header {
-    background-color: #0a3c50;
-  }
+    header {
+        background-color: #0a3c50;
+    }
+
 }
