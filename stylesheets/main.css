@@ -22,7 +22,7 @@ nav {
 }
 
 h2.desktop {
-  margin-right: auto;
+  margin: .5em auto .5em 0;
 }
 
 .item {
