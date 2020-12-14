@@ -55,7 +55,7 @@
 
 @media (max-width: 283px) {
     .navbar a {
-        padding: 15px;
+        margin: 15px;
     }
 }
 
