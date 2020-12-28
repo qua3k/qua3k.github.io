@@ -21,10 +21,18 @@ a.post:hover {
     text-decoration: underline;
 }
 
+article {
+    margin-bottom: 40px;
+}
+
 body {
     margin: 0 auto;
     max-width: 800px;
     padding: 1rem;
+}
+
+header {
+   margin-bottom: 50px;
 }
 
 p {
