@@ -9,16 +9,16 @@
     text-decoration: none;
 }
 
+.post:hover {
+    text-decoration: underline;
+}
+
 .post-title {
     margin-bottom: 5px;
 }
 
 .title {
     margin-bottom: 0;
-}
-
-a.post:hover {
-    text-decoration: underline;
 }
 
 article {

@@ -8,6 +8,10 @@ body {
     max-width: 900px;
 }
 
-h1 {font-size: 1.7em;}
+h1 {
+    font-size: 1.7em;
+}
 
-time {color: #545454;}
+time {
+    color: #545454;
+}
