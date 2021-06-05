@@ -338,7 +338,7 @@ img {
   margin-right: 0;
   border-radius: 0;
   /* box-shadow: 0 -1px 0 var(--primary) inset; */
-  background: inital;
+  background: initial;
 }
 .post-content del {
   text-decoration: none;
