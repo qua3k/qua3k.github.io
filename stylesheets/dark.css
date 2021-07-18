@@ -1,0 +1,21 @@
+@media (prefers-color-scheme: dark) {
+  :root {
+    background-color: #000;
+  }
+
+  .post {
+    color: #d2d2d2;
+  }
+  
+  a {
+    color: #77d2fb;
+  }
+
+  body {
+    color: #d2d2d2;
+  }
+
+  time {
+    color: #d2d2d2;
+  }
+}
