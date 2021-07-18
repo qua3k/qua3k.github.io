@@ -29,11 +29,11 @@
 <h5>Keyservers</h5>
 <p>Keyservers present their own problems. They are set up so that any individual can upload a key for any email address, and they mitigate this by allowing individuals to sign each other's keys. <b>This does not work.</b> Anyone can sign your key, even if you have never communicated with them.
 
-<h5>Metadata</h5>
-<p>Metadata is extremely revealing. Email was not designed with metadata protection in mind, and current email encryption <b>does not</b> provide any sort of metadata protection.
-
 <h4>S/MIME</h4>
 <a href="https://www.usenix.org/system/files/conference/usenixsecurity18/sec18-poddebniak.pdf">S/MIME is not recommended either.</a>
+
+<h4>Metadata</h4>
+<p>Metadata is extremely revealing. Email was not designed with metadata protection in mind, and current email encryption <b>does not</b> provide any sort of metadata protection.
 
 <h4>Forward Secrecy</h4>
 <p>By making keys impossible for humans to read, users are effectively forced to maintain long term keys. When an adversary manages to get your private key, they can decrypt all communications ever made. Any secure messenger worth considering <b>must</b> implement perfect forward secrecy.
