@@ -1,15 +1,24 @@
 :root {
-    font-family: sans-serif;
+    font: 13.3pt sans-serif;
+    line-height: 1.6;
+}
+
+a {
+    color: #2E5C84;
+    text-decoration: none;
 }
 
 body {
     margin: 0 auto;
+    max-width: 50rem;
     padding: 1em;
-    max-width: 900px;
+    padding-top: 0;
 }
 
 h1 {
     font-size: 1.7em;
+    line-height: 1.25;
+    margin-bottom: 0.5em;
 }
 
 time {
