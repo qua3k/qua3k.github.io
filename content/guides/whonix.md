@@ -21,7 +21,7 @@ tags:
     * [VM creation](#vm-creation)
         * [Gateway](#gateway)
         * [Workstation](#workstation)
-        * [Hyper-V networking](#hyper-v-networking)
+        * [Hyper-V kernel modules](#hyper-v-kernel-modules)
 * [Generation 2 installation](#generation-2-installation)
     * [Converting to vhdx](#converting-to-vhdx)
     * [Install grub-efi](#install-grub-efi)
@@ -30,7 +30,7 @@ tags:
         * [Load the efivars kernel module](#load-the-efivars-kernel-module)
         * [Finish the GRUB install](#finish-the-grub-install)
         * [Unmount and reboot](#unmount-and-reboot)
-    * [Problems](#problems)
+    * [Secure Boot](#secure-boot)
 
 ## Introduction
 
@@ -90,7 +90,7 @@ New-VMSwitch -SwitchName Whonix -SwitchType Private
 
 There should be two Generation 1 virtual machines. Whonix does not have UEFI support and will not boot on Generation 2 VMs. 
 
-UEFI setup so that Whonix will run in Generation 2 virtual machines is detailed [later](#generation-2-installation)
+UEFI setup so that Whonix will run in Generation 2 virtual machines is detailed [later](#generation-2-installation).
 
 #### Gateway
 
@@ -104,7 +104,7 @@ Create a Generation 1 virtual machine and add your `whonix-xxxx-disk002.vhd` vir
 
 Create a virtual network adapter connecting to the Whonix virtual switch.
 
-#### Hyper-V networking
+#### Hyper-V kernel modules
 
 To get networking working on Whonix, you need to enable some [kernel modules](https://blog.jitdor.com/2020/02/08/enable-hyper-v-integration-services-for-your-ubuntu-guest-vms/) for Hyper-V integration.
 
@@ -115,7 +115,7 @@ sudo update-initramfs -u
 
 ## Generation 2 installation
 
-Do not attempt any of the steps below unless you are familiar with the implications of executing them wrong.
+Do not attempt to execute any of the steps below unless you are familiar with the implications of performing them incorrectly.
 
 ### Converting to vhdx
 
@@ -162,7 +162,7 @@ sudo modprobe efivars
 
 ```
 sudo chroot /mnt
-sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=DEBIAN
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
@@ -173,12 +173,8 @@ sudo umount -R /mnt
 sudo reboot
 ```
 
-### Problems
+### Secure Boot
 
-There may be a problem with the grub config file.
+It is highly suggested to enable UEFI secure boot to secure the boot chain all the way to the kernel.
 
-```
-sudo mount /dev/sda2 /boot/efi
-sudo mv /boot/efi/EFI/GRUB/grubx64.efi /boot/efi/EFI/GRUB/grubx64.efi.bak
-sudo cp /boot/grub/x86_64-efi/grub.efi /boot/efi/EFI/GRUB/grubx64.efi
-```
+Debian's `grub-efi` package comes with `shim` out of the box signed by Microsoft's third party UEFI CA; it is up to the user to enable it in VM settings.
