@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/stylesheets/post-min.css">
+<link rel="stylesheet" href="/stylesheets/list.css">
+<title>Configuring Whonix on Hyper-V</title>
+<h1>Configuring Whonix on Hyper-V</h1>
+<time datetime="2021-04-06">April 6, 2021</time>
+
+<p>An experience using non-free software.
+
+<ol class="outer">
+  <li><p>Obtain a <a href="https://www.whonix.org/#download">Whonix image</a> and <a href="https://www.virtualbox.org/wiki/Downloads">Virtualbox</a>
+    <p>Verify the authenticity of the downloaded files.
+  
+  <li><p>Extract the image with your archive utility of choice. Whonix packages their operating system in an .ova archive. Once decompressed, two 'whonix-xxxx-disk00x.vmdk' files are produced.
+
+  <li><p>Install Virtualbox
+
+  <li><p>Convert the images with VBoxManage
+    <ol>
+      <li><p>Navigate to Virtualbox's install directory.
+      <li><p>Convert both disks with <code>VBoxManage clonehd source.vmdk target.vhd --format vhd</code>.
+    </ol>
+
+  <li><p>Set up Hyper-V virtual switching
+    <ol type="a">
+      <li><p>Create an internal switch
+        <p>This network will be translated to the existing network
+          <ol>
+            <li><p><a href="https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/setup-nat-network#create-a-nat-virtual-network">Create the switch and get the interface index</a>
+            <li><p>Configure the gateway with <code>New-NetIPAddress -IPAddress 10.0.2.2 -PrefixLength 24 -InterfaceIndex "ifIndex"</code>
+            <li><p>Configure the NAT network with <code>New-NetNat -Name "NATOutsideName" -InternalIPInterfaceAddressPrefix 10.0.2.0/24</code>
+         </ol>
+      <li><p>Create a private switch
+        <p><code>New-VMSwitch -SwitchName "SwitchName" -SwitchType Private</code>
+        <p>This switch will facilitate communication between the workstation and the gateway.
+    </ol>
+
+  <li><p>Setup Whonix-Gateway
+    <ol>
+      <li><p>Create a Generation 1 virtual machine with the <code>whonix-xxxx-disk001.vmdk</code>.
+      <li><p>Remove the network adapter.
+      <li><p>Add a legacy network adapter to the internal switch created earlier(eth0).
+      <li><p>Add another legacy network adapter to the private switch created earlier(eth1).
+    </ol>
+
+  <li><p>Configure Whonix-Gateway
+    <p>Continue whonixcheck on an unsupported hypervisor.
+    <p><code>sudo sed -i 's/WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER="0"/WHONIXCHECK_NO_EXIT_ON_UNSUPPORTED_VIRTUALIZER="1"/' /etc/whonix.d/30_whonixcheck_default.conf</code>
+ 
+  <li><p>Setup Whonix-Workstation
+    <ol>
+      <li><p>Create a Generation 1 virtual machine with the whonix-xxxx-disk002.vmdk.
+      <li><p>Remove the network adapter.
+      <li><p>Add another legacy network adapter to the private switch created earlier(eth0).
+   </ol>
+  
+  <li><p>Profit
+</ol>

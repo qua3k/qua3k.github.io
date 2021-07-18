@@ -15,6 +15,10 @@ body {
     padding-top: 0;
 }
 
+code {
+    word-wrap: break-word;
+}
+
 h1 {
     font-size: 1.7em;
     line-height: 1.25;
