@@ -13,7 +13,7 @@ I have a couple of concerns with this recommendation, namely:
 
 * ungoogled-chromium lags behind upstream Chrome for days [every release](https://github.com/Eloston/ungoogled-chromium/releases).
 * The team does not ship official binaries; [third parties contribute prebuilt binaries](https://github.com/Eloston/ungoogled-chromium#downloads), so there is no central party to trust.
-* Control Flow Integrity is [disabled by default](https://github.com/Eloston/ungoogled-chromium/commit/7f238719fa0a16e40559df36988aecf0082a8cf3), leaving users vulnerable to control-flow hijacking.
+* Additionally, the maintainers of the packages tend to [weaken exploit mitigations such as Control-Flow Integrity by opting to use system libraries](https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=ungoogled-chromium#n143) or [build with unsupported toolchains](https://github.com/ungoogled-software/ungoogled-chromium-fedora).
 * Component updates are disabled, instead opting to ship components each browser update. Components were originally unbundled from browser updates so that they could be updated faster.
 * Links to documentation and troubleshooting are broken by their patches.
 
@@ -161,3 +161,5 @@ This patch disables the downloading of field trials (Google’s A/B testing).
 * Field trials can be disabled with switch `--disable-field-trial-config`.
 
 With the relative ease that these settings can be changed, there are few reasons to use `ungoogled-chromium` as a main browser when Chrome can be configured similarly.
+
+If you do decide to use `ungoogled-chromium`, please properly build it yourself.
