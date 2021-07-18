@@ -1,10 +1,10 @@
 :root {
-    font: 13.3pt sans-serif;
+    font: 13.4pt sans-serif;
     line-height: 1.6;
 }
 
 a {
-    color: #2E5C84;
+    color: #4d74c8;
     text-decoration: none;
 }
 
@@ -20,7 +20,7 @@ code {
 }
 
 h1 {
-    font-size: 1.7em;
+    font-size: 1.6em;
     line-height: 1.25;
     margin-bottom: 0.5em;
 }
