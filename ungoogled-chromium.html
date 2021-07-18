@@ -8,155 +8,148 @@
 <h1>A Review of ungoogled-chromium Patches</h1>
 <time datetime="2021-04-03">April 3, 2021</time>
 
-<p><a href="https://github.com/eloston/ungoogled-chromium">ungoogled-chromium</a> is an often recommended browser with no connections to Google on start.
+<p>In the present day, having a secure browser is more important than ever. Being the most used application in the system, the browser represents a large attack surface because it processes untrusted input combined with being a written in an unsafe language while having a codebase whose size can rival some operating systems. However, many browsers come out of the box with weak privacy. <a href="https://github.com/eloston/ungoogled-chromium">ungoogled-chromium</a> is an oft recommended browser because of its Chromium base and degoogled properties. However, I have a couple of concerns with this recommendation, namely:
 
-<p>However, there are a couple of concerns with this browser.
-  <ul>
-    <li>ungoogled-chromium lags behind upstream Chrome a few days every release.
-    <li>There are no official binaries; third parties contribute prebuilt binaries.
-    <li><a href="https://github.com/Eloston/ungoogled-chromium/commit/7f238719fa0a16e40559df36988aecf0082a8cf3">Control Flow Integrity is disabled by default.</a>
-    <li>Documentation and links are broken.
-    <li><b>The majority of the patches can be reproduced in vanilla Chromium by changing some settings.</b>
-  </ul>
+<ul>
+  <li>ungoogled-chromium lags behind upstream Chrome for days every release.
+  <li>There are no official binaries; third parties contribute prebuilt binaries, so there is no central party to trust.
+  <li><a href="https://github.com/Eloston/ungoogled-chromium/commit/7f238719fa0a16e40559df36988aecf0082a8cf3">Control Flow Integrity is disabled by default, leaving users vulnerable to control-flow hijacking.</a>
+  <li>Component updates are disabled.
+  <li>Documentation and troubleshooting links in the browser are broken.
+</ul>
 
-<h3>A look at ungoogled-chromium's patches (and how these patches can be done in Chrome):</h3>
+<p>Security issues aside, they must be doing unique and great work in privacy, right?
 
-<h4>disable-fetching-field-trials</h4>
-<p>This patch disables downloading of field trials (Google’s A/B testing).
+<p>No. Most of the functionality of the patches are either in the best case minimally beneficial or can be reproduced with either a setting, a flag, or a switch, and using a browser specifically for these patches is not worth the tradeoff in security.
 
-<p>- Disable with switch <code>--disable-field-trial-config</code>.
+<p>This article aims to detail the patches in the order they apply in, their functions, and how they can be reproduced in Chrome.
 
-<h4>unrar, 0001-fix-building-without-safebrowsing, safe_browsing-disable-incident-reporting, safe_browsing-disable-reporting-of-safebrowsing-over, remove-unused-preferences-fields</h4>
-<p>These patches disable safe browsing. Related prefs are removed in remove-unused-preferences-fields.
+<h4>0001-fix-building-without-safebrowsing.patch, unrar.patch, safe_browsing-disable-incident-reporting.patch, safe_browsing-disable-reporting-of-safebrowsing-over.patch, remove-unused-preferences-fields.patch</h4>
+<p>These patches disable safe browsing. Related prefs are removed in <code>remove-unused-preferences-fields</code>.
+<p>— Safe browsing can be turned off in <code>chrome://settings</code>.
 
-<p>- Disable safe browsing in chrome://settings.
+<h4>0003-disable-autofill-download-manager.patch</h4>
+<p>This patch disables form Autofill data transmission to Google.
+<p>— Autofill can be turned off in <code>chrome://settings</code>.
 
-<h4>0003-disable-autofill-download-manager</h4>
-<p>This patch disables autofill.
+<h4>0005-disable-default-extensions.patch</h4>
+<p>This patch disables:
+<ul>
+  <li>Google Wallet 
+  <li>Google Feedback
+  <li>Google Web Store
+  <li>Google Hangouts
+  <li>Google Branding
+</ul>
 
-<p>- Disable autofill in chrome://settings.
+<h4>0007-disable-web-resource-service.patch</h4>
+<p>This patch disables Chrome's WebResourceService, which periodically fetches JSON data from a Google server to dynamically configure the browser.
 
-<h4>0005-disable-default-extensions</h4>
-<p>This patch disables
-  <ul>
-    <li>Cast
-    <li>Chrome Web Store
-    <li>Feedback
-    <li>Payments
-    <li>PDFium
-    <li>Speech
-  </ul>
+<h4>0009-disable-google-ipv6-probes.patch</h4>
+<p>This patch uses RIPE NCC servers instead of Google servers for IPv6 probes.
 
-<p>- May be the switch <code>--disable-default-apps</code>.
+<h4>0015-disable-update-pings.patch</h4>
+<p>This patch disables pings to clients2.google.com/ for component updates.
+<p>— Component updates can be disabled with switch <code>--disable-component-update</code>. 
 
-<h4>0007-disable-web-resource-service</h4>
-<p>This patch disables Chrome's  web resource service.
-<p>ChromeWebResourceService fetches JSON data from a web server, parses it, and periodically refreshes it.
-
-<p>- May be disabled with "Preload Pages for faster browsing and searching" in chrome://settings.
-
-<h4>disable-google-ipv6-probes</h4>
-<p>This patch disables IPv6 pings to Google servers.
-
-<h4>0015-disable-update-pings</h4>
-<p>This patch disables pings to clients2.google.com/ for extension updates.
-
-<p>- Disable with switch <code>--disable-component-update</code>.
-
-<h4>0017-disable-new-avatar-menu</h4>
+<h4>0017-disable-new-avatar-menu.patch</h4>
 <p>This cosmetic patch disables the new avatar menu.
 
-<h4>0021-disable-rlz</h4>
-<p>This patch disables RLZ, a promotional tag only enabled in Chrome. <a href="https://www.google.com/chrome/privacy/whitepaper.html">This non-unique tag sent is sent with Google searches and crash reports.</a>
+<h4>0021-disable-rlz.patch</h4>
+<p>This patch disables RLZ, a promotional tag only found in Chrome.
 
-<p>- Disable by defining <code>"rlz_disabled":true</code> in the preferences file.
+<p><a href="https://www.google.com/chrome/privacy/whitepaper.html">This non-unique tag sent is sent with Google searches and crash reports</a>
+<p>— RLZ can be disabled by defining <code>"rlz_disabled":true</code> in the preferences file.
 
-<h4>all-add-trk-prefixes-to-possibly-evil-connections, block-requests, block-trk-and-subdomains, disable-webstore-urls, disable-untraceable-urls, disable-webstore-urls</h4>
-
-<p>These patches disable every connection to Google in the browser via either prefixing trk: or appending .qjz9zk
-<p>This includes
-  <ul>
-    <li>Documentation
-    <li>NTP
-    <li>Spellcheck
-    <li>Updates
-  </ul>
-
-<p><a href="#lynns-switches">@lynn-stephenson has switches that one can use to replace Google URLs with.</a>
-
-<h4>disable-crash-reporter</h4>
+<h4>disable-crash-reporter.patch</h4>
 <p>This patch disables the uploading of crash reports to Google. <a href="https://chromium.googlesource.com/chromium/src/+/master/docs/chromium_browser_vs_google_chrome.md">Chromium does not report crashes.</a>
+<p>— Disable the crash reporter with switch <code>--disable-crash-reporter</code>.
 
-<p>- Disable with switch <code>--disable-crash-reporter</code>.
-
-
-<h4>disable-domain-reliability</h4>
-<p>This patch disables the sending of info to Google whenever an error occurs while visiting a Google domain.
-
-<p>- Disable with switch <code>--disable-domain-reliability</code>.
-
-<h4>disable-fonts-googleapis-references</h4>
-<p>This patch disables references to fonts.googleapis.com.
-
-<h4>disable-gaia, disable-signin</h4>
-<p>These patches disable browser management of sign-in of Google Accounts. Requires API keys found only in Chrome.
-
-<p>- Disabled with switches <code>--disable-gaia-services</code>, <code>--disable-sync</code>, <code>--allow-browser-signin=false</code>
-
-<h4>disable-gcm</h4>
-<p>This patch disables the Google Cloud Messaging component. Extensions can use the <code>chrome.gcm</code> api to send information to Google.
-
-<h4>disable-google-host-detection</h4>
+<h4>disable-google-host-detection.patch</h4>
 <p>This patch disables Google specific features and restrictions applied to Google domains.
 
-<h4>disable-mei-preload</h4>
-<p>This patch disables downloading of a list of sites with a high Media Engagement Index, used to determine whether or not a site autoplays.
+<h4>replace-google-search-engine-with-nosearch.patch</h4>
+<p>This patch replaces Google with "No Search" (disables search from omnibox).
+<p>— Use another search engine.
 
-<p>- Disable with switch <code>--disable-features=PreloadMediaEngagementData, MediaEngagementBypassAutoplayPolicies</code>
+<h4>disable-signin.patch, fix-building-without-one-click-signin.patch, disable-gaia.patch</h4>
+<p>This patch disables browser management of sign-in of Google Accounts. Requires API keys found only in Chrome.
+<p>— Disabled with switches <code>--disable-gaia-services</code>, <code>--disable-sync</code>, <code>--allow-browser-signin=false</code>
 
-<h4>disable-network-time-tracker</h4>
+<h4>toggle-translation-via-switch.patch</h4>
+<p>This patch disables translation and removes the "Translate to" context menu when --translate-script-url flag is not set.
+<p>— Define a non-existent <code>--translate-script-url</code>.
+
+<h4>all-add-trk-prefixes-to-possibly-evil-connection.patch, disable-untraceable-urls.patch, block-trk-and-subdomains.patch, disable-webstore-urls.patch, fix-learn-doubleclick-hsts.patch, block-requests.patch</h4>
+<p>These patches disable all connections hard-coded into the browser using domain substitution. A lot of these connections are only made on user interaction and not transparently made in the background.
+
+<p>Connections patched out include
+<ul>
+  <li>AppID faucets used in U2F,
+  <li>Browser customization,
+  <li>Chrome Web Store,
+  <li>Component and Extension updaters,
+  <li>Documentation: e.g. the "learn more" page in incognito mode.,
+  <li>Extensions functionality,
+  <li>Login endpoints,
+  <li>Logs and Crash report uploaders,
+  <li>Et cetera.
+</ul>
+
+<details>
+    <summary><a href="https://github.com/lynn-stephenson">@lynn-stephenson</a> — you can even change the URLs of "Google URLs" with some switches</summary>
+    <p><code>--google-apis-url</code>
+    <p><code>--google-base-url</code>
+    <p><code>--google-url</code>
+    <p><code>--autofill-assistant-url</code>
+    <p><code>--autofill-server-url</code>
+    <p><code>--cloud-print-url</code>
+    <p><code>--connectivity-check-url</code>
+    <p><code>--crash-server-url</code>
+    <p><code>--cryptauth-http-host</code>
+    <p><code>--cryptauth-v2-devicesync-http-host</code>
+    <p><code>--cryptauth-v2-enrollment-http-host</code>
+    <p><code>--data-reduction-proxy-config-url</code>
+    <p><code>--data-reduction-proxy-pingback-url</code>
+    <p><code>--data-reduction-proxy-secure-proxy-check-url</code>
+    <p><code>--device-management-url</code>
+    <p><code>--disable-sync</code>
+    <p><code>--disable-sync-types</code>
+</details>
+
+<h4>disable-profile-avatar-downloading.patch</h4>
+<p>This patch disables the downloading of profile avatars from Google.
+
+<h4>disable-gcm.patch</h4>
+<p>Disables the Google Cloud Messaging component. Extensions can use the <code>chrome.gcm</code> API to send messages through Firebase Cloud Messaging.
+
+<h4>disable-domain-reliability.patch</h4>
+<p>The domain reliability monitor sends info to Google whenever an error occurs while visiting a Google domain.
+<p>— Disable domain reliability with switch <code>--disable-domain-reliability</code>.
+
+<h4>disable-fonts-googleapis-references.patch</h4>
+<p>This patch disables references to <code>fonts.googleapis.com</code> hardcoded in the browser.
+
+<h4>disable-webrtc-log-uploader.patch</h4>
+<p>This patch disables the uploading of WebRTC logs for the Hangouts extension. 
+<p>— Disable reporting additional diagnostics in Hangouts settings.
+
+<h4>use-local-devtools-files.patch</h4>
+<p>This patch always uses local DevTools files instead of fetching remote files from Google.
+
+<h4>disable-network-time-tracker.patch</h4>
 <p>This patch disables connections to Google to check if the system time is correct when a website certificate date seems incorrect.
+<p>— Disable the network time tracker with switch <code>--disable-features=NetworkTimeServiceQuerying</code>
 
-<p>- Disable with switch <code>--disable-features=NetworkTimeServiceQuerying</code>
+<h4>disable-mei-preload.patch</h4>
+<p>This patch disables downloading of a list of sites with a high Media Engagement Index, used to determine whether or not a site autoplays.
+<p>— Disable MEI preload with switch <code>--disable-features=PreloadMediaEngagementData, MediaEngagementBypassAutoplayPolicies</code>
 
-<h4>disable-profile-avatar-downloading</h4>
-<p>This patch disables the downloading of the profile avatar.
+<h4>fix-building-without-enabling-reporting.patch</h4>
+<p>This patch disables reporting violations such as COEP.
 
-<h4>disable-webrtc-log-uploader</h4>
-<p>This patch disables the uploading of WebRTC logs.
+<h4>disable-fetching-field-trials.patch</h4>
+<p>This patch disables the downloading of field trials (Google’s A/B testing).
+<p>— Field trials can be disabled with switch <code>--disable-field-trial-config</code>.
 
-<h4>replace-google-search-engine-with-nosearch</h4>
-<p>This patch replaces Google with "No Search".
-
-<p>- Use another search engine.
-
-<h4>toggle-translation-via-switch</h4>
-<p>This patch disables translation and removes the "Translate to" context menu when <code>--translate-script-url</code> flag is not set.
-
-<p>- Define a non-existent <code>--translate-script-url</code>.
-
-<h4>use-local-devtools-files</h4>
-<p>This patch always uses local DevTools files instead of remote files from Google.
-
-
-<h4 id="lynns-switches">Lynn's Switches</h4>
-<code>
---google-apis-url
---google-base-url
---google-url
-...
---autofill-assistant-url
---autofill-server-url
---cloud-print-url
---connectivity-check-url
---crash-server-url
---cryptauth-http-host
---cryptauth-v2-devicesync-http-host
---cryptauth-v2-enrollment-http-host
---data-reduction-proxy-config-url
---data-reduction-proxy-pingback-url
---data-reduction-proxy-secure-proxy-check-url
---device-management-url
---disable-sync
---disable-sync-types
-</code>
+<p>With the relative ease that these settings can be changed, there is no reason to use ungoogled-chromium as a main browser when Chrome can be configured similarly.
