@@ -1,0 +1,19 @@
+author:
+  name: "duck"
+
+baseURL: "https://qua3k.github.io/"
+languageCode: "en-us"
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+menu:
+  main:
+  - identifier: about
+    name: about   
+    url: /about/
+
+theme: "paper"
+title: "duck's pond"
