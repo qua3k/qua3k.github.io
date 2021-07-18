@@ -1,0 +1,40 @@
+:root {
+    font-family: sans-serif;
+}
+
+.post {
+    color: #000;
+    font-size: 14pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.post:hover {
+    text-decoration: underline;
+}
+
+.post-title {
+    margin-bottom: 5px;
+}
+
+.title {
+    margin-bottom: 0;
+}
+
+article {
+    margin-bottom: 40px;
+}
+
+body {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 1rem;
+}
+
+header {
+   margin-bottom: 50px;
+}
+
+p {
+    font-size: 14pt;
+}
