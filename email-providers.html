@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/stylesheets/post-min.css">
 <title>Email Providers</title>
@@ -6,7 +7,7 @@
 <time datetime="2020-12-29">December 29, 2020</time>
 
 <h2>'Secure Email'</h2>
-<p>There is <b>no such thing</b> as secure email. Email is an inherently insecure protocol, and no amount of marketing unicorn magic can make it secure. Secure email providers only make email less insecure.
+<p>There is <b>no such thing</b> as secure email. Email is an inherently insecure protocol, conceived at a time when the internet was nice and there was no need for encryption and no amount of marketing unicorn magic can make it "secure". Secure email providers only make email less insecure and cannot fix the underlying problems.
 
 <h2>The State of Email Security</h2>
 
@@ -20,6 +21,12 @@
 
 <h4>Domain-based Message Authentication, Reporting and Conformance</h4>
 <p>DKIM and SPF must be paired with DMARC to be effective. If a DMARC policy is defined, SPF and DKIM checking will be enforced for the domain.
+<p>Providers that do not enforce a DMARC policy are vulnerable to spoofing and should not be recommended.
+  
+<h4>SMTP Encryption</h4>
+<p>MTA Strict Transport Security is a protocol that aims to protect mail servers from man-in-the-middle attacks. STS forces authenticity checks and encryption for all emails sent to the domain. Without MTA-STS, active attackers can supress the STARTTLS upgrade and force mail servers to converse in plaintext. 
+<p>Providers should deploy a well defined policy to force transport encryption on all incoming emails.
+
 
 <h3>Email Encryption</h3>
 <h4>OpenPGP</h4>
@@ -30,7 +37,7 @@
 <p>Keyservers present their own problems. They are set up so that any individual can upload a key for any email address, and they mitigate this by allowing individuals to sign each other's keys. <b>This does not work.</b> Anyone can sign your key, even if you have never communicated with them.
 
 <h4>S/MIME</h4>
-<a href="https://www.usenix.org/system/files/conference/usenixsecurity18/sec18-poddebniak.pdf">S/MIME is not recommended either.</a>
+<a href="https://www.usenix.org/system/files/conference/usenixsecurity18/sec18-poddebniak.pdf">S/MIME should not be recommended either.</a>
 
 <h4>Metadata</h4>
 <p>Metadata is extremely revealing. Email was not designed with metadata protection in mind, and current email encryption <b>does not</b> provide any sort of metadata protection.
