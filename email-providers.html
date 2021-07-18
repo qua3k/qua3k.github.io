@@ -20,11 +20,12 @@
 <p>SPF strictly controls the servers allowed to send email for a given domain, SPF does not check the 'from:' field of an email, but rather the return path, so a spoofed email can still pass SPF.
 
 <h4>Domain-based Message Authentication, Reporting and Conformance</h4>
-<p>DKIM and SPF must be paired with DMARC to be effective. If a DMARC policy is defined, SPF and DKIM checking will be enforced for the domain.
+<p>DMARC is another email authentication protocol that works in conjuction with DKIM and SPF. A DMARC policy is published as a DNS TXT record that receiving mail servers check when accepting mail from a domain. 
+<p>DKIM and SPF must be paired with DMARC to be effective. Without DMARC, DKIM signatures can be stripped and SPF becomes useless on email forwarding.
 <p>Providers that do not enforce a DMARC policy are vulnerable to spoofing and should not be recommended.
-  
+
 <h4>SMTP Encryption</h4>
-<p>MTA Strict Transport Security is a protocol that aims to protect mail servers from man-in-the-middle attacks. STS forces authenticity checks and encryption for all emails sent to the domain. Without MTA-STS, active attackers can supress the STARTTLS upgrade and force mail servers to converse in plaintext. 
+<p>MTA Strict Transport Security is a protocol that aims to protect mail servers from man-in-the-middle attacks. STS forces authenticity checks and encryption for all emails sent to the domain. Without MTA-STS, active attackers can suppress the STARTTLS upgrade and force mail servers to converse in plaintext. 
 <p>Providers should deploy a well defined policy to force transport encryption on all incoming emails.
 
 
