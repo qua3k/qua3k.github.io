@@ -1,6 +1,7 @@
 ---
 title: "Email (In)security"
 date: 2021-06-01
+summary: "There is no such thing as secure email. Email is an inherently insecuee protocol, conceived at a time when security was an afterthought. There are fundamental flaws with email that cannot be mitigated by slapping encryption on top."
 tags:
 - email
 - pgp

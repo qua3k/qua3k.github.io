@@ -1,14 +1,17 @@
 ---
 title: "About"
 date: 2021-06-06
+summary: "About me"
 tags:
 - sadaidan
 ---
 
 Hi there 👋
 
-im a [duck](https://t.me/@coomerhead)
+I'm a [duck](https://t.me/coomerhead)
 
-i use arch btw
+I like browser security
 
-aidan is jealous of my chad hugo site
+I use Arch btw
+
+Aidan is jealous of my chad hugo site
