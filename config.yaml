@@ -12,8 +12,8 @@ markup:
 menu:
   main:
   - identifier: about
-    name: about   
+    name: About   
     url: /about/
 
-theme: "paper"
+theme: "tale-hugo"
 title: "duck's pond"
