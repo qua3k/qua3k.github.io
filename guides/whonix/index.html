@@ -145,8 +145,8 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 <pre><code>sudo umount -R /mnt
 sudo reboot
 </code></pre><h3 id=secure-boot>Secure Boot</h3>
-<p>It is highly suggested to enable UEFI secure boot to secure the boot chain all the way to the kernel.</p>
 <p>Debian&rsquo;s <code>grub-efi</code> package comes with <code>shim</code> out of the box signed by Microsoft&rsquo;s third party UEFI CA; it is up to the user to enable it in VM settings.</p>
+<p>Do keep in mind this is mainly theater, as userspace components are not verified.</p>
 </div>
 <div class=pagination>
 <a href=/security/email/ class="left arrow">&#8592;</a>
@@ -156,7 +156,7 @@ sudo reboot
 </main>
 <footer>
 <span>
-&copy; <time datetime="2021-07-27 23:28:18.000328568 +0000 UTC m=+0.051035244">2021</time> duck. Made with <a href=https://gohugo.io>Hugo</a> using the <a href=https://github.com/EmielH/tale-hugo/>Tale</a> theme.
+&copy; <time datetime="2021-07-27 23:30:00.301997906 +0000 UTC m=+0.044051639">2021</time> duck. Made with <a href=https://gohugo.io>Hugo</a> using the <a href=https://github.com/EmielH/tale-hugo/>Tale</a> theme.
 </span>
 </footer>
 </body>
