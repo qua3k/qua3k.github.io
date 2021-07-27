@@ -1,6 +1,5 @@
 ---
 title: "About"
-date: 2021-06-06
 summary: "About me"
 tags:
 - sadaidan
