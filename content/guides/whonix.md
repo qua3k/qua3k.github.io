@@ -176,6 +176,6 @@ sudo reboot
 
 ### Secure Boot
 
-It is highly suggested to enable UEFI secure boot to secure the boot chain all the way to the kernel.
-
 Debian's `grub-efi` package comes with `shim` out of the box signed by Microsoft's third party UEFI CA; it is up to the user to enable it in VM settings.
+
+Do keep in mind this is mainly theater, as userspace components are not verified.
