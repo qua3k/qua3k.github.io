@@ -110,8 +110,8 @@ Create a virtual network adapter connecting to the Whonix virtual switch.
 To get networking working on Whonix, you need to enable some [kernel modules](https://blog.jitdor.com/2020/02/08/enable-hyper-v-integration-services-for-your-ubuntu-guest-vms/) for Hyper-V integration.
 
 ```
-sudo printf "hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc" >> /etc/initramfs-tools/modules
-sudo update-initramfs -u
+# printf "hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc" >> /etc/initramfs-tools/modules
+# update-initramfs -u
 ```
 
 ## Generation 2 installation
@@ -127,9 +127,9 @@ Generation 2 virtual machines only support `.vhdx` disks. You should convert the
 Boot up your existing Generation 1 virtual machine and install `grub-efi-amd64`.
 
 ```
-sudo apt update
-sudo apt install grub-efi-amd64
-sudo apt purge grub-pc-bin
+# apt update
+# apt install grub-efi-amd64
+# apt purge grub-pc-bin
 ```
 
 ### Partitioning
@@ -141,37 +141,37 @@ Use `gdisk /dev/sda` to convert the partition table to GPT and create the ESP on
 #### Format the EFI partition
 
 ```
-sudo mkfs.fat -F 32 /dev/sda2
+# mkfs.fat -F 32 /dev/sda2
 ```
 
 #### Mount partitions
 
 ```
-sudo mount /dev/sda1 /mnt
-sudo mkdir -p /mnt/boot/efi
-sudo mount /dev/sda2 /mnt/boot/efi
+# mount /dev/sda1 /mnt
+# mkdir -p /mnt/boot/efi
+# mount /dev/sda2 /mnt/boot/efi
 for d in dev proc run sys; do sudo mount -B /$d /mnt/$d; done
 ```
 
 #### Load the efivars kernel module
 
 ```
-sudo modprobe efivars
+# modprobe efivars
 ```
 
 #### Finish the GRUB install
 
 ```
-sudo chroot /mnt
-sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=DEBIAN
-sudo grub-mkconfig -o /boot/grub/grub.cfg
+# chroot /mnt
+# grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=DEBIAN
+# grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 #### Unmount and reboot
 
 ```
-sudo umount -R /mnt
-sudo reboot
+# umount -R /mnt
+# reboot
 ```
 
 ### Secure Boot
