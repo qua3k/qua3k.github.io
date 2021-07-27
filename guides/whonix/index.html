@@ -114,36 +114,36 @@ duck
 <p>Create a virtual network adapter connecting to the Whonix virtual switch.</p>
 <h4 id=hyper-v-kernel-modules>Hyper-V kernel modules</h4>
 <p>To get networking working on Whonix, you need to enable some <a href=https://blog.jitdor.com/2020/02/08/enable-hyper-v-integration-services-for-your-ubuntu-guest-vms/>kernel modules</a> for Hyper-V integration.</p>
-<pre><code>sudo printf &quot;hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc&quot; &gt;&gt; /etc/initramfs-tools/modules
-sudo update-initramfs -u
+<pre><code># printf &quot;hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc&quot; &gt;&gt; /etc/initramfs-tools/modules
+# update-initramfs -u
 </code></pre><h2 id=generation-2-installation>Generation 2 installation</h2>
 <p>Do not attempt to execute any of the steps below unless you are familiar with the implications of performing them incorrectly.</p>
 <h3 id=converting-to-vhdx>Converting to vhdx</h3>
 <p>Generation 2 virtual machines only support <code>.vhdx</code> disks. You should convert the disks within the Hyper-V Manager UI or with the PowerShell cmdlet <code>Convert-VHD</code>.</p>
 <h3 id=install-grub-efi>Install grub-efi</h3>
 <p>Boot up your existing Generation 1 virtual machine and install <code>grub-efi-amd64</code>.</p>
-<pre><code>sudo apt update
-sudo apt install grub-efi-amd64
-sudo apt purge grub-pc-bin
+<pre><code># apt update
+# apt install grub-efi-amd64
+# apt purge grub-pc-bin
 </code></pre><h3 id=partitioning>Partitioning</h3>
 <p>Resize /dev/sda1 to create some free space for the EFi system partition with <code>cfdisk /dev/sda</code>.</p>
 <p>Use <code>gdisk /dev/sda</code> to convert the partition table to GPT and create the ESP on <code>/dev/sda2</code>.</p>
 <h4 id=format-the-efi-partition>Format the EFI partition</h4>
-<pre><code>sudo mkfs.fat -F 32 /dev/sda2
+<pre><code># mkfs.fat -F 32 /dev/sda2
 </code></pre><h4 id=mount-partitions>Mount partitions</h4>
-<pre><code>sudo mount /dev/sda1 /mnt
-sudo mkdir -p /mnt/boot/efi
-sudo mount /dev/sda2 /mnt/boot/efi
+<pre><code># mount /dev/sda1 /mnt
+# mkdir -p /mnt/boot/efi
+# mount /dev/sda2 /mnt/boot/efi
 for d in dev proc run sys; do sudo mount -B /$d /mnt/$d; done
 </code></pre><h4 id=load-the-efivars-kernel-module>Load the efivars kernel module</h4>
-<pre><code>sudo modprobe efivars
+<pre><code># modprobe efivars
 </code></pre><h4 id=finish-the-grub-install>Finish the GRUB install</h4>
-<pre><code>sudo chroot /mnt
-sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=DEBIAN
-sudo grub-mkconfig -o /boot/grub/grub.cfg
+<pre><code># chroot /mnt
+# grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=DEBIAN
+# grub-mkconfig -o /boot/grub/grub.cfg
 </code></pre><h4 id=unmount-and-reboot>Unmount and reboot</h4>
-<pre><code>sudo umount -R /mnt
-sudo reboot
+<pre><code># umount -R /mnt
+# reboot
 </code></pre><h3 id=secure-boot>Secure Boot</h3>
 <p>Debian&rsquo;s <code>grub-efi</code> package comes with <code>shim</code> out of the box signed by Microsoft&rsquo;s third party UEFI CA; it is up to the user to enable it in VM settings.</p>
 <p>Do keep in mind this is mainly theater, as userspace components are not verified.</p>
@@ -156,7 +156,7 @@ sudo reboot
 </main>
 <footer>
 <span>
-&copy; <time datetime="2021-07-27 23:30:00.301997906 +0000 UTC m=+0.044051639">2021</time> duck. Made with <a href=https://gohugo.io>Hugo</a> using the <a href=https://github.com/EmielH/tale-hugo/>Tale</a> theme.
+&copy; <time datetime="2021-07-27 23:32:49.237457285 +0000 UTC m=+0.045006933">2021</time> duck. Made with <a href=https://gohugo.io>Hugo</a> using the <a href=https://github.com/EmielH/tale-hugo/>Tale</a> theme.
 </span>
 </footer>
 </body>
