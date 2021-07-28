@@ -66,7 +66,7 @@ duck
 <li>Google Branding</li>
 </ul>
 <h3 id=0007-disable-web-resource-servicepatch>0007-disable-web-resource-service.patch</h3>
-<p>This patch disables Chrome&rsquo;s WebResourceService, which periodically fetches JSON data from a Google server to dynamically configure the browser. It is(was) used by PluginsResourceService to download security updates for plugins, the last of which was Flash. It is used by PromoResourceService to dynamically change the appearance of the new tab page, although the only platform that still runs promos is iOS.</p>
+<p>This patch disables Chrome&rsquo;s WebResourceService, which periodically fetches data from a Google server to dynamically configure the browser. It is(was) used by PluginsResourceService to download security updates for plugins, the last of which was Flash. It is used by PromoResourceService to dynamically change the appearance of the new tab page, although the only platform that still runs promos is iOS.</p>
 <h3 id=0009-disable-google-ipv6-probespatch>0009-disable-google-ipv6-probes.patch</h3>
 <p>This patch uses RIPE NCC servers instead of Google servers for IPv6 probes.</p>
 <h3 id=0015-disable-update-pingspatch>0015-disable-update-pings.patch</h3>
@@ -166,14 +166,14 @@ duck
 <li>Disable MEI preloading with switch <code>--disable-features=PreloadMediaEngagementData, MediaEngagementBypassAutoplayPolicies</code></li>
 </ul>
 <h3 id=fix-building-without-enabling-reportingpatch>fix-building-without-enabling-reporting.patch</h3>
-<p>This patch disables reporting violations such as COEP.</p>
+<p>This patch disables reporting COEP/COOP violations.</p>
 <h3 id=disable-fetching-field-trialspatch>disable-fetching-field-trials.patch</h3>
 <p>This patch disables the downloading of field trials (Google’s A/B testing).</p>
 <ul>
 <li>Field trials can be disabled with switch <code>--disable-field-trial-config</code>.</li>
 </ul>
 <p>With the relative ease that these settings can be changed, there are few reasons to use <code>ungoogled-chromium</code> as a main browser when Chrome can be configured similarly.</p>
-<p>If you do decide to use <code>ungoogled-chromium</code>, please properly build it yourself.</p>
+<p>If you do decide to use <code>ungoogled-chromium</code>, against the advice of this article, please properly build it yourself.</p>
 </div>
 <div class=pagination>
 <a href=/first/ class="left arrow">&#8592;</a>
@@ -183,7 +183,7 @@ duck
 </main>
 <footer>
 <span>
-&copy; <time datetime="2021-07-27 23:32:49.235260664 +0000 UTC m=+0.042810412">2021</time> duck. Made with <a href=https://gohugo.io>Hugo</a> using the <a href=https://github.com/EmielH/tale-hugo/>Tale</a> theme.
+&copy; <time datetime="2021-07-28 13:36:53.042730407 +0000 UTC m=+0.037608870">2021</time> duck. Made with <a href=https://gohugo.io>Hugo</a> using the <a href=https://github.com/EmielH/tale-hugo/>Tale</a> theme.
 </span>
 </footer>
 </body>
