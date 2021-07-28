@@ -1,7 +1,7 @@
 ---
 title: "Hacking Whonix onto Hyper-V"
 date: 2021-06-05
-summary: "A guide to get Whonix running on Hyper-V"
+summary: "A guide to get Whonix running on Hyper-V."
 tags:
 - hyper-v
 - privacy

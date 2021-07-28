@@ -43,7 +43,7 @@ This patch disables
 * Google Branding
 
 ### 0007-disable-web-resource-service.patch
-This patch disables Chrome's WebResourceService, which periodically fetches JSON data from a Google server to dynamically configure the browser. It is(was) used by PluginsResourceService to download security updates for plugins, the last of which was Flash. It is used by PromoResourceService to dynamically change the appearance of the new tab page, although the only platform that still runs promos is iOS.
+This patch disables Chrome's WebResourceService, which periodically fetches data from a Google server to dynamically configure the browser. It is(was) used by PluginsResourceService to download security updates for plugins, the last of which was Flash. It is used by PromoResourceService to dynamically change the appearance of the new tab page, although the only platform that still runs promos is iOS.
 
 ### 0009-disable-google-ipv6-probes.patch
 This patch uses RIPE NCC servers instead of Google servers for IPv6 probes.
@@ -141,7 +141,6 @@ This patch disables the uploading of WebRTC logs for the Hangouts extension.
 
 ### use-local-devtools-files.patch
 This patch always uses local DevTools files instead of remote files from Google.
-
 ### disable-network-time-tracker.patch
 This patch disables connections to Google to check if the system time is correct when a website certificate date seems incorrect.
 
@@ -153,7 +152,7 @@ This patch disables downloading of a list of sites with a high Media Engagement 
 * Disable MEI preloading with switch `--disable-features=PreloadMediaEngagementData, MediaEngagementBypassAutoplayPolicies`
 
 ### fix-building-without-enabling-reporting.patch
-This patch disables reporting violations such as COEP.
+This patch disables reporting COEP/COOP violations.
 
 ### disable-fetching-field-trials.patch
 This patch disables the downloading of field trials (Google’s A/B testing).
@@ -162,4 +161,4 @@ This patch disables the downloading of field trials (Google’s A/B testing).
 
 With the relative ease that these settings can be changed, there are few reasons to use `ungoogled-chromium` as a main browser when Chrome can be configured similarly.
 
-If you do decide to use `ungoogled-chromium`, please properly build it yourself.
+If you do decide to use `ungoogled-chromium`, against the advice of this article, please properly build it yourself.
