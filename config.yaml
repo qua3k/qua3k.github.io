@@ -15,5 +15,8 @@ menu:
     name: About   
     url: /about/
 
+params:
+  description: "hi i'm a duck and these are my ramblings"
+
 theme: "tale-hugo"
 title: "duck's pond"
