@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://qua3k.github.io/sitemap.xml
