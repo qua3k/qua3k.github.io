@@ -1,6 +1,7 @@
 ---
 title: "ungoogled-chromium"
 date: 2021-05-29
+description: "A review of ungoogled-chromium patches"
 tags:
 - chrome
 - privacy
