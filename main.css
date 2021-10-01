@@ -1,0 +1,107 @@
+:root {
+    --anchor-color: #4a65fc38;
+    --background-color: #fff;
+    --border-color: #000;
+    --color: #000;
+    --font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    --font-size: 16px;
+    --link-color: #0366d6;
+}
+.anchor {
+    color: var(--anchor-color);
+}
+
+.anchor:hover {
+    color: var(--link-color);
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+body {
+    background-color: var(--background-color);
+    border-color: var(--border-color);
+    color: var(--color);
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    line-height: 1.5;
+    margin: auto;
+    max-width: 1012px;
+    padding: 30px 20px;
+    padding-top: 10px;
+}
+
+footer {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 10px;
+    text-align: right;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    border-bottom: 1px solid #e0e0e0;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+h4 {
+    font-size: 1em;
+}
+
+h5 {
+    font-size: .9em;
+}
+
+h6 {
+    font-size: .8em;
+}
+
+li {
+    margin-top: .5em;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --anchor-color: #58a6ff6c;
+        --background-color: #000;
+        --border-color: #fff;
+        --color: #c9d1d9;
+        --link-color: #58a6ff;
+    }
+
+    footer {
+        border-color: #21262d;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        border-color: #21262d;
+    }
+}

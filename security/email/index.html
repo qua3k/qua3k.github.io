@@ -1,50 +1,36 @@
 <!doctype html><html lang=en-us prefix="og: https://ogp.me/ns#">
 <head>
 <meta charset=utf-8>
+<title>Email (In)security &#183; duck's pond</title>
 <meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=color-scheme content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://qua3k.github.io/security/email/">
+<link href=https://qua3k.github.io/LICENSE.txt rel=license>
+<meta property="og:title" content="Email (In)security &#183; duck's pond">
 <meta name=description content="Email (In)security">
 <meta property="og:description" content="Email (In)security">
-<title>Email (In)security &#183; duck's pond</title>
-<meta property="og:title" content="Email (In)security &#183; duck's pond">
-<link rel=stylesheet href=/css/style.css>
 <link rel=icon href=favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.png>
 <link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png>
-<meta property="og:type" content="website">
 <meta property="og:image" content="/images/apple-touch-icon.png">
 <meta property="og:image:alt" content="A picture of a duck">
+<link href=https://qua3k.github.io/main.css rel=stylesheet>
 <link href rel=alternate type=application/rss+xml title="duck's pond">
-<meta property="og:url" content="https://qua3k.github.io/security/email/">
 </head>
 <body>
-<nav class=nav>
-<div class=nav-container>
-<a href=/>
-<h2 class=nav-title>duck's pond</h2>
-</a>
-<ul>
-<li>
-<a href=/about/>
-<span>About</span>
-</a>
-</li>
-</ul>
-</div>
-</nav>
-<main>
-<div class=post>
-<div class=post-info>
-<span>Written by</span>
-duck
-<br>
-<span>on&nbsp;</span><time datetime="2021-06-01 00:00:00 +0000 UTC">June 1, 2021</time>
-</div>
-<h1 class=post-title>Email (In)security</h1>
-<div class=post-line></div>
+<header><h1 id=header><a href=/>duck's pond</a></h1></header>
+<article>
+<h1>Email (In)security</h1>
+<p align=right>duck (@qua3k) — Security Engineer </p>
 <p>There is no such thing as secure email. Email is an inherently insecure protocol, conceived at a time when security was an afterthought. There are fundamental flaws with email that cannot be mitigated by slapping encryption on top.</p>
-<h2 id=problems-with>Problems with…</h2>
-<h3 id=email-authentication>Email Authentication</h3>
+<h2 id=problems-with>Problems with…
+<a class=anchor href=#problems-with>#</a>
+</h2>
+<h3 id=email-authentication>Email Authentication
+<a class=anchor href=#email-authentication>#</a>
+</h3>
 <p><a href=https://tools.ietf.org/html/rfc7208>Sender Policy Framework</a> is a protocol used to authorize the mail transfer agents allowed to send mail on behalf of a domain. However, SPF alone is almost useless in protecting against spoofing as it is designed to protect against forged senders and not forged headers shown in clients.</p>
 <ul>
 <li>The limitations of SPF are evident in email forwarding, where it fails because the forwarding MTA&rsquo;s IP address in not in the published SPF record.</li>
@@ -55,7 +41,9 @@ duck
 <li>Signatures are also vulnerable to being stripped, and happens in practice because there is no standard way to signal that your emails must be signed unless you deploy DMARC.</li>
 </ul>
 <p><a href=https://tools.ietf.org/html/rfc7489>Domain-based Message Authentication, Reporting and Conformance</a> solves some of these problems by letting domain owners define a policy for the enforcement of SPF and DKIM and the handling of email authentication failures. DMARC alignment ensures the domain in the <code>RFC5322.From</code> address aligns with SPF or the DKIM domain tag and is an essential part of spoofing protection.</p>
-<h3 id=transport-encryption>Transport Encryption</h3>
+<h3 id=transport-encryption>Transport Encryption
+<a class=anchor href=#transport-encryption>#</a>
+</h3>
 <p>Email was not designed with encryption in mind, so when it came time to introduce encryption for message transfer, someone said STARTTLS looked good.</p>
 <ul>
 <li>STARTTLS is <a href=https://blog.filippo.io/the-sad-state-of-smtp-encryption/>opportunistic encryption</a>, meaning an active adversary has the ability to downgrade the connection and force the participants to converse in plaintext, <a href="https://youtube.com/watch?v=MFol6IMbZ7Y">akin to connecting to a website over <code>http:</code> and relying on the server to redirect to <code>https:</code></a>.</li>
@@ -65,24 +53,20 @@ duck
 <li>MTA-STS allows mail servers to advertise their ability to receive TLS connections in a DNS TXT record and serving the policy over <code>https:</code>. MTA-STS uses a TOFU model and relies on the security of certificate authorities and DNS.</li>
 <li>DANE has the same end goal, but takes a different approach. DNSSEC can ensure authenticity and integrity of DANE TLSA records so receivers can verify certificates without relying on CAs.</li>
 </ul>
-<h3 id=email-encryption>Email Encryption</h3>
+<h3 id=email-encryption>Email Encryption
+<a class=anchor href=#email-encryption>#</a>
+</h3>
 <p><a href=https://tools.ietf.org/html/rfc4880>OpenPGP</a>, the de facto standard for email encryption, has <a href=https://www.whonix.org/wiki/OpenPGP#Issues_with_PGP>numerous problems</a>. Encrypted emails also do not protect metadata such as the sender, recipient, and timestamps, something modern messengers like <a href=https://signal.org>Signal</a> have done with its <a href=https://signal.org/blog/sealed-sender/>sealed sender</a>.</p>
-<h3 id=mailbox-encryption>Mailbox Encryption</h3>
+<h3 id=mailbox-encryption>Mailbox Encryption
+<a class=anchor href=#mailbox-encryption>#</a>
+</h3>
 <p>Providers using mailbox encryption can be <a href=https://www.theregister.com/2020/12/08/tutanota_backdoor_court_order/>legally compelled</a> to disable encryption of new incoming email. Users should not rely on mailbox encryption to conceal the contents of their emails from their provider.</p>
-<h3 id=conclusion>Conclusion</h3>
+<h3 id=conclusion>Conclusion
+<a class=anchor href=#conclusion>#</a>
+</h3>
 <p>All of these security mechanisms are optional, and highlights a fundamental flaw in how email services operate. Basic steps such as requiring encryption for all messages will sever communications with entire swaths of providers, and email authentication support is still lackluster on most providers.</p>
 <p>Avoid Email.</p>
-</div>
-<div class=pagination>
-<a href=/ungoogled/ class="left arrow">&#8592;</a>
-<a href=/guides/whonix/ class="right arrow">&#8594;</a>
-<a href=# class=top>Top</a>
-</div>
-</main>
-<footer>
-<span>
-&copy; <time datetime="2021-09-11 22:22:10.361621955 +0000 UTC m=+0.043252110">2021</time> duck. Made with <a href=https://gohugo.io>Hugo</a> using the <a href=https://github.com/EmielH/tale-hugo/>Tale</a> theme.
-</span>
-</footer>
+</article>
+<footer>this is a footer</footer>
 </body>
 </html>

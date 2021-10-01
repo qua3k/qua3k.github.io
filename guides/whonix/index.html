@@ -1,47 +1,36 @@
 <!doctype html><html lang=en-us prefix="og: https://ogp.me/ns#">
 <head>
 <meta charset=utf-8>
+<title>Hacking Whonix onto Hyper-V &#183; duck's pond</title>
 <meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=color-scheme content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://qua3k.github.io/guides/whonix/">
+<link href=https://qua3k.github.io/LICENSE.txt rel=license>
+<meta property="og:title" content="Hacking Whonix onto Hyper-V &#183; duck's pond">
 <meta name=description content="A guide to get Whonix running on Hyper-V.">
 <meta property="og:description" content="A guide to get Whonix running on Hyper-V.">
-<title>Hacking Whonix onto Hyper-V &#183; duck's pond</title>
-<meta property="og:title" content="Hacking Whonix onto Hyper-V &#183; duck's pond">
-<link rel=stylesheet href=/css/style.css>
 <link rel=icon href=favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.png>
 <link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png>
-<meta property="og:type" content="website">
 <meta property="og:image" content="/images/apple-touch-icon.png">
 <meta property="og:image:alt" content="A picture of a duck">
+<link href=https://qua3k.github.io/main.css rel=stylesheet>
 <link href rel=alternate type=application/rss+xml title="duck's pond">
-<meta property="og:url" content="https://qua3k.github.io/guides/whonix/">
 </head>
 <body>
-<nav class=nav>
-<div class=nav-container>
-<a href=/>
-<h2 class=nav-title>duck's pond</h2>
-</a>
-<ul>
-<li>
-<a href=/about/>
-<span>About</span>
-</a>
-</li>
-</ul>
-</div>
-</nav>
-<main>
-<div class=post>
-<div class=post-info>
-<span>Written by</span>
-duck
-<br>
-<span>on&nbsp;</span><time datetime="2021-06-05 00:00:00 +0000 UTC">June 5, 2021</time>
-</div>
-<h1 class=post-title>Hacking Whonix onto Hyper-V</h1>
-<div class=post-line></div>
+<header><h1 id=header><a href=/>duck's pond</a></h1></header>
+<article>
+<h1>Hacking Whonix onto Hyper-V</h1>
+<p align=right>duck (@qua3k) — Security Engineer </p>
+<h2 id=introduction>Introduction
+<a class=anchor href=#introduction>#</a>
+</h2>
+<p>This guide aims to get the Whonix™ operating system running on Hyper-V. This guide does not expect Virtualbox specific features such as guest additions to work and does not make any effort to make them work.</p>
+<h2 id=table-of-contents>Table of Contents
+<a class=anchor href=#table-of-contents>#</a>
+</h2>
 <ul>
 <li><a href=#introduction>Introduction</a></li>
 <li><a href=#prerequisites>Prerequisites</a></li>
@@ -85,87 +74,121 @@ duck
 </ul>
 </li>
 </ul>
-<h2 id=introduction>Introduction</h2>
-<p>This guide aims to get the Whonix™ operating system running on Hyper-V. This guide does not expect Virtualbox specific features such as guest additions to work and does not make any effort to make them work.</p>
-<h2 id=prerequisites>Prerequisites</h2>
+<h2 id=prerequisites>Prerequisites
+<a class=anchor href=#prerequisites>#</a>
+</h2>
 <ul>
 <li>The latest <a href=https://www.whonix.org/wiki/VirtualBox>Whonix for VirtualBox</a></li>
 <li>The latest <a href=https://www.virtualbox.org/wiki/Downloads>VirtualBox for Windows</a></li>
-<li><code>qemu-img</code><a href=https://gitlab.com/qemu-project/qemu/-/issues/250>is broken when trying to convert to vhdx</a> and is not supported.</li>
+<li><code>qemu-img</code> <a href=https://gitlab.com/qemu-project/qemu/-/issues/250>is broken when trying to convert to vhdx</a> and is not supported.</li>
 </ul>
 <p>It is strongly recommended to verify the authenticity of the downloaded files.</p>
-<h2 id=installation>Installation</h2>
-<h3 id=extraction>Extraction</h3>
+<h2 id=installation>Installation
+<a class=anchor href=#installation>#</a>
+</h2>
+<h3 id=extraction>Extraction
+<a class=anchor href=#extraction>#</a>
+</h3>
 <p>Use <code>tar</code> or another archive utility of choice to extract the <code>.ova</code> archive.</p>
 <p>This should produce two <code>.vmdk</code> virtual disks.</p>
-<h3 id=conversion>Conversion</h3>
+<h3 id=conversion>Conversion
+<a class=anchor href=#conversion>#</a>
+</h3>
 <p>Convert the two virtual disks.</p>
 <pre tabindex=0><code>VBoxManage.exe clonehd source.vmdk target.vhd --format vhd
-</code></pre><h3 id=networking>Networking</h3>
-<h4 id=create-the-internal-switch>Create the internal switch</h4>
+</code></pre><h3 id=networking>Networking
+<a class=anchor href=#networking>#</a>
+</h3>
+<h4 id=create-the-internal-switch>Create the internal switch
+<a class=anchor href=#create-the-internal-switch>#</a>
+</h4>
 <p>Create an internal switch and <a href=https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/setup-nat-network#create-a-nat-virtual-network>get the interface index.</a></p>
-<h5 id=create-the-gateway>Create the gateway</h5>
+<h5 id=create-the-gateway>Create the gateway
+<a class=anchor href=#create-the-gateway>#</a>
+</h5>
 <pre tabindex=0><code>New-NetIPAddress -IPAddress 10.0.2.2 -PrefixLength 24 -InterfaceIndex &lt;ifIndex&gt;
-</code></pre><h5 id=configure-the-network>Configure the network</h5>
+</code></pre><h5 id=configure-the-network>Configure the network
+<a class=anchor href=#configure-the-network>#</a>
+</h5>
 <pre tabindex=0><code>New-NetNat -Name Gateway -InternalIPInterfaceAddressPrefix 10.0.2.0/24
-</code></pre><h4 id=create-the-private-switch>Create the private switch</h4>
+</code></pre><h4 id=create-the-private-switch>Create the private switch
+<a class=anchor href=#create-the-private-switch>#</a>
+</h4>
 <p>This switch is used to connect the Gateway to Workstation.</p>
 <pre tabindex=0><code>New-VMSwitch -SwitchName Whonix -SwitchType Private
-</code></pre><h3 id=vm-creation>VM creation</h3>
+</code></pre><h3 id=vm-creation>VM creation
+<a class=anchor href=#vm-creation>#</a>
+</h3>
 <p>There should be two Generation 1 virtual machines. Whonix does not have UEFI support and will not boot on Generation 2 VMs.</p>
 <p>UEFI setup so that Whonix will run in Generation 2 virtual machines is detailed <a href=#generation-2-installation>later</a>.</p>
-<h4 id=gateway>Gateway</h4>
+<h4 id=gateway>Gateway
+<a class=anchor href=#gateway>#</a>
+</h4>
 <p>Create a Generation 1 virtual machine and add your <code>whonix-xxxx-disk001.vhd</code> virtual disk.</p>
 <p>Create two virtual network adapters, one connecting to the Gateway virtual switch, and one connecting to the Whonix virtual switch.</p>
-<h4 id=workstation>Workstation</h4>
+<h4 id=workstation>Workstation
+<a class=anchor href=#workstation>#</a>
+</h4>
 <p>Create a Generation 1 virtual machine and add your <code>whonix-xxxx-disk002.vhd</code> virtual disk.</p>
 <p>Create a virtual network adapter connecting to the Whonix virtual switch.</p>
-<h4 id=hyper-v-kernel-modules>Hyper-V kernel modules</h4>
+<h4 id=hyper-v-kernel-modules>Hyper-V kernel modules
+<a class=anchor href=#hyper-v-kernel-modules>#</a>
+</h4>
 <p>To get networking working on Whonix, you need to enable some <a href=https://blog.jitdor.com/2020/02/08/enable-hyper-v-integration-services-for-your-ubuntu-guest-vms/>kernel modules</a> for Hyper-V integration.</p>
 <pre tabindex=0><code># printf &quot;hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc&quot; &gt;&gt; /etc/initramfs-tools/modules
 # update-initramfs -u
-</code></pre><h2 id=generation-2-installation>Generation 2 installation</h2>
+</code></pre><h2 id=generation-2-installation>Generation 2 installation
+<a class=anchor href=#generation-2-installation>#</a>
+</h2>
 <p>Do not attempt to execute any of the steps below unless you are familiar with the implications of performing them incorrectly.</p>
-<h3 id=converting-to-vhdx>Converting to vhdx</h3>
+<h3 id=converting-to-vhdx>Converting to vhdx
+<a class=anchor href=#converting-to-vhdx>#</a>
+</h3>
 <p>Generation 2 virtual machines only support <code>.vhdx</code> disks. You should convert the disks within the Hyper-V Manager UI or with the PowerShell cmdlet <code>Convert-VHD</code>.</p>
-<h3 id=install-grub-efi>Install grub-efi</h3>
+<h3 id=install-grub-efi>Install grub-efi
+<a class=anchor href=#install-grub-efi>#</a>
+</h3>
 <p>Boot up your existing Generation 1 virtual machine and install <code>grub-efi-amd64</code>.</p>
 <pre tabindex=0><code># apt update
 # apt install grub-efi-amd64
 # apt purge grub-pc-bin
-</code></pre><h3 id=partitioning>Partitioning</h3>
+</code></pre><h3 id=partitioning>Partitioning
+<a class=anchor href=#partitioning>#</a>
+</h3>
 <p>Resize /dev/sda1 to create some free space for the EFi system partition with <code>cfdisk /dev/sda</code>.</p>
 <p>Use <code>gdisk /dev/sda</code> to convert the partition table to GPT and create the ESP on <code>/dev/sda2</code>.</p>
-<h4 id=format-the-efi-partition>Format the EFI partition</h4>
+<h4 id=format-the-efi-partition>Format the EFI partition
+<a class=anchor href=#format-the-efi-partition>#</a>
+</h4>
 <pre tabindex=0><code># mkfs.fat -F 32 /dev/sda2
-</code></pre><h4 id=mount-partitions>Mount partitions</h4>
+</code></pre><h4 id=mount-partitions>Mount partitions
+<a class=anchor href=#mount-partitions>#</a>
+</h4>
 <pre tabindex=0><code># mount /dev/sda1 /mnt
 # mkdir -p /mnt/boot/efi
 # mount /dev/sda2 /mnt/boot/efi
 for d in dev proc run sys; do sudo mount -B /$d /mnt/$d; done
-</code></pre><h4 id=load-the-efivars-kernel-module>Load the efivars kernel module</h4>
+</code></pre><h4 id=load-the-efivars-kernel-module>Load the efivars kernel module
+<a class=anchor href=#load-the-efivars-kernel-module>#</a>
+</h4>
 <pre tabindex=0><code># modprobe efivars
-</code></pre><h4 id=finish-the-grub-install>Finish the GRUB install</h4>
+</code></pre><h4 id=finish-the-grub-install>Finish the GRUB install
+<a class=anchor href=#finish-the-grub-install>#</a>
+</h4>
 <pre tabindex=0><code># chroot /mnt
 # grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=DEBIAN
 # grub-mkconfig -o /boot/grub/grub.cfg
-</code></pre><h4 id=unmount-and-reboot>Unmount and reboot</h4>
+</code></pre><h4 id=unmount-and-reboot>Unmount and reboot
+<a class=anchor href=#unmount-and-reboot>#</a>
+</h4>
 <pre tabindex=0><code># umount -R /mnt
 # reboot
-</code></pre><h3 id=secure-boot>Secure Boot</h3>
+</code></pre><h3 id=secure-boot>Secure Boot
+<a class=anchor href=#secure-boot>#</a>
+</h3>
 <p>Debian&rsquo;s <code>grub-efi</code> package comes with <code>shim</code> out of the box signed by Microsoft&rsquo;s third party UEFI CA; it is up to the user to enable it in VM settings.</p>
 <p>Do keep in mind this is mainly theater, as userspace components are not verified.</p>
-</div>
-<div class=pagination>
-<a href=/security/email/ class="left arrow">&#8592;</a>
-<a href=/pegasus/ class="right arrow">&#8594;</a>
-<a href=# class=top>Top</a>
-</div>
-</main>
-<footer>
-<span>
-&copy; <time datetime="2021-09-11 22:22:10.361623855 +0000 UTC m=+0.043254010">2021</time> duck. Made with <a href=https://gohugo.io>Hugo</a> using the <a href=https://github.com/EmielH/tale-hugo/>Tale</a> theme.
-</span>
-</footer>
+</article>
+<footer>this is a footer</footer>
 </body>
 </html>
