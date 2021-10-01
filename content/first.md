@@ -1,9 +1,9 @@
----
-title: "First Post"
-date: 2020-12-28
-tags:
-- lmao
----
++++
+title = "First Post"
+author = " "
+date = 2020-12-28
+tags = ["lmao"]
++++
 
 hi
 

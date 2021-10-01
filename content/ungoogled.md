@@ -1,12 +1,9 @@
----
-title: "ungoogled-chromium"
-date: 2021-05-29
-description: "A review of ungoogled-chromium patches"
-tags:
-- chrome
-- privacy
-- security
----
++++
+title = "ungoogled-chromium"
+date = 2021-05-29
+description = "A review of ungoogled-chromium patches"
+tags = ["chrome", "privacy", "security"]
++++
 
 As one of the most used applications in the system, it is ideal to have a secure browser. Browsers have large attack surface due to a combination of their complexity, handling of untrusted input, and use of unsafe languages. Even while browser makers continually work make their browsers more secure, most browsers have poor privacy out of the box. [ungoogled-chromium](https://github.com/Eloston/ungoogled-chromium) is an often recommended browser because of its approach of stripping out Google web services from Chromium.
 

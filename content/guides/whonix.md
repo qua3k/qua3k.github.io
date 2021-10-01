@@ -1,14 +1,17 @@
----
-title: "Hacking Whonix onto Hyper-V"
-date: 2021-06-05
-description: "A guide to get Whonix running on Hyper-V."
-summary: "A guide to get Whonix running on Hyper-V."
-tags:
-- hyper-v
-- privacy
-- security
-- whonix
----
++++
+title = "Hacking Whonix onto Hyper-V"
+date = 2021-06-05
+description = "A guide to get Whonix running on Hyper-V."
+summary = "A guide to get Whonix running on Hyper-V."
+tags = ["hyper-v", "privacy", "security", "whonix"]
++++
+
+## Introduction
+
+This guide aims to get the Whonix™ operating system running on Hyper-V. This guide does not expect Virtualbox specific features such as guest additions to work and does not make any effort to make them work.
+
+
+## Table of Contents
 
 * [Introduction](#introduction)
 * [Prerequisites](#prerequisites)
@@ -34,15 +37,12 @@ tags:
         * [Unmount and reboot](#unmount-and-reboot)
     * [Secure Boot](#secure-boot)
 
-## Introduction
-
-This guide aims to get the Whonix™ operating system running on Hyper-V. This guide does not expect Virtualbox specific features such as guest additions to work and does not make any effort to make them work.
 
 ## Prerequisites
 
 * The latest [Whonix for VirtualBox](https://www.whonix.org/wiki/VirtualBox)
 * The latest [VirtualBox for Windows](https://www.virtualbox.org/wiki/Downloads)
-* `qemu-img`[is broken when trying to convert to vhdx](https://gitlab.com/qemu-project/qemu/-/issues/250) and is not supported.
+* `qemu-img` [is broken when trying to convert to vhdx](https://gitlab.com/qemu-project/qemu/-/issues/250) and is not supported.
 
 It is strongly recommended to verify the authenticity of the downloaded files.
 

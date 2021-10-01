@@ -1,12 +1,9 @@
----
-title: "Some Thoughts About the NSO Group's Pegasus"
-date: 2021-07-24
-summary: "My thoughts about the Pegasus spyware."
-tags:
-- ios
-- pegasus
-- security
----
++++
+title = "Some Thoughts About the NSO Group's Pegasus"
+date = 2021-07-24
+summary = "My thoughts about the Pegasus spyware."
+tags = ["ios", "pegasus", "security"]
++++
 
 Recently, a story has been making the rounds about the 'new' Pegasus spyware that has lead to mass panic in technical circles that has users worried. There are some questions that users might ask that haven't been accurately answered and the events have been used by various companies to market their product.
 
