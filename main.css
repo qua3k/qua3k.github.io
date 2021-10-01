@@ -83,6 +83,11 @@ li {
     margin-top: .5em;
 }
 
+pre {
+    overflow-x: auto;
+    overflow-wrap: break-word;
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --anchor-color: #58a6ff6c;
