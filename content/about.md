@@ -2,7 +2,6 @@
 title = "About"
 author = " "
 summary = "About me"
-tags = ["sadaidan"]
 +++
 
 I'm a security researcher working with safer languages.

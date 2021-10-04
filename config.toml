@@ -4,7 +4,10 @@ theme = "blog-theme"
 title = "duck's pond"
 
 [author]
-name = "duck (@qua3k) — Security Engineer "
+bio = "Security Engineer"
+name = "duck"
+url = "https://github.com/qua3k"
+username = "qua3k"
 
 [markup]
   [markup.goldmark.renderer]
