@@ -1,13 +1,15 @@
 <!doctype html><html lang=en-us prefix="og: https://ogp.me/ns#">
 <head>
 <meta charset=utf-8>
-<title>About &#183; duck's pond</title>
+<title>Standard Streams &#183; duck's pond</title>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://qua3k.github.io/about/">
+<meta property="og:url" content="https://qua3k.github.io/stdout/">
 <link href=https://qua3k.github.io/LICENSE.txt rel=license>
-<meta property="og:title" content="About &#183; duck's pond">
+<meta property="og:title" content="Standard Streams &#183; duck's pond">
+<meta name=description content="A cool pastejacking demo">
+<meta property="og:description" content="A cool pastejacking demo">
 <link rel=icon href=favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.png>
@@ -15,22 +17,23 @@
 <meta property="og:image" content="/images/apple-touch-icon.png">
 <meta property="og:image:alt" content="A picture of a duck">
 <link href=https://qua3k.github.io/main.css rel=stylesheet>
+<script src=/scripts/paste.js defer></script>
 <link href rel=alternate type=application/rss+xml title="duck's pond">
 </head>
 <body>
 <header><h1 id=header><a href=/>duck's pond</a></h1></header>
 <article>
-<h1>About</h1>
+<h1>Standard Streams</h1>
 <p align=right>duck
 (<a href=https://github.com/qua3k>@qua3k</a>)
 — Security Engineer
 </p>
-<p>I&rsquo;m a security researcher working with safer languages.</p>
-<p>Links:</p>
-<ul>
-<li><a href=https://github.com/qua3k>GitHub</a></li>
-<li><a href=https://twitter.com/CliffMaceyak>Twitter</a></li>
-</ul>
+<p>Today I learned about standard streams. I now have a deeper understanding of computers than ever before.</p>
+<p>For instance, I learned that <code>echo</code> writes to <code>stdout</code>, the standard output, by default.</p>
+<pre tabindex=0><code><code class=paste>echo &#39;This prints to stdout&#39;</code> 
+</code></pre><p>You can even redirect it to <code>stderr</code>!</p>
+<pre tabindex=0><code><code class=paste>&gt;&amp;2 echo &#39;This prints to stderr&#39;</code> 
+</code></pre><p>Anyways that&rsquo;s all I wanted to share.</p>
 </article>
 <footer>this is a footer</footer>
 </body>
