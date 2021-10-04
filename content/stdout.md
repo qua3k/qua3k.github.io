@@ -2,7 +2,7 @@
 date = 2021-10-03
 description = "A cool pastejacking demo"
 title = "Standard Streams"
-script = "/scripts/paste.js"
+script = "/modules/paste.mjs"
 +++
 
 Today I learned about standard streams. I now have a deeper understanding of computers than ever before.
