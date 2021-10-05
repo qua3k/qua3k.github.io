@@ -4,7 +4,7 @@ theme = "blog-theme"
 title = "duck's pond"
 
 [author]
-bio = "Security Engineer"
+bio = "Security Researcher"
 name = "duck"
 url = "https://github.com/qua3k"
 username = "qua3k"
