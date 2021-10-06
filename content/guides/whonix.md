@@ -5,36 +5,33 @@ description = "A guide to get Whonix running on Hyper-V."
 summary = "A guide to get Whonix running on Hyper-V."
 +++
 
-## Introduction
-
 This guide aims to get the Whonix™ operating system running on Hyper-V. This guide does not expect Virtualbox specific features such as guest additions to work and does not make any effort to make them work.
 
 
 ## Table of Contents
 
-* [Introduction](#introduction)
-* [Prerequisites](#prerequisites)
-* [Installation](#installation)
-    * [Extraction](#extraction)
-    * [Conversion](#conversion)
-    * [Networking](#networking)
-        * [Create the internal switch](#create-the-internal-switch)
-            * [Create the gateway](#create-the-gateway)
-            * [Configure the network](#configure-the-network)
-        * [Create the private switch](#create-the-private-switch)
-    * [VM creation](#vm-creation)
-        * [Gateway](#gateway)
-        * [Workstation](#workstation)
-        * [Hyper-V kernel modules](#hyper-v-kernel-modules)
-* [Generation 2 installation](#generation-2-installation)
-    * [Converting to vhdx](#converting-to-vhdx)
-    * [Install grub-efi](#install-grub-efi)
-    * [Partitioning](#partitioning)
-        * [Mount partitions](#mount-partitions)
-        * [Load the efivars kernel module](#load-the-efivars-kernel-module)
-        * [Finish the GRUB install](#finish-the-grub-install)
-        * [Unmount and reboot](#unmount-and-reboot)
-    * [Secure Boot](#secure-boot)
+*   [Prerequisites](#prerequisites)
+*   [Installation](#installation)
+    *   [Extraction](#extraction)
+    *   [Conversion](#conversion)
+    *   [Networking](#networking)
+        *   [Create the internal switch](#create-the-internal-switch)
+            *   [Create the gateway](#create-the-gateway)
+            *   [Configure the network](#configure-the-network)
+        *   [Create the private switch](#create-the-private-switch)
+    *   [VM creation](#vm-creation)
+        *   [Gateway](#gateway)
+        *   [Workstation](#workstation)
+        *   [Hyper-V kernel modules](#hyper-v-kernel-modules)
+*   [Generation 2 installation](#generation-2-installation)
+    *   [Converting to vhdx](#converting-to-vhdx)
+    *   [Install grub-efi](#install-grub-efi)
+    *   [Partitioning](#partitioning)
+        *   [Mount partitions](#mount-partitions)
+        *   [Load the efivars kernel module](#load-the-efivars-kernel-module)
+        *   [Finish the GRUB install](#finish-the-grub-install)
+        *   [Unmount and reboot](#unmount-and-reboot)
+    *   [Secure Boot](#secure-boot)
 
 
 ## Prerequisites
@@ -57,7 +54,7 @@ This should produce two `.vmdk` virtual disks.
 
 Convert the two virtual disks.
 
-```
+```powershell
 VBoxManage.exe clonehd source.vmdk target.vhd --format vhd
 ```
 
@@ -69,13 +66,13 @@ Create an internal switch and [get the interface index.](https://docs.microsoft.
 
 ##### Create the gateway
 
-```
+```powershell
 New-NetIPAddress -IPAddress 10.0.2.2 -PrefixLength 24 -InterfaceIndex <ifIndex>
 ```
 
 ##### Configure the network
 
-```
+```powershell
 New-NetNat -Name Gateway -InternalIPInterfaceAddressPrefix 10.0.2.0/24
 ```
 
@@ -83,7 +80,7 @@ New-NetNat -Name Gateway -InternalIPInterfaceAddressPrefix 10.0.2.0/24
 
 This switch is used to connect the Gateway to Workstation.
 
-```
+```powershell
 New-VMSwitch -SwitchName Whonix -SwitchType Private
 ```
 
@@ -109,9 +106,9 @@ Create a virtual network adapter connecting to the Whonix virtual switch.
 
 To get networking working on Whonix, you need to enable some [kernel modules](https://blog.jitdor.com/2020/02/08/enable-hyper-v-integration-services-for-your-ubuntu-guest-vms/) for Hyper-V integration.
 
-```
-# printf "hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc" >> /etc/initramfs-tools/modules
-# update-initramfs -u
+```bash
+printf "hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc" >> /etc/initramfs-tools/modules
+update-initramfs -u
 ```
 
 ## Generation 2 installation
@@ -126,10 +123,10 @@ Generation 2 virtual machines only support `.vhdx` disks. You should convert the
 
 Boot up your existing Generation 1 virtual machine and install `grub-efi-amd64`.
 
-```
-# apt update
-# apt install grub-efi-amd64
-# apt purge grub-pc-bin
+```bash
+apt update
+apt install grub-efi-amd64
+apt purge grub-pc-bin
 ```
 
 ### Partitioning
@@ -140,38 +137,38 @@ Use `gdisk /dev/sda` to convert the partition table to GPT and create the ESP on
 
 #### Format the EFI partition
 
-```
-# mkfs.fat -F 32 /dev/sda2
+```bash
+mkfs.fat -F 32 /dev/sda2
 ```
 
 #### Mount partitions
 
-```
-# mount /dev/sda1 /mnt
-# mkdir -p /mnt/boot/efi
-# mount /dev/sda2 /mnt/boot/efi
+```bash
+mount /dev/sda1 /mnt
+mkdir -p /mnt/boot/efi
+mount /dev/sda2 /mnt/boot/efi
 for d in dev proc run sys; do sudo mount -B /$d /mnt/$d; done
 ```
 
 #### Load the efivars kernel module
 
-```
-# modprobe efivars
+```bash
+modprobe efivars
 ```
 
 #### Finish the GRUB install
 
-```
-# chroot /mnt
-# grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=DEBIAN
-# grub-mkconfig -o /boot/grub/grub.cfg
+```bash
+chroot /mnt
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=DEBIAN
+grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 #### Unmount and reboot
 
-```
-# umount -R /mnt
-# reboot
+```bash
+umount -R /mnt
+reboot
 ```
 
 ### Secure Boot
