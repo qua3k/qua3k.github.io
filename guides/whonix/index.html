@@ -27,15 +27,11 @@
 (<a href=https://github.com/qua3k>@qua3k</a>)
 — Security Researcher
 </p>
-<h2 id=introduction>Introduction
-<a class=anchor href=#introduction>#</a>
-</h2>
 <p>This guide aims to get the Whonix™ operating system running on Hyper-V. This guide does not expect Virtualbox specific features such as guest additions to work and does not make any effort to make them work.</p>
 <h2 id=table-of-contents>Table of Contents
 <a class=anchor href=#table-of-contents>#</a>
 </h2>
 <ul>
-<li><a href=#introduction>Introduction</a></li>
 <li><a href=#prerequisites>Prerequisites</a></li>
 <li><a href=#installation>Installation</a>
 <ul>
@@ -98,8 +94,8 @@
 <a class=anchor href=#conversion>#</a>
 </h3>
 <p>Convert the two virtual disks.</p>
-<pre tabindex=0><code>VBoxManage.exe clonehd source.vmdk target.vhd --format vhd
-</code></pre><h3 id=networking>Networking
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>VBoxManage.exe clonehd source.vmdk target.vhd --format vhd
+</code></pre></div><h3 id=networking>Networking
 <a class=anchor href=#networking>#</a>
 </h3>
 <h4 id=create-the-internal-switch>Create the internal switch
@@ -109,17 +105,17 @@
 <h5 id=create-the-gateway>Create the gateway
 <a class=anchor href=#create-the-gateway>#</a>
 </h5>
-<pre tabindex=0><code>New-NetIPAddress -IPAddress 10.0.2.2 -PrefixLength 24 -InterfaceIndex &lt;ifIndex&gt;
-</code></pre><h5 id=configure-the-network>Configure the network
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-NetIPAddress -IPAddress 10.0.2.2 -PrefixLength 24 -InterfaceIndex &lt;ifIndex&gt;
+</code></pre></div><h5 id=configure-the-network>Configure the network
 <a class=anchor href=#configure-the-network>#</a>
 </h5>
-<pre tabindex=0><code>New-NetNat -Name Gateway -InternalIPInterfaceAddressPrefix 10.0.2.0/24
-</code></pre><h4 id=create-the-private-switch>Create the private switch
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-NetNat -Name Gateway -InternalIPInterfaceAddressPrefix 10.0.2.0/24
+</code></pre></div><h4 id=create-the-private-switch>Create the private switch
 <a class=anchor href=#create-the-private-switch>#</a>
 </h4>
 <p>This switch is used to connect the Gateway to Workstation.</p>
-<pre tabindex=0><code>New-VMSwitch -SwitchName Whonix -SwitchType Private
-</code></pre><h3 id=vm-creation>VM creation
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-VMSwitch -SwitchName Whonix -SwitchType Private
+</code></pre></div><h3 id=vm-creation>VM creation
 <a class=anchor href=#vm-creation>#</a>
 </h3>
 <p>There should be two Generation 1 virtual machines. Whonix does not have UEFI support and will not boot on Generation 2 VMs.</p>
@@ -138,9 +134,9 @@
 <a class=anchor href=#hyper-v-kernel-modules>#</a>
 </h4>
 <p>To get networking working on Whonix, you need to enable some <a href=https://blog.jitdor.com/2020/02/08/enable-hyper-v-integration-services-for-your-ubuntu-guest-vms/>kernel modules</a> for Hyper-V integration.</p>
-<pre tabindex=0><code># printf &quot;hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc&quot; &gt;&gt; /etc/initramfs-tools/modules
-# update-initramfs -u
-</code></pre><h2 id=generation-2-installation>Generation 2 installation
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>printf <span style=color:#e6db74>&#34;hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc&#34;</span> &gt;&gt; /etc/initramfs-tools/modules
+update-initramfs -u
+</code></pre></div><h2 id=generation-2-installation>Generation 2 installation
 <a class=anchor href=#generation-2-installation>#</a>
 </h2>
 <p>Do not attempt to execute any of the steps below unless you are familiar with the implications of performing them incorrectly.</p>
@@ -152,10 +148,10 @@
 <a class=anchor href=#install-grub-efi>#</a>
 </h3>
 <p>Boot up your existing Generation 1 virtual machine and install <code>grub-efi-amd64</code>.</p>
-<pre tabindex=0><code># apt update
-# apt install grub-efi-amd64
-# apt purge grub-pc-bin
-</code></pre><h3 id=partitioning>Partitioning
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>apt update
+apt install grub-efi-amd64
+apt purge grub-pc-bin
+</code></pre></div><h3 id=partitioning>Partitioning
 <a class=anchor href=#partitioning>#</a>
 </h3>
 <p>Resize /dev/sda1 to create some free space for the EFi system partition with <code>cfdisk /dev/sda</code>.</p>
@@ -163,30 +159,30 @@
 <h4 id=format-the-efi-partition>Format the EFI partition
 <a class=anchor href=#format-the-efi-partition>#</a>
 </h4>
-<pre tabindex=0><code># mkfs.fat -F 32 /dev/sda2
-</code></pre><h4 id=mount-partitions>Mount partitions
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>mkfs.fat -F <span style=color:#ae81ff>32</span> /dev/sda2
+</code></pre></div><h4 id=mount-partitions>Mount partitions
 <a class=anchor href=#mount-partitions>#</a>
 </h4>
-<pre tabindex=0><code># mount /dev/sda1 /mnt
-# mkdir -p /mnt/boot/efi
-# mount /dev/sda2 /mnt/boot/efi
-for d in dev proc run sys; do sudo mount -B /$d /mnt/$d; done
-</code></pre><h4 id=load-the-efivars-kernel-module>Load the efivars kernel module
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>mount /dev/sda1 /mnt
+mkdir -p /mnt/boot/efi
+mount /dev/sda2 /mnt/boot/efi
+<span style=color:#66d9ef>for</span> d in dev proc run sys; <span style=color:#66d9ef>do</span> sudo mount -B /$d /mnt/$d; <span style=color:#66d9ef>done</span>
+</code></pre></div><h4 id=load-the-efivars-kernel-module>Load the efivars kernel module
 <a class=anchor href=#load-the-efivars-kernel-module>#</a>
 </h4>
-<pre tabindex=0><code># modprobe efivars
-</code></pre><h4 id=finish-the-grub-install>Finish the GRUB install
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>modprobe efivars
+</code></pre></div><h4 id=finish-the-grub-install>Finish the GRUB install
 <a class=anchor href=#finish-the-grub-install>#</a>
 </h4>
-<pre tabindex=0><code># chroot /mnt
-# grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=DEBIAN
-# grub-mkconfig -o /boot/grub/grub.cfg
-</code></pre><h4 id=unmount-and-reboot>Unmount and reboot
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>chroot /mnt
+grub-install --target<span style=color:#f92672>=</span>x86_64-efi --efi-directory<span style=color:#f92672>=</span>/boot/efi --bootloader-id<span style=color:#f92672>=</span>DEBIAN
+grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre></div><h4 id=unmount-and-reboot>Unmount and reboot
 <a class=anchor href=#unmount-and-reboot>#</a>
 </h4>
-<pre tabindex=0><code># umount -R /mnt
-# reboot
-</code></pre><h3 id=secure-boot>Secure Boot
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>umount -R /mnt
+reboot
+</code></pre></div><h3 id=secure-boot>Secure Boot
 <a class=anchor href=#secure-boot>#</a>
 </h3>
 <p>Debian&rsquo;s <code>grub-efi</code> package comes with <code>shim</code> out of the box signed by Microsoft&rsquo;s third party UEFI CA; it is up to the user to enable it in VM settings.</p>
