@@ -1,5 +1,4 @@
 <!doctype html><html lang=en-us prefix="og: https://ogp.me/ns#">
-<head>
 <meta charset=utf-8>
 <title>404 Page not found &#183; duck's pond</title>
 <meta name=viewport content="width=device-width,initial-scale=1">
@@ -16,34 +15,451 @@
 <meta property="og:image:alt" content="A picture of a duck">
 <link href=https://qua3k.github.io/main.min.css rel=stylesheet>
 <link href rel=alternate type=application/rss+xml title="duck's pond">
-</head>
-<body>
-<h1 id=header><a href=/>duck's pond</a></h1>
-<p>The page you requested wasn't found.</p>
-<h2>Table of Contents</h2>
-<ol>
-<li>
-<span>03 Oct 2021</span> &#183; <a href=https://qua3k.github.io/stdout/>Standard Streams</a>
+<div class=container>
+<header>
+<h1><a href=/>duck's pond</a></h1>
+</header>
+<p>The page you requested wasn't found.
+<article>
+<h2><a class=article-title href=https://qua3k.github.io/stdout/>Standard Streams</a> &#183; <time datetime=2021-10-03>03 Oct 2021</time></h2>
+<p>Today I learned about standard streams. I now have a deeper understanding of computers than ever before.</p>
+<p>For instance, I learned that <code>echo</code> writes to <code>stdout</code>, the standard output, by default.</p>
+<pre tabindex=0><code><code class=paste>echo &#39;This prints to stdout&#39;</code> 
+</code></pre><p>You can even redirect it to <code>stderr</code>!</p>
+<pre tabindex=0><code><code class=paste>&gt;&amp;2 echo &#39;This prints to stderr&#39;</code> 
+</code></pre><p>Anyways that&rsquo;s all I wanted to share.</p>
+</article>
+<article>
+<h2><a class=article-title href=https://qua3k.github.io/pegasus/>Some Thoughts About the NSO Group's Pegasus</a> &#183; <time datetime=2021-07-24>24 Jul 2021</time></h2>
+<p>Recently, a story has been making the rounds about the &lsquo;new&rsquo; Pegasus spyware that has lead to mass panic in technical circles that has users worried. There are some questions that users might ask that haven&rsquo;t been accurately answered and the events have been used by various companies to market their product.</p>
+<p>Frightened users might ask:</p>
+<ul>
+<li>Am I at risk?</li>
+<li>What do I do now?</li>
+<li>Does this affect the latest Android/iOS?</li>
+<li>Should I stop using Android/iOS?</li>
+</ul>
+<p>The answer is largely <strong>no</strong>.</p>
+<p>The Pegasus spyware isn&rsquo;t new. We&rsquo;ve known about it for a long time, and we know it takes advantage of a variety of exploits to exploit different types of devices. We also know about some specifics of these vulnerabilities, such as the usage of zero-clicks in iMessage.</p>
+<p>Apple has already taken steps to mitigate zero-click vulnerabilities in iMessage, writing the Blastdoor sandbox, where all untrusted data parsing happens, in Swift. It has become extremely difficult to exploit iMessage via a zero-click as of iOS 14, and as such, users should not be worried.</p>
+<p>Not that the majority of users shuld should be worried anyway, because they are <strong>not at risk</strong>, unless they are politically active and suspect someone might have reason to target them.</p>
+<p>Adding onto that, iOS and Android are leagues ahead of any other desktop operating systems. They both have world class security teams working on them, and it shows in the cost it takes to write an exploit of such impact. However, this point is largely moot if your device has stopped receiving updates; if your vendor is not providing updates then your device should be considered vulnerable regardless.</p>
+<p>If you&rsquo;re shopping for a new device because yours is outdated, buy an iPhone. It is common consensus among security researchers that an iPhone is one of the most secure devices you can get, leagues ahead of other phones. However, it isn&rsquo;t without its downsides, namely in components such as WebKit.</p>
+<p>If you&rsquo;re in the Android camp, get a Pixel. Google has world class security engineers, and Titan M isn&rsquo;t found in any other phones. The <a href=https://grapheneos.org>GrapheneOS</a> project is also highly acclaimed by security researchers and is a hardened OS meant to defend against memory corruption and other common vulnerabilities. Neither iOS nor GrapheneOS will protect you from an adversary with unlimited resources and time, but they will raise the time and the cost to successfully exploit a device.</p>
+<p>In the end, Pegasus is not a concern for most users, and you should refrain from listening to people trying to sell you things in the wake of the news.</p>
+</article>
+<article>
+<h2><a class=article-title href=https://qua3k.github.io/guides/whonix/>Hacking Whonix onto Hyper-V</a> &#183; <time datetime=2021-06-05>05 Jun 2021</time></h2>
+<p>This guide aims to get the Whonix™ operating system running on Hyper-V. This guide does not expect Virtualbox specific features such as guest additions to work and does not make any effort to make them work.</p>
+<h2 id=table-of-contents>Table of Contents
+<a class=anchor href=#table-of-contents>#</a>
+</h2>
+<ul>
+<li><a href=#prerequisites>Prerequisites</a></li>
+<li><a href=#installation>Installation</a>
+<ul>
+<li><a href=#extraction>Extraction</a></li>
+<li><a href=#conversion>Conversion</a></li>
+<li><a href=#networking>Networking</a>
+<ul>
+<li><a href=#create-the-internal-switch>Create the internal switch</a>
+<ul>
+<li><a href=#create-the-gateway>Create the gateway</a></li>
+<li><a href=#configure-the-network>Configure the network</a></li>
+</ul>
 </li>
-<li>
-<span>24 Jul 2021</span> &#183; <a href=https://qua3k.github.io/pegasus/>Some Thoughts About the NSO Group's Pegasus</a>
+<li><a href=#create-the-private-switch>Create the private switch</a></li>
+</ul>
 </li>
-<li>
-<span>05 Jun 2021</span> &#183; <a href=https://qua3k.github.io/guides/whonix/>Hacking Whonix onto Hyper-V</a>
+<li><a href=#vm-creation>VM creation</a>
+<ul>
+<li><a href=#gateway>Gateway</a></li>
+<li><a href=#workstation>Workstation</a></li>
+<li><a href=#hyper-v-kernel-modules>Hyper-V kernel modules</a></li>
+</ul>
 </li>
-<li>
-<span>01 Jun 2021</span> &#183; <a href=https://qua3k.github.io/security/email/>Email (In)security</a>
+</ul>
 </li>
-<li>
-<span>29 May 2021</span> &#183; <a href=https://qua3k.github.io/ungoogled/>ungoogled-chromium</a>
+<li><a href=#generation-2-installation>Generation 2 installation</a>
+<ul>
+<li><a href=#converting-to-vhdx>Converting to vhdx</a></li>
+<li><a href=#install-grub-efi>Install grub-efi</a></li>
+<li><a href=#partitioning>Partitioning</a>
+<ul>
+<li><a href=#mount-partitions>Mount partitions</a></li>
+<li><a href=#load-the-efivars-kernel-module>Load the efivars kernel module</a></li>
+<li><a href=#finish-the-grub-install>Finish the GRUB install</a></li>
+<li><a href=#unmount-and-reboot>Unmount and reboot</a></li>
+</ul>
 </li>
-<li>
-<span>28 Dec 2020</span> &#183; <a href=https://qua3k.github.io/about/>About</a>
+<li><a href=#secure-boot>Secure Boot</a></li>
+</ul>
 </li>
-<li>
-<span>28 Dec 2020</span> &#183; <a href=https://qua3k.github.io/first/>First Post</a>
-</li>
-</ol>
+</ul>
+<h2 id=prerequisites>Prerequisites
+<a class=anchor href=#prerequisites>#</a>
+</h2>
+<ul>
+<li>The latest <a href=https://www.whonix.org/wiki/VirtualBox>Whonix for VirtualBox</a></li>
+<li>The latest <a href=https://www.virtualbox.org/wiki/Downloads>VirtualBox for Windows</a></li>
+<li><code>qemu-img</code> <a href=https://gitlab.com/qemu-project/qemu/-/issues/250>is broken when trying to convert to vhdx</a> and is not supported.</li>
+</ul>
+<p>It is strongly recommended to verify the authenticity of the downloaded files.</p>
+<h2 id=installation>Installation
+<a class=anchor href=#installation>#</a>
+</h2>
+<h3 id=extraction>Extraction
+<a class=anchor href=#extraction>#</a>
+</h3>
+<p>Use <code>tar</code> or another archive utility of choice to extract the <code>.ova</code> archive.</p>
+<p>This should produce two <code>.vmdk</code> virtual disks.</p>
+<h3 id=conversion>Conversion
+<a class=anchor href=#conversion>#</a>
+</h3>
+<p>Convert the two virtual disks.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>VBoxManage.exe clonehd source.vmdk target.vhd --format vhd
+</code></pre></div><h3 id=networking>Networking
+<a class=anchor href=#networking>#</a>
+</h3>
+<h4 id=create-the-internal-switch>Create the internal switch
+<a class=anchor href=#create-the-internal-switch>#</a>
+</h4>
+<p>Create an internal switch and <a href=https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/setup-nat-network#create-a-nat-virtual-network>get the interface index.</a></p>
+<h5 id=create-the-gateway>Create the gateway
+<a class=anchor href=#create-the-gateway>#</a>
+</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-NetIPAddress -IPAddress 10.0.2.2 -PrefixLength 24 -InterfaceIndex &lt;ifIndex&gt;
+</code></pre></div><h5 id=configure-the-network>Configure the network
+<a class=anchor href=#configure-the-network>#</a>
+</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-NetNat -Name Gateway -InternalIPInterfaceAddressPrefix 10.0.2.0/24
+</code></pre></div><h4 id=create-the-private-switch>Create the private switch
+<a class=anchor href=#create-the-private-switch>#</a>
+</h4>
+<p>This switch is used to connect the Gateway to Workstation.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-VMSwitch -SwitchName Whonix -SwitchType Private
+</code></pre></div><h3 id=vm-creation>VM creation
+<a class=anchor href=#vm-creation>#</a>
+</h3>
+<p>There should be two Generation 1 virtual machines. Whonix does not have UEFI support and will not boot on Generation 2 VMs.</p>
+<p>UEFI setup so that Whonix will run in Generation 2 virtual machines is detailed <a href=#generation-2-installation>later</a>.</p>
+<h4 id=gateway>Gateway
+<a class=anchor href=#gateway>#</a>
+</h4>
+<p>Create a Generation 1 virtual machine and add your <code>whonix-xxxx-disk001.vhd</code> virtual disk.</p>
+<p>Create two virtual network adapters, one connecting to the Gateway virtual switch, and one connecting to the Whonix virtual switch.</p>
+<h4 id=workstation>Workstation
+<a class=anchor href=#workstation>#</a>
+</h4>
+<p>Create a Generation 1 virtual machine and add your <code>whonix-xxxx-disk002.vhd</code> virtual disk.</p>
+<p>Create a virtual network adapter connecting to the Whonix virtual switch.</p>
+<h4 id=hyper-v-kernel-modules>Hyper-V kernel modules
+<a class=anchor href=#hyper-v-kernel-modules>#</a>
+</h4>
+<p>To get networking working on Whonix, you need to enable some <a href=https://blog.jitdor.com/2020/02/08/enable-hyper-v-integration-services-for-your-ubuntu-guest-vms/>kernel modules</a> for Hyper-V integration.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>printf <span style=color:#e6db74>&#34;hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc&#34;</span> &gt;&gt; /etc/initramfs-tools/modules
+update-initramfs -u
+</code></pre></div><h2 id=generation-2-installation>Generation 2 installation
+<a class=anchor href=#generation-2-installation>#</a>
+</h2>
+<p>Do not attempt to execute any of the steps below unless you are familiar with the implications of performing them incorrectly.</p>
+<h3 id=converting-to-vhdx>Converting to vhdx
+<a class=anchor href=#converting-to-vhdx>#</a>
+</h3>
+<p>Generation 2 virtual machines only support <code>.vhdx</code> disks. You should convert the disks within the Hyper-V Manager UI or with the PowerShell cmdlet <code>Convert-VHD</code>.</p>
+<h3 id=install-grub-efi>Install grub-efi
+<a class=anchor href=#install-grub-efi>#</a>
+</h3>
+<p>Boot up your existing Generation 1 virtual machine and install <code>grub-efi-amd64</code>.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>apt update
+apt install grub-efi-amd64
+apt purge grub-pc-bin
+</code></pre></div><h3 id=partitioning>Partitioning
+<a class=anchor href=#partitioning>#</a>
+</h3>
+<p>Resize /dev/sda1 to create some free space for the EFi system partition with <code>cfdisk /dev/sda</code>.</p>
+<p>Use <code>gdisk /dev/sda</code> to convert the partition table to GPT and create the ESP on <code>/dev/sda2</code>.</p>
+<h4 id=format-the-efi-partition>Format the EFI partition
+<a class=anchor href=#format-the-efi-partition>#</a>
+</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>mkfs.fat -F <span style=color:#ae81ff>32</span> /dev/sda2
+</code></pre></div><h4 id=mount-partitions>Mount partitions
+<a class=anchor href=#mount-partitions>#</a>
+</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>mount /dev/sda1 /mnt
+mkdir -p /mnt/boot/efi
+mount /dev/sda2 /mnt/boot/efi
+<span style=color:#66d9ef>for</span> d in dev proc run sys; <span style=color:#66d9ef>do</span> sudo mount -B /$d /mnt/$d; <span style=color:#66d9ef>done</span>
+</code></pre></div><h4 id=load-the-efivars-kernel-module>Load the efivars kernel module
+<a class=anchor href=#load-the-efivars-kernel-module>#</a>
+</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>modprobe efivars
+</code></pre></div><h4 id=finish-the-grub-install>Finish the GRUB install
+<a class=anchor href=#finish-the-grub-install>#</a>
+</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>chroot /mnt
+grub-install --target<span style=color:#f92672>=</span>x86_64-efi --efi-directory<span style=color:#f92672>=</span>/boot/efi --bootloader-id<span style=color:#f92672>=</span>DEBIAN
+grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre></div><h4 id=unmount-and-reboot>Unmount and reboot
+<a class=anchor href=#unmount-and-reboot>#</a>
+</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>umount -R /mnt
+reboot
+</code></pre></div><h3 id=secure-boot>Secure Boot
+<a class=anchor href=#secure-boot>#</a>
+</h3>
+<p>Debian&rsquo;s <code>grub-efi</code> package comes with <code>shim</code> out of the box signed by Microsoft&rsquo;s third party UEFI CA; it is up to the user to enable it in VM settings.</p>
+<p>Do keep in mind this is mainly theater, as userspace components are not verified.</p>
+</article>
+<article>
+<h2><a class=article-title href=https://qua3k.github.io/security/email/>Email (In)security</a> &#183; <time datetime=2021-06-01>01 Jun 2021</time></h2>
+<p>There is no such thing as secure email. Email is an inherently insecure protocol, conceived at a time when security was an afterthought. There are fundamental flaws with email that cannot be mitigated by slapping encryption on top.</p>
+<h2 id=problems-with>Problems with…
+<a class=anchor href=#problems-with>#</a>
+</h2>
+<h3 id=email-authentication>Email Authentication
+<a class=anchor href=#email-authentication>#</a>
+</h3>
+<p><a href=https://tools.ietf.org/html/rfc7208>Sender Policy Framework</a> is a protocol used to authorize the mail transfer agents allowed to send mail on behalf of a domain. However, SPF alone is almost useless in protecting against spoofing as it is designed to protect against forged senders and not forged headers shown in clients.</p>
+<ul>
+<li>The limitations of SPF are evident in email forwarding, where it fails because the forwarding MTA&rsquo;s IP address in not in the published SPF record.</li>
+</ul>
+<p><a href=https://tools.ietf.org/html/rfc6376>DomainKeys Identified Mail</a> is a email authentication protocol meant to prove that an email originates from a specific domain by utilizing asymmetric cryptography. The server generates a keypair and publishes the public key in a DNS record. The body and certain email headers are hashed and signed, writing the signature of the hashes as an email header.</p>
+<ul>
+<li>DKIM is limited in its effectiveness in that it also does not prevent forging of email headers, only ensuring the integrity of the content.</li>
+<li>Signatures are also vulnerable to being stripped, and happens in practice because there is no standard way to signal that your emails must be signed unless you deploy DMARC.</li>
+</ul>
+<p><a href=https://tools.ietf.org/html/rfc7489>Domain-based Message Authentication, Reporting and Conformance</a> solves some of these problems by letting domain owners define a policy for the enforcement of SPF and DKIM and the handling of email authentication failures. DMARC alignment ensures the domain in the <code>RFC5322.From</code> address aligns with SPF or the DKIM domain tag and is an essential part of spoofing protection.</p>
+<h3 id=transport-encryption>Transport Encryption
+<a class=anchor href=#transport-encryption>#</a>
+</h3>
+<p>Email was not designed with encryption in mind, so when it came time to introduce encryption for message transfer, someone said STARTTLS looked good.</p>
+<ul>
+<li>STARTTLS is <a href=https://blog.filippo.io/the-sad-state-of-smtp-encryption/>opportunistic encryption</a>, meaning an active adversary has the ability to downgrade the connection and force the participants to converse in plaintext, <a href="https://youtube.com/watch?v=MFol6IMbZ7Y">akin to connecting to a website over <code>http:</code> and relying on the server to redirect to <code>https:</code></a>.</li>
+</ul>
+<p>There are plans to mitigate this, primarily with <a href=https://tools.ietf.org/html/rfc8461>MTA-STS</a> and <a href=https://tools.ietf.org/html/rfc7672>DANE</a>.</p>
+<ul>
+<li>MTA-STS allows mail servers to advertise their ability to receive TLS connections in a DNS TXT record and serving the policy over <code>https:</code>. MTA-STS uses a TOFU model and relies on the security of certificate authorities and DNS.</li>
+<li>DANE has the same end goal, but takes a different approach. DNSSEC can ensure authenticity and integrity of DANE TLSA records so receivers can verify certificates without relying on CAs.</li>
+</ul>
+<h3 id=email-encryption>Email Encryption
+<a class=anchor href=#email-encryption>#</a>
+</h3>
+<p><a href=https://tools.ietf.org/html/rfc4880>OpenPGP</a>, the de facto standard for email encryption, has <a href=https://www.whonix.org/wiki/OpenPGP#Issues_with_PGP>numerous problems</a>. Encrypted emails also do not protect metadata such as the sender, recipient, and timestamps, something modern messengers like <a href=https://signal.org>Signal</a> have done with its <a href=https://signal.org/blog/sealed-sender/>sealed sender</a>.</p>
+<h3 id=mailbox-encryption>Mailbox Encryption
+<a class=anchor href=#mailbox-encryption>#</a>
+</h3>
+<p>Providers using mailbox encryption can be <a href=https://www.theregister.com/2020/12/08/tutanota_backdoor_court_order/>legally compelled</a> to disable encryption of new incoming email. Users should not rely on mailbox encryption to conceal the contents of their emails from their provider.</p>
+<h3 id=conclusion>Conclusion
+<a class=anchor href=#conclusion>#</a>
+</h3>
+<p>All of these security mechanisms are optional, and highlights a fundamental flaw in how email services operate. Basic steps such as requiring encryption for all messages will sever communications with entire swaths of providers, and email authentication support is still lackluster on most providers.</p>
+<p>Avoid Email.</p>
+</article>
+<article>
+<h2><a class=article-title href=https://qua3k.github.io/ungoogled/>ungoogled-chromium</a> &#183; <time datetime=2021-05-29>29 May 2021</time></h2>
+<p>As one of the most used applications in the system, it is ideal to have a secure browser. Browsers have large attack surface due to a combination of their complexity, handling of untrusted input, and use of unsafe languages. Even while browser makers continually work make their browsers more secure, most browsers have poor privacy out of the box. <a href=https://github.com/Eloston/ungoogled-chromium>ungoogled-chromium</a> is an often recommended browser because of its approach of stripping out Google web services from Chromium.</p>
+<p>I have a couple of concerns with this recommendation, namely:</p>
+<ul>
+<li>ungoogled-chromium lags behind upstream Chrome for days <a href=https://github.com/Eloston/ungoogled-chromium/releases>every release</a>.</li>
+<li>The team does not ship official binaries; <a href=https://github.com/Eloston/ungoogled-chromium#downloads>third parties contribute prebuilt binaries</a>, so there is no central party to trust.</li>
+<li>Additionally, the maintainers of the packages tend to <a href="https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=ungoogled-chromium#n143">weaken exploit mitigations such as Control-Flow Integrity by opting to use system libraries</a> or <a href=https://github.com/ungoogled-software/ungoogled-chromium-fedora>build with unsupported toolchains</a>.</li>
+<li>Component updates are disabled, instead opting to ship components each browser update. Components were originally unbundled from browser updates so that they could be updated faster.</li>
+<li>Links to documentation and troubleshooting are broken by their patches.</li>
+</ul>
+<p>Security issues aside, they must be doing unique and great work in privacy, right?</p>
+<p>Not necessarily. Most of the functionality of the patches are either in the best case minimally beneficial or can be reproduced with either a setting, a flag, or a switch, and using a browser specifically for these patches should not merit the tradeoff in security.</p>
+<p>This blog post aims to detail the patches in the order they apply in, their functions, and how they can be reproduced in Chrome.</p>
+<h3 id=0001-fix-building-without-safebrowsingpatch-unrarpatch-safe_browsing-disable-incident-reportingpatch-safe_browsing-disable-reporting-of-safebrowsing-overpatch-remove-unused-preferences-fieldspatch>0001-fix-building-without-safebrowsing.patch, unrar.patch, safe_browsing-disable-incident-reporting.patch, safe_browsing-disable-reporting-of-safebrowsing-over.patch, remove-unused-preferences-fields.patch
+<a class=anchor href=#0001-fix-building-without-safebrowsingpatch-unrarpatch-safe_browsing-disable-incident-reportingpatch-safe_browsing-disable-reporting-of-safebrowsing-overpatch-remove-unused-preferences-fieldspatch>#</a>
+</h3>
+<p>These patches disable Safe Browsing. Related prefs are removed in <code>remove-unused-preferences-fields</code>.</p>
+<ul>
+<li>Safe Browsing can be turned off in <code>chrome://settings</code>.</li>
+</ul>
+<h3 id=0003-disable-autofill-download-managerpatch>0003-disable-autofill-download-manager.patch
+<a class=anchor href=#0003-disable-autofill-download-managerpatch>#</a>
+</h3>
+<p>This patch disables form Autofill data transmission to Google.</p>
+<ul>
+<li>Autofill can be turned off in <code>chrome://settings</code>.</li>
+</ul>
+<h3 id=0005-disable-default-extensionspatch>0005-disable-default-extensions.patch
+<a class=anchor href=#0005-disable-default-extensionspatch>#</a>
+</h3>
+<p>This patch disables:</p>
+<ul>
+<li>Google Wallet</li>
+<li>Google Feedback</li>
+<li>Google Web Store</li>
+<li>Google Hangouts</li>
+<li>Google Branding</li>
+</ul>
+<h3 id=0007-disable-web-resource-servicepatch>0007-disable-web-resource-service.patch
+<a class=anchor href=#0007-disable-web-resource-servicepatch>#</a>
+</h3>
+<p>This patch disables Chrome&rsquo;s WebResourceService, which periodically fetches data from a Google server to dynamically configure the browser. It is(was) used by PluginsResourceService to download security updates for plugins, the last of which was Flash. It is used by PromoResourceService to dynamically change the appearance of the new tab page, although the only platform that still runs promos is iOS.</p>
+<h3 id=0009-disable-google-ipv6-probespatch>0009-disable-google-ipv6-probes.patch
+<a class=anchor href=#0009-disable-google-ipv6-probespatch>#</a>
+</h3>
+<p>This patch uses RIPE NCC servers instead of Google servers for IPv6 probes.</p>
+<h3 id=0015-disable-update-pingspatch>0015-disable-update-pings.patch
+<a class=anchor href=#0015-disable-update-pingspatch>#</a>
+</h3>
+<p>This patch disables pings to clients2.google.com/ for component updates.</p>
+<ul>
+<li>Component updates can be disabled with switch <code>--disable-component-update</code>.</li>
+</ul>
+<h3 id=0017-disable-new-avatar-menupatch>0017-disable-new-avatar-menu.patch
+<a class=anchor href=#0017-disable-new-avatar-menupatch>#</a>
+</h3>
+<p>This cosmetic patch disables the new avatar menu.</p>
+<h3 id=0021-disable-rlzpatch>0021-disable-rlz.patch
+<a class=anchor href=#0021-disable-rlzpatch>#</a>
+</h3>
+<p>This patch disables RLZ, a promotional tag used to measure searches and Chrome usage. This non-unique tag sent is sent with searches made on Google, telemetry, and crash reports.</p>
+<ul>
+<li>RLZ can be disabled by defining <code>"rlz_disabled":true</code> in the preferences file.</li>
+</ul>
+<h3 id=disable-crash-reporterpatch>disable-crash-reporter.patch
+<a class=anchor href=#disable-crash-reporterpatch>#</a>
+</h3>
+<p>This patch disables the uploading of crash reports to Google. Chromium does not report crashes.</p>
+<ul>
+<li>Disable the crash reporter with switch <code>--disable-crash-reporter</code>.</li>
+</ul>
+<h3 id=disable-google-host-detectionpatch>disable-google-host-detection.patch
+<a class=anchor href=#disable-google-host-detectionpatch>#</a>
+</h3>
+<p>This patch disables specific features and restrictions applied to Google domains.</p>
+<h3 id=replace-google-search-engine-with-nosearchpatch>replace-google-search-engine-with-nosearch.patch
+<a class=anchor href=#replace-google-search-engine-with-nosearchpatch>#</a>
+</h3>
+<p>This patch replaces Google with &ldquo;No Search&rdquo; (disabling search from omnibox).</p>
+<ul>
+<li>Use another search engine.</li>
+</ul>
+<h3 id=disable-signinpatch-fix-building-without-one-click-signinpatch-disable-gaiapatch>disable-signin.patch, fix-building-without-one-click-signin.patch, disable-gaia.patch
+<a class=anchor href=#disable-signinpatch-fix-building-without-one-click-signinpatch-disable-gaiapatch>#</a>
+</h3>
+<p>This patch disables browser management of sign-in of Google Accounts. Requires API keys found only in Chrome.</p>
+<ul>
+<li>Disabled with switches <code>--disable-gaia-services</code>, <code>--disable-sync</code>, <code>--allow-browser-signin=false</code></li>
+</ul>
+<h3 id=toggle-translation-via-switchpatch>toggle-translation-via-switch.patch
+<a class=anchor href=#toggle-translation-via-switchpatch>#</a>
+</h3>
+<p>This patch disables translation and removes the &ldquo;Translate to&rdquo; context menu when <code>--translate-script-url</code> is not set.</p>
+<ul>
+<li>Define a non-existent <code>--translate-script-url</code>.</li>
+</ul>
+<h3 id=all-add-trk-prefixes-to-possibly-evil-connectionpatch-disable-untraceable-urlspatch-block-trk-and-subdomainspatch-disable-webstore-urlspatch-fix-learn-doubleclick-hstspatch-block-requestspatch>all-add-trk-prefixes-to-possibly-evil-connection.patch, disable-untraceable-urls.patch, block-trk-and-subdomains.patch, disable-webstore-urls.patch, fix-learn-doubleclick-hsts.patch, block-requests.patch
+<a class=anchor href=#all-add-trk-prefixes-to-possibly-evil-connectionpatch-disable-untraceable-urlspatch-block-trk-and-subdomainspatch-disable-webstore-urlspatch-fix-learn-doubleclick-hstspatch-block-requestspatch>#</a>
+</h3>
+<p>These patches disable all connections hard-coded into the browser using domain substitution. Many of these connections are only made on user interaction and not transparently made in the background.</p>
+<p>Connections patched out include</p>
+<ul>
+<li>AppID faucets used in U2F,</li>
+<li>Browser customization,</li>
+<li>Chrome Web Store,</li>
+<li>Component and Extension endpoints,</li>
+<li>Documentation: e.g. the &ldquo;learn more&rdquo; page in incognito mode.,</li>
+<li>Extensions functionality,</li>
+<li>Login endpoints,</li>
+<li>Log and crash report endpoints,</li>
+<li>Et cetera.</li>
+</ul>
+<details>
+<summary><a href=https://github.com/lynn-stephenson>@lynn-stephenson</a> — you can even change the URLs of "Google URLs" with some switches</summary>
+<p><code>--google-apis-url</code>
+<p><code>--google-base-url</code>
+<p><code>--google-url</code>
+<p><code>--autofill-assistant-url</code>
+<p><code>--autofill-server-url</code>
+<p><code>--cloud-print-url</code>
+<p><code>--connectivity-check-url</code>
+<p><code>--crash-server-url</code>
+<p><code>--cryptauth-http-host</code>
+<p><code>--cryptauth-v2-devicesync-http-host</code>
+<p><code>--cryptauth-v2-enrollment-http-host</code>
+<p><code>--data-reduction-proxy-config-url</code>
+<p><code>--data-reduction-proxy-pingback-url</code>
+<p><code>--data-reduction-proxy-secure-proxy-check-url</code>
+<p><code>--device-management-url</code>
+<p><code>--disable-sync</code>
+<p><code>--disable-sync-types</code>
+</details>
+<h3 id=disable-profile-avatar-downloadingpatch>disable-profile-avatar-downloading.patch
+<a class=anchor href=#disable-profile-avatar-downloadingpatch>#</a>
+</h3>
+<p>This patch disables the downloading of profile avatars from Google.</p>
+<h3 id=disable-gcmpatch>disable-gcm.patch
+<a class=anchor href=#disable-gcmpatch>#</a>
+</h3>
+<p>Disables the Google Cloud Messaging component of the <code>chrome.gcm</code> API that extensions can use to send messages through Firebase Cloud Messaging.</p>
+<h3 id=disable-domain-reliabilitypatch>disable-domain-reliability.patch
+<a class=anchor href=#disable-domain-reliabilitypatch>#</a>
+</h3>
+<p>The domain reliability monitor sends info to Google whenever an error occurs while visiting a Google domain.</p>
+<ul>
+<li>Disable domain reliability with switch <code>--disable-domain-reliability</code>.</li>
+</ul>
+<h3 id=disable-fonts-googleapis-referencespatch>disable-fonts-googleapis-references.patch
+<a class=anchor href=#disable-fonts-googleapis-referencespatch>#</a>
+</h3>
+<p>This patch disables references to fonts.googleapis.com/ hardcoded in the browser.</p>
+<h3 id=disable-webrtc-log-uploaderpatch>disable-webrtc-log-uploader.patch
+<a class=anchor href=#disable-webrtc-log-uploaderpatch>#</a>
+</h3>
+<p>This patch disables the uploading of WebRTC logs for the Hangouts extension.</p>
+<ul>
+<li>Disable reporting additional diagnostics in Hangouts settings.</li>
+</ul>
+<h3 id=use-local-devtools-filespatch>use-local-devtools-files.patch
+<a class=anchor href=#use-local-devtools-filespatch>#</a>
+</h3>
+<p>This patch always uses local DevTools files instead of remote files from Google.</p>
+<h3 id=disable-network-time-trackerpatch>disable-network-time-tracker.patch
+<a class=anchor href=#disable-network-time-trackerpatch>#</a>
+</h3>
+<p>This patch disables connections to Google to check if the system time is correct when a website certificate date seems incorrect.</p>
+<ul>
+<li>Disable the network time tracker with switch <code>--disable-features=NetworkTimeServiceQuerying</code></li>
+</ul>
+<h3 id=disable-mei-preloadpatch>disable-mei-preload.patch
+<a class=anchor href=#disable-mei-preloadpatch>#</a>
+</h3>
+<p>This patch disables downloading of a list of sites with a high Media Engagement Index, used to determine whether or not a site autoplays.</p>
+<ul>
+<li>Disable MEI preloading with switch <code>--disable-features=PreloadMediaEngagementData, MediaEngagementBypassAutoplayPolicies</code></li>
+</ul>
+<h3 id=fix-building-without-enabling-reportingpatch>fix-building-without-enabling-reporting.patch
+<a class=anchor href=#fix-building-without-enabling-reportingpatch>#</a>
+</h3>
+<p>This patch disables reporting COEP/COOP violations.</p>
+<h3 id=disable-fetching-field-trialspatch>disable-fetching-field-trials.patch
+<a class=anchor href=#disable-fetching-field-trialspatch>#</a>
+</h3>
+<p>This patch disables the downloading of field trials (Google’s A/B testing).</p>
+<ul>
+<li>Field trials can be disabled with switch <code>--disable-field-trial-config</code>.</li>
+</ul>
+<p>With the relative ease that these settings can be changed, there are few reasons to use <code>ungoogled-chromium</code> as a main browser when Chrome can be configured similarly.</p>
+<p>If you do decide to use <code>ungoogled-chromium</code>, against the advice of this article, please properly build it yourself.</p>
+</article>
+<article>
+<h2><a class=article-title href=https://qua3k.github.io/about/>About</a> &#183; <time datetime=2020-12-28>28 Dec 2020</time></h2>
+<p>I&rsquo;m a security researcher working with safer languages.</p>
+<p>Links:</p>
+<ul>
+<li><a href=https://github.com/qua3k>GitHub</a></li>
+<li><a href=https://twitter.com/CliffMaceyak>Twitter</a></li>
+</ul>
+</article>
+<article>
+<h2><a class=article-title href=https://qua3k.github.io/first/>First Post</a> &#183; <time datetime=2020-12-28>28 Dec 2020</time></h2>
+<p>hi</p>
+<p>i am cool</p>
+</article>
 <footer>this is a footer</footer>
-</body>
-</html>
+</div>
