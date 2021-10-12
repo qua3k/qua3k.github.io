@@ -19,4 +19,4 @@ You can even redirect it to `stderr`!
 {{<code "paste" ">&2 echo 'This prints to stderr'">}} 
 ```
 
-Anyways that's all I wanted to share.
+Anyways, that's all I wanted to share.
