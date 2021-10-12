@@ -1,6 +1,6 @@
 <!doctype html><html lang=en-us prefix="og: https://ogp.me/ns#">
 <meta charset=utf-8>
-<title>ungoogled-chromium &#183; duck's pond</title>
+<title>Ungoogled-Chromium &#183; duck's pond</title>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
 <meta property="og:type" content="website">
@@ -21,7 +21,7 @@
 <h1><a href=/>duck's pond</a></h1>
 </header>
 <main>
-<h1>ungoogled-chromium</h1>
+<h1>Ungoogled-Chromium</h1>
 <p class=author>duck
 (<a href=https://github.com/qua3k>@qua3k</a>)
 — Security Researcher
@@ -37,23 +37,23 @@
 <p>Security issues aside, they must be doing unique and great work in privacy, right?</p>
 <p>Not necessarily. Most of the functionality of the patches are either in the best case minimally beneficial or can be reproduced with either a setting, a flag, or a switch, and using a browser specifically for these patches should not merit the tradeoff in security.</p>
 <p>This blog post aims to detail the patches in the order they apply in, their functions, and how they can be reproduced in Chrome.</p>
-<h3 id=0001-fix-building-without-safebrowsingpatch-unrarpatch-safe_browsing-disable-incident-reportingpatch-safe_browsing-disable-reporting-of-safebrowsing-overpatch-remove-unused-preferences-fieldspatch>0001-fix-building-without-safebrowsing.patch, unrar.patch, safe_browsing-disable-incident-reporting.patch, safe_browsing-disable-reporting-of-safebrowsing-over.patch, remove-unused-preferences-fields.patch
+<h2 id=0001-fix-building-without-safebrowsingpatch-unrarpatch-safe_browsing-disable-incident-reportingpatch-safe_browsing-disable-reporting-of-safebrowsing-overpatch-remove-unused-preferences-fieldspatch>0001-fix-building-without-safebrowsing.patch, unrar.patch, safe_browsing-disable-incident-reporting.patch, safe_browsing-disable-reporting-of-safebrowsing-over.patch, remove-unused-preferences-fields.patch
 <a class=anchor href=#0001-fix-building-without-safebrowsingpatch-unrarpatch-safe_browsing-disable-incident-reportingpatch-safe_browsing-disable-reporting-of-safebrowsing-overpatch-remove-unused-preferences-fieldspatch>#</a>
-</h3>
+</h2>
 <p>These patches disable Safe Browsing. Related prefs are removed in <code>remove-unused-preferences-fields</code>.</p>
 <ul>
 <li>Safe Browsing can be turned off in <code>chrome://settings</code>.</li>
 </ul>
-<h3 id=0003-disable-autofill-download-managerpatch>0003-disable-autofill-download-manager.patch
+<h2 id=0003-disable-autofill-download-managerpatch>0003-disable-autofill-download-manager.patch
 <a class=anchor href=#0003-disable-autofill-download-managerpatch>#</a>
-</h3>
+</h2>
 <p>This patch disables form Autofill data transmission to Google.</p>
 <ul>
 <li>Autofill can be turned off in <code>chrome://settings</code>.</li>
 </ul>
-<h3 id=0005-disable-default-extensionspatch>0005-disable-default-extensions.patch
+<h2 id=0005-disable-default-extensionspatch>0005-disable-default-extensions.patch
 <a class=anchor href=#0005-disable-default-extensionspatch>#</a>
-</h3>
+</h2>
 <p>This patch disables:</p>
 <ul>
 <li>Google Wallet</li>
@@ -62,67 +62,67 @@
 <li>Google Hangouts</li>
 <li>Google Branding</li>
 </ul>
-<h3 id=0007-disable-web-resource-servicepatch>0007-disable-web-resource-service.patch
+<h2 id=0007-disable-web-resource-servicepatch>0007-disable-web-resource-service.patch
 <a class=anchor href=#0007-disable-web-resource-servicepatch>#</a>
-</h3>
+</h2>
 <p>This patch disables Chrome&rsquo;s WebResourceService, which periodically fetches data from a Google server to dynamically configure the browser. It is(was) used by PluginsResourceService to download security updates for plugins, the last of which was Flash. It is used by PromoResourceService to dynamically change the appearance of the new tab page, although the only platform that still runs promos is iOS.</p>
-<h3 id=0009-disable-google-ipv6-probespatch>0009-disable-google-ipv6-probes.patch
+<h2 id=0009-disable-google-ipv6-probespatch>0009-disable-google-ipv6-probes.patch
 <a class=anchor href=#0009-disable-google-ipv6-probespatch>#</a>
-</h3>
+</h2>
 <p>This patch uses RIPE NCC servers instead of Google servers for IPv6 probes.</p>
-<h3 id=0015-disable-update-pingspatch>0015-disable-update-pings.patch
+<h2 id=0015-disable-update-pingspatch>0015-disable-update-pings.patch
 <a class=anchor href=#0015-disable-update-pingspatch>#</a>
-</h3>
+</h2>
 <p>This patch disables pings to clients2.google.com/ for component updates.</p>
 <ul>
 <li>Component updates can be disabled with switch <code>--disable-component-update</code>.</li>
 </ul>
-<h3 id=0017-disable-new-avatar-menupatch>0017-disable-new-avatar-menu.patch
+<h2 id=0017-disable-new-avatar-menupatch>0017-disable-new-avatar-menu.patch
 <a class=anchor href=#0017-disable-new-avatar-menupatch>#</a>
-</h3>
+</h2>
 <p>This cosmetic patch disables the new avatar menu.</p>
-<h3 id=0021-disable-rlzpatch>0021-disable-rlz.patch
+<h2 id=0021-disable-rlzpatch>0021-disable-rlz.patch
 <a class=anchor href=#0021-disable-rlzpatch>#</a>
-</h3>
+</h2>
 <p>This patch disables RLZ, a promotional tag used to measure searches and Chrome usage. This non-unique tag sent is sent with searches made on Google, telemetry, and crash reports.</p>
 <ul>
 <li>RLZ can be disabled by defining <code>"rlz_disabled":true</code> in the preferences file.</li>
 </ul>
-<h3 id=disable-crash-reporterpatch>disable-crash-reporter.patch
+<h2 id=disable-crash-reporterpatch>disable-crash-reporter.patch
 <a class=anchor href=#disable-crash-reporterpatch>#</a>
-</h3>
+</h2>
 <p>This patch disables the uploading of crash reports to Google. Chromium does not report crashes.</p>
 <ul>
 <li>Disable the crash reporter with switch <code>--disable-crash-reporter</code>.</li>
 </ul>
-<h3 id=disable-google-host-detectionpatch>disable-google-host-detection.patch
+<h2 id=disable-google-host-detectionpatch>disable-google-host-detection.patch
 <a class=anchor href=#disable-google-host-detectionpatch>#</a>
-</h3>
+</h2>
 <p>This patch disables specific features and restrictions applied to Google domains.</p>
-<h3 id=replace-google-search-engine-with-nosearchpatch>replace-google-search-engine-with-nosearch.patch
+<h2 id=replace-google-search-engine-with-nosearchpatch>replace-google-search-engine-with-nosearch.patch
 <a class=anchor href=#replace-google-search-engine-with-nosearchpatch>#</a>
-</h3>
+</h2>
 <p>This patch replaces Google with &ldquo;No Search&rdquo; (disabling search from omnibox).</p>
 <ul>
 <li>Use another search engine.</li>
 </ul>
-<h3 id=disable-signinpatch-fix-building-without-one-click-signinpatch-disable-gaiapatch>disable-signin.patch, fix-building-without-one-click-signin.patch, disable-gaia.patch
+<h2 id=disable-signinpatch-fix-building-without-one-click-signinpatch-disable-gaiapatch>disable-signin.patch, fix-building-without-one-click-signin.patch, disable-gaia.patch
 <a class=anchor href=#disable-signinpatch-fix-building-without-one-click-signinpatch-disable-gaiapatch>#</a>
-</h3>
+</h2>
 <p>This patch disables browser management of sign-in of Google Accounts. Requires API keys found only in Chrome.</p>
 <ul>
 <li>Disabled with switches <code>--disable-gaia-services</code>, <code>--disable-sync</code>, <code>--allow-browser-signin=false</code></li>
 </ul>
-<h3 id=toggle-translation-via-switchpatch>toggle-translation-via-switch.patch
+<h2 id=toggle-translation-via-switchpatch>toggle-translation-via-switch.patch
 <a class=anchor href=#toggle-translation-via-switchpatch>#</a>
-</h3>
+</h2>
 <p>This patch disables translation and removes the &ldquo;Translate to&rdquo; context menu when <code>--translate-script-url</code> is not set.</p>
 <ul>
 <li>Define a non-existent <code>--translate-script-url</code>.</li>
 </ul>
-<h3 id=all-add-trk-prefixes-to-possibly-evil-connectionpatch-disable-untraceable-urlspatch-block-trk-and-subdomainspatch-disable-webstore-urlspatch-fix-learn-doubleclick-hstspatch-block-requestspatch>all-add-trk-prefixes-to-possibly-evil-connection.patch, disable-untraceable-urls.patch, block-trk-and-subdomains.patch, disable-webstore-urls.patch, fix-learn-doubleclick-hsts.patch, block-requests.patch
+<h2 id=all-add-trk-prefixes-to-possibly-evil-connectionpatch-disable-untraceable-urlspatch-block-trk-and-subdomainspatch-disable-webstore-urlspatch-fix-learn-doubleclick-hstspatch-block-requestspatch>all-add-trk-prefixes-to-possibly-evil-connection.patch, disable-untraceable-urls.patch, block-trk-and-subdomains.patch, disable-webstore-urls.patch, fix-learn-doubleclick-hsts.patch, block-requests.patch
 <a class=anchor href=#all-add-trk-prefixes-to-possibly-evil-connectionpatch-disable-untraceable-urlspatch-block-trk-and-subdomainspatch-disable-webstore-urlspatch-fix-learn-doubleclick-hstspatch-block-requestspatch>#</a>
-</h3>
+</h2>
 <p>These patches disable all connections hard-coded into the browser using domain substitution. Many of these connections are only made on user interaction and not transparently made in the background.</p>
 <p>Connections patched out include</p>
 <ul>
@@ -156,57 +156,57 @@
 <p><code>--disable-sync</code>
 <p><code>--disable-sync-types</code>
 </details>
-<h3 id=disable-profile-avatar-downloadingpatch>disable-profile-avatar-downloading.patch
+<h2 id=disable-profile-avatar-downloadingpatch>disable-profile-avatar-downloading.patch
 <a class=anchor href=#disable-profile-avatar-downloadingpatch>#</a>
-</h3>
+</h2>
 <p>This patch disables the downloading of profile avatars from Google.</p>
-<h3 id=disable-gcmpatch>disable-gcm.patch
+<h2 id=disable-gcmpatch>disable-gcm.patch
 <a class=anchor href=#disable-gcmpatch>#</a>
-</h3>
+</h2>
 <p>Disables the Google Cloud Messaging component of the <code>chrome.gcm</code> API that extensions can use to send messages through Firebase Cloud Messaging.</p>
-<h3 id=disable-domain-reliabilitypatch>disable-domain-reliability.patch
+<h2 id=disable-domain-reliabilitypatch>disable-domain-reliability.patch
 <a class=anchor href=#disable-domain-reliabilitypatch>#</a>
-</h3>
+</h2>
 <p>The domain reliability monitor sends info to Google whenever an error occurs while visiting a Google domain.</p>
 <ul>
 <li>Disable domain reliability with switch <code>--disable-domain-reliability</code>.</li>
 </ul>
-<h3 id=disable-fonts-googleapis-referencespatch>disable-fonts-googleapis-references.patch
+<h2 id=disable-fonts-googleapis-referencespatch>disable-fonts-googleapis-references.patch
 <a class=anchor href=#disable-fonts-googleapis-referencespatch>#</a>
-</h3>
+</h2>
 <p>This patch disables references to fonts.googleapis.com/ hardcoded in the browser.</p>
-<h3 id=disable-webrtc-log-uploaderpatch>disable-webrtc-log-uploader.patch
+<h2 id=disable-webrtc-log-uploaderpatch>disable-webrtc-log-uploader.patch
 <a class=anchor href=#disable-webrtc-log-uploaderpatch>#</a>
-</h3>
+</h2>
 <p>This patch disables the uploading of WebRTC logs for the Hangouts extension.</p>
 <ul>
 <li>Disable reporting additional diagnostics in Hangouts settings.</li>
 </ul>
-<h3 id=use-local-devtools-filespatch>use-local-devtools-files.patch
+<h2 id=use-local-devtools-filespatch>use-local-devtools-files.patch
 <a class=anchor href=#use-local-devtools-filespatch>#</a>
-</h3>
+</h2>
 <p>This patch always uses local DevTools files instead of remote files from Google.</p>
-<h3 id=disable-network-time-trackerpatch>disable-network-time-tracker.patch
+<h2 id=disable-network-time-trackerpatch>disable-network-time-tracker.patch
 <a class=anchor href=#disable-network-time-trackerpatch>#</a>
-</h3>
+</h2>
 <p>This patch disables connections to Google to check if the system time is correct when a website certificate date seems incorrect.</p>
 <ul>
 <li>Disable the network time tracker with switch <code>--disable-features=NetworkTimeServiceQuerying</code></li>
 </ul>
-<h3 id=disable-mei-preloadpatch>disable-mei-preload.patch
+<h2 id=disable-mei-preloadpatch>disable-mei-preload.patch
 <a class=anchor href=#disable-mei-preloadpatch>#</a>
-</h3>
+</h2>
 <p>This patch disables downloading of a list of sites with a high Media Engagement Index, used to determine whether or not a site autoplays.</p>
 <ul>
 <li>Disable MEI preloading with switch <code>--disable-features=PreloadMediaEngagementData, MediaEngagementBypassAutoplayPolicies</code></li>
 </ul>
-<h3 id=fix-building-without-enabling-reportingpatch>fix-building-without-enabling-reporting.patch
+<h2 id=fix-building-without-enabling-reportingpatch>fix-building-without-enabling-reporting.patch
 <a class=anchor href=#fix-building-without-enabling-reportingpatch>#</a>
-</h3>
+</h2>
 <p>This patch disables reporting COEP/COOP violations.</p>
-<h3 id=disable-fetching-field-trialspatch>disable-fetching-field-trials.patch
+<h2 id=disable-fetching-field-trialspatch>disable-fetching-field-trials.patch
 <a class=anchor href=#disable-fetching-field-trialspatch>#</a>
-</h3>
+</h2>
 <p>This patch disables the downloading of field trials (Google’s A/B testing).</p>
 <ul>
 <li>Field trials can be disabled with switch <code>--disable-field-trial-config</code>.</li>
