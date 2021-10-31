@@ -4,14 +4,17 @@ theme = "blog-theme"
 title = "duck's pond"
 
 [author]
-bio = "Security Researcher"
-name = "duck"
-url = "https://github.com/qua3k"
-username = "qua3k"
+  bio = "Security Researcher"
+  name = "duck"
+  url = "https://github.com/qua3k"
+  username = "qua3k"
 
 [markup]
-  [markup.goldmark.renderer]
-  unsafe = true
+  [markup.tableOfContents]
+    endLevel = 6
+    ordered = false
+    startLevel = 2
+
 
 [params]
 description = "hi i'm a duck and these are my ramblings"
