@@ -21,16 +21,21 @@
 <p>The page you requested wasn't found.
 <article>
 <h2><a class=article-title href=https://qua3k.github.io/stdout/>Standard Streams</a> &#183; <time datetime=2021-10-03>03 Oct 2021</time></h2>
-<p>Today I learned about standard streams. I now have a deeper understanding of computers than ever before.</p>
-<p>For instance, I learned that <code>echo</code> writes to <code>stdout</code>, the standard output, by default.</p>
-<pre tabindex=0><code><code class=paste>echo &#39;This prints to stdout&#39;</code> 
-</code></pre><p>You can even redirect it to <code>stderr</code>!</p>
-<pre tabindex=0><code><code class=paste>&gt;&amp;2 echo &#39;This prints to stderr&#39;</code> 
-</code></pre><p>Anyways, that&rsquo;s all I wanted to share.</p>
+<p>Today I learned about standard streams. I now have a deeper understanding of
+computers than ever before.</p>
+<p>For instance, I learned that <code>echo</code> writes to <code>stdout</code>, the standard output, by
+default.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><code class=paste>echo &#39;This prints to stdout&#39;</code>
+</code></pre></div><p>You can even redirect it to <code>stderr</code>!</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><code class=paste>&gt;&amp;2 echo &#39;This prints to stderr&#39;</code>
+</code></pre></div><p>Anyways, that&rsquo;s all I wanted to share.</p>
 </article>
 <article>
 <h2><a class=article-title href=https://qua3k.github.io/pegasus/>Some Thoughts About the NSO Group's Pegasus</a> &#183; <time datetime=2021-07-24>24 Jul 2021</time></h2>
-<p>Recently, a story has been making the rounds about the &lsquo;new&rsquo; Pegasus spyware that has lead to mass panic in technical circles that has users worried. There are some questions that users might ask that haven&rsquo;t been accurately answered and the events have been used by various companies to market their product.</p>
+<p>Recently, a story has been making the rounds about the &lsquo;new&rsquo; Pegasus spyware
+that has lead to mass panic in technical circles that has users worried. There
+are some questions that users might ask that haven&rsquo;t been accurately answered
+and the events have been used by various companies to market their product.</p>
 <p>Frightened users might ask:</p>
 <ul>
 <li>Am I at risk?</li>
@@ -39,176 +44,210 @@
 <li>Should I stop using Android/iOS?</li>
 </ul>
 <p>The answer is largely <strong>no</strong>.</p>
-<p>The Pegasus spyware isn&rsquo;t new. We&rsquo;ve known about it for a long time, and we know it takes advantage of a variety of exploits to exploit different types of devices. We also know about some specifics of these vulnerabilities, such as the usage of zero-clicks in iMessage.</p>
-<p>Apple has already taken steps to mitigate zero-click vulnerabilities in iMessage, writing the Blastdoor sandbox, where all untrusted data parsing happens, in Swift. It has become extremely difficult to exploit iMessage via a zero-click as of iOS 14, and as such, users should not be worried.</p>
-<p>Not that the majority of users shuld should be worried anyway, because they are <strong>not at risk</strong>, unless they are politically active and suspect someone might have reason to target them.</p>
-<p>Adding onto that, iOS and Android are leagues ahead of any other desktop operating systems. They both have world class security teams working on them, and it shows in the cost it takes to write an exploit of such impact. However, this point is largely moot if your device has stopped receiving updates; if your vendor is not providing updates then your device should be considered vulnerable regardless.</p>
-<p>If you&rsquo;re shopping for a new device because yours is outdated, buy an iPhone. It is common consensus among security researchers that an iPhone is one of the most secure devices you can get, leagues ahead of other phones. However, it isn&rsquo;t without its downsides, namely in components such as WebKit.</p>
-<p>If you&rsquo;re in the Android camp, get a Pixel. Google has world class security engineers, and Titan M isn&rsquo;t found in any other phones. The <a href=https://grapheneos.org>GrapheneOS</a> project is also highly acclaimed by security researchers and is a hardened OS meant to defend against memory corruption and other common vulnerabilities. Neither iOS nor GrapheneOS will protect you from an adversary with unlimited resources and time, but they will raise the time and the cost to successfully exploit a device.</p>
-<p>In the end, Pegasus is not a concern for most users, and you should refrain from listening to people trying to sell you things in the wake of the news.</p>
+<p>The Pegasus spyware isn&rsquo;t new. We&rsquo;ve known about it for a long time, and we know
+it takes advantage of a variety of exploits to exploit different types of
+devices. We also know about some specifics of these vulnerabilities, such as the
+usage of zero-clicks in iMessage.</p>
+<p>Apple has already taken steps to mitigate zero-click vulnerabilities in iMessage,
+writing the Blastdoor sandbox, where all untrusted data parsing happens, in
+Swift. It has become extremely difficult to exploit iMessage via a zero-click as
+of iOS 14, and as such, users should not be worried.</p>
+<p>Not that the majority of users shuld should be worried anyway, because they are
+<strong>not at risk</strong>, unless they are politically active and suspect someone might
+have reason to target them.</p>
+<p>Adding onto that, iOS and Android are leagues ahead of any other desktop
+operating systems. They both have world class security teams working on them,
+and it shows in the cost it takes to write an exploit of such impact. However,
+this point is largely moot if your device has stopped receiving updates; if your
+vendor is not providing updates then your device should be considered vulnerable
+regardless.</p>
+<p>If you&rsquo;re shopping for a new device because yours is outdated, buy an iPhone. It
+is common consensus among security researchers that an iPhone is one of the most
+secure devices you can get, leagues ahead of other phones. However, it isn&rsquo;t
+without its downsides, namely in components such as WebKit.</p>
+<p>If you&rsquo;re in the Android camp, get a Pixel. Google has world class security
+engineers, and Titan M isn&rsquo;t found in any other phones. The
+<a href=https://grapheneos.org>GrapheneOS</a> project is also highly acclaimed by
+security researchers and is a hardened OS meant to defend against memory
+corruption and other common vulnerabilities. Neither iOS nor GrapheneOS will
+protect you from an adversary with unlimited resources and time, but they will
+raise the time and the cost to successfully exploit a device.</p>
+<p>In the end, Pegasus is not a concern for most users, and you should refrain from
+listening to people trying to sell you things in the wake of the news.</p>
 </article>
 <article>
 <h2><a class=article-title href=https://qua3k.github.io/guides/whonix/>Hacking Whonix onto Hyper-V</a> &#183; <time datetime=2021-06-05>05 Jun 2021</time></h2>
-<p>This guide aims to get the Whonix™ operating system running on Hyper-V. This guide does not expect Virtualbox specific features such as guest additions to work and does not make any effort to make them work.</p>
-<h2 id=table-of-contents>Table of Contents
+<p>This guide aims to get the Whonix™ operating system running on Hyper-V. This
+guide does not expect Virtualbox specific features such as guest additions to
+work and does not expend any effort to make them work.</p>
+<nav>
+<h2 id=#table-of-contents>Table of Contents
 <a class=anchor href=#table-of-contents>#</a>
 </h2>
+<nav id=TableOfContents>
 <ul>
-<li><a href=#prerequisites>Prerequisites</a></li>
-<li><a href=#installation>Installation</a>
+<li><a href=#prerequisites>Prerequisites</a>
 <ul>
-<li><a href=#extraction>Extraction</a></li>
-<li><a href=#conversion>Conversion</a></li>
-<li><a href=#networking>Networking</a>
-<ul>
-<li><a href=#create-the-internal-switch>Create the internal switch</a>
-<ul>
-<li><a href=#create-the-gateway>Create the gateway</a></li>
-<li><a href=#configure-the-network>Configure the network</a></li>
+<li><a href=#acquire-the-necessary-tools>Acquire the necessary tools</a></li>
+<li><a href=#verify-the-signature>Verify the signature</a></li>
+<li><a href=#extract-the-archive>Extract the archive</a></li>
+<li><a href=#convert-the-disks>Convert the disks</a></li>
 </ul>
 </li>
-<li><a href=#create-the-private-switch>Create the private switch</a></li>
-</ul>
-</li>
-<li><a href=#vm-creation>VM creation</a>
+<li><a href=#virtual-machine-setup>Virtual Machine Setup</a>
 <ul>
-<li><a href=#gateway>Gateway</a></li>
-<li><a href=#workstation>Workstation</a></li>
-<li><a href=#hyper-v-kernel-modules>Hyper-V kernel modules</a></li>
+<li><a href=#set-up-networking>Set up networking</a></li>
+<li><a href=#create-virtual-machines>Create virtual machines</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href=#generation-2-installation>Generation 2 installation</a>
+<li><a href=#post-boot-configuration>Post-boot configuration</a></li>
+<li><a href=#round-2-working-with-efi>Round 2: Working with EFI</a>
 <ul>
-<li><a href=#converting-to-vhdx>Converting to vhdx</a></li>
 <li><a href=#install-grub-efi>Install grub-efi</a></li>
-<li><a href=#partitioning>Partitioning</a>
-<ul>
-<li><a href=#mount-partitions>Mount partitions</a></li>
-<li><a href=#load-the-efivars-kernel-module>Load the efivars kernel module</a></li>
-<li><a href=#finish-the-grub-install>Finish the GRUB install</a></li>
-<li><a href=#unmount-and-reboot>Unmount and reboot</a></li>
+<li><a href=#partitioning>Partitioning</a></li>
 </ul>
 </li>
 <li><a href=#secure-boot>Secure Boot</a></li>
+<li><a href=#see-also>See also</a></li>
 </ul>
-</li>
-</ul>
+</nav>
+</nav>
 <h2 id=prerequisites>Prerequisites
 <a class=anchor href=#prerequisites>#</a>
 </h2>
+<h3 id=acquire-the-necessary-tools>Acquire the necessary tools
+<a class=anchor href=#acquire-the-necessary-tools>#</a>
+</h3>
 <ul>
-<li>The latest <a href=https://www.whonix.org/wiki/VirtualBox>Whonix for VirtualBox</a></li>
-<li>The latest <a href=https://www.virtualbox.org/wiki/Downloads>VirtualBox for Windows</a></li>
-<li><code>qemu-img</code> <a href=https://gitlab.com/qemu-project/qemu/-/issues/250>is broken when trying to convert to vhdx</a> and is not supported.</li>
+<li><a href=https://www.whonix.org/wiki/VirtualBox>Whonix for VirtualBox</a></li>
+<li><a href=https://www.virtualbox.org/wiki/Downloads>VirtualBox for Windows</a></li>
 </ul>
-<p>It is strongly recommended to verify the authenticity of the downloaded files.</p>
-<h2 id=installation>Installation
-<a class=anchor href=#installation>#</a>
-</h2>
-<h3 id=extraction>Extraction
-<a class=anchor href=#extraction>#</a>
+<h3 id=verify-the-signature>Verify the signature
+<a class=anchor href=#verify-the-signature>#</a>
 </h3>
-<p>Use <code>tar</code> or another archive utility of choice to extract the <code>.ova</code> archive.</p>
-<p>This should produce two <code>.vmdk</code> virtual disks.</p>
-<h3 id=conversion>Conversion
-<a class=anchor href=#conversion>#</a>
+<p>See the <a href=https://www.whonix.org/wiki/Verify_the_Whonix_images>Whonix wiki</a>.</p>
+<h3 id=extract-the-archive>Extract the archive
+<a class=anchor href=#extract-the-archive>#</a>
 </h3>
-<p>Convert the two virtual disks.</p>
+<p>Use <code>tar</code> or another archive utility of choice to extract the <code>ova</code> archive,
+producing two <code>vmdk</code> virtual disks.</p>
+<h3 id=convert-the-disks>Convert the disks
+<a class=anchor href=#convert-the-disks>#</a>
+</h3>
+<p>Convert both virtual disks to <code>vhd</code>.</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>VBoxManage.exe clonehd source.vmdk target.vhd --format vhd
-</code></pre></div><h3 id=networking>Networking
-<a class=anchor href=#networking>#</a>
-</h3>
-<h4 id=create-the-internal-switch>Create the internal switch
-<a class=anchor href=#create-the-internal-switch>#</a>
-</h4>
-<p>Create an internal switch and <a href=https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/setup-nat-network#create-a-nat-virtual-network>get the interface index.</a></p>
-<h5 id=create-the-gateway>Create the gateway
-<a class=anchor href=#create-the-gateway>#</a>
-</h5>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-NetIPAddress -IPAddress 10.0.2.2 -PrefixLength 24 -InterfaceIndex &lt;ifIndex&gt;
-</code></pre></div><h5 id=configure-the-network>Configure the network
-<a class=anchor href=#configure-the-network>#</a>
-</h5>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-NetNat -Name Gateway -InternalIPInterfaceAddressPrefix 10.0.2.0/24
-</code></pre></div><h4 id=create-the-private-switch>Create the private switch
-<a class=anchor href=#create-the-private-switch>#</a>
-</h4>
-<p>This switch is used to connect the Gateway to Workstation.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-VMSwitch -SwitchName Whonix -SwitchType Private
-</code></pre></div><h3 id=vm-creation>VM creation
-<a class=anchor href=#vm-creation>#</a>
-</h3>
-<p>There should be two Generation 1 virtual machines. Whonix does not have UEFI support and will not boot on Generation 2 VMs.</p>
-<p>UEFI setup so that Whonix will run in Generation 2 virtual machines is detailed <a href=#generation-2-installation>later</a>.</p>
-<h4 id=gateway>Gateway
-<a class=anchor href=#gateway>#</a>
-</h4>
-<p>Create a Generation 1 virtual machine and add your <code>whonix-xxxx-disk001.vhd</code> virtual disk.</p>
-<p>Create two virtual network adapters, one connecting to the Gateway virtual switch, and one connecting to the Whonix virtual switch.</p>
-<h4 id=workstation>Workstation
-<a class=anchor href=#workstation>#</a>
-</h4>
-<p>Create a Generation 1 virtual machine and add your <code>whonix-xxxx-disk002.vhd</code> virtual disk.</p>
-<p>Create a virtual network adapter connecting to the Whonix virtual switch.</p>
-<h4 id=hyper-v-kernel-modules>Hyper-V kernel modules
-<a class=anchor href=#hyper-v-kernel-modules>#</a>
-</h4>
-<p>To get networking working on Whonix, you need to enable some <a href=https://blog.jitdor.com/2020/02/08/enable-hyper-v-integration-services-for-your-ubuntu-guest-vms/>kernel modules</a> for Hyper-V integration.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>printf <span style=color:#e6db74>&#34;hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc&#34;</span> &gt;&gt; /etc/initramfs-tools/modules
-update-initramfs -u
-</code></pre></div><h2 id=generation-2-installation>Generation 2 installation
-<a class=anchor href=#generation-2-installation>#</a>
+</code></pre></div><h2 id=virtual-machine-setup>Virtual Machine Setup
+<a class=anchor href=#virtual-machine-setup>#</a>
 </h2>
-<p>Do not attempt to execute any of the steps below unless you are familiar with the implications of performing them incorrectly.</p>
-<h3 id=converting-to-vhdx>Converting to vhdx
-<a class=anchor href=#converting-to-vhdx>#</a>
+<h3 id=set-up-networking>Set up networking
+<a class=anchor href=#set-up-networking>#</a>
 </h3>
-<p>Generation 2 virtual machines only support <code>.vhdx</code> disks. You should convert the disks within the Hyper-V Manager UI or with the PowerShell cmdlet <code>Convert-VHD</code>.</p>
+<ul>
+<li>
+<p>Create an internal switch named WhonixGateway and find its
+<a href=https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/setup-nat-network#create-a-nat-virtual-network>interface index</a>.</p>
+<ul>
+<li>
+<p>Create the NAT gateway with the previously mentioned interface index</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-NetIPAddress -IPAddress 10.0.2.2 -PrefixLength 24 -InterfaceIndex &lt;ifIndex&gt;
+</code></pre></div></li>
+<li>
+<p>Configure the NAT Network&rsquo;s name and NAT subnet prefix</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-NetNat -Name Gateway -InternalIPInterfaceAddressPrefix 10.0.2.0/24
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>Create a private switch, used to connect Whonix-Gateway to Whonix-Workstation.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-VMSwitch -SwitchName WhonixPrivate -SwitchType Private
+</code></pre></div></li>
+</ul>
+<h3 id=create-virtual-machines>Create virtual machines
+<a class=anchor href=#create-virtual-machines>#</a>
+</h3>
+<p>Whonix still uses GRUB&rsquo;s BIOS payload. It isn&rsquo;t UEFI compatible and doesn&rsquo;t run
+in Hyper-V&rsquo;s &ldquo;Gen 2&rdquo; VMs, which bring various security improvements. However,
+you can attempt to run Whonix in &ldquo;Gen 2&rdquo; VMs here.</p>
+<ul>
+<li>Create two virtual machines and one virtual disk (<code>whonix-xxxx-disk00x.vhd</code>)
+to each.</li>
+<li>Create a virtual network adapter on the Whonix-Gateway VM connecting to the
+&ldquo;WhonixGateway&rdquo; virtual switch.</li>
+<li>Create virtual network adapters on both VMs connecting to the &ldquo;WhonixPrivate&rdquo;
+virtual switch.</li>
+</ul>
+<h2 id=post-boot-configuration>Post-boot configuration
+<a class=anchor href=#post-boot-configuration>#</a>
+</h2>
+<p>We need to load some kernel modules to get networking working on Whonix. See
+<a href=https://blog.jitdor.com/2020/02/08/enable-hyper-v-integration-services-for-your-ubuntu-guest-vms/>this link</a>
+for more info.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>printf <span style=color:#e6db74>&#34;hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc&#34;</span> &gt;&gt; /etc/initramfs-tools/modules
+update-initramfs -u
+</code></pre></div><h2 id=round-2-working-with-efi>Round 2: Working with EFI
+<a class=anchor href=#round-2-working-with-efi>#</a>
+</h2>
+<p>Turns out EFI is relatively simple; install <code>grub-efi</code> and convert the partition
+table to GPT. This next section is for the people who need it.</p>
+<blockquote>
+<p>Generation 2 virtual machines only support <code>.vhdx</code> disks. You should convert
+the disks within the Hyper-V Manager UI or with the PowerShell cmdlet
+<code>Convert-VHD</code>.</p>
+</blockquote>
 <h3 id=install-grub-efi>Install grub-efi
 <a class=anchor href=#install-grub-efi>#</a>
 </h3>
 <p>Boot up your existing Generation 1 virtual machine and install <code>grub-efi-amd64</code>.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>apt update
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>apt update
 apt install grub-efi-amd64
 apt purge grub-pc-bin
 </code></pre></div><h3 id=partitioning>Partitioning
 <a class=anchor href=#partitioning>#</a>
 </h3>
+<ul>
+<li>
 <p>Resize /dev/sda1 to create some free space for the EFi system partition with <code>cfdisk /dev/sda</code>.</p>
+</li>
+<li>
 <p>Use <code>gdisk /dev/sda</code> to convert the partition table to GPT and create the ESP on <code>/dev/sda2</code>.</p>
-<h4 id=format-the-efi-partition>Format the EFI partition
-<a class=anchor href=#format-the-efi-partition>#</a>
-</h4>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>mkfs.fat -F <span style=color:#ae81ff>32</span> /dev/sda2
-</code></pre></div><h4 id=mount-partitions>Mount partitions
-<a class=anchor href=#mount-partitions>#</a>
-</h4>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>mount /dev/sda1 /mnt
+</li>
+<li>
+<p>Format the EFI partition</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>mkfs.fat -F <span style=color:#ae81ff>32</span> /dev/sda2
+</code></pre></div></li>
+<li>
+<p>Mount partitions</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>mount /dev/sda1 /mnt
 mkdir -p /mnt/boot/efi
 mount /dev/sda2 /mnt/boot/efi
 <span style=color:#66d9ef>for</span> d in dev proc run sys; <span style=color:#66d9ef>do</span> sudo mount -B /$d /mnt/$d; <span style=color:#66d9ef>done</span>
-</code></pre></div><h4 id=load-the-efivars-kernel-module>Load the efivars kernel module
-<a class=anchor href=#load-the-efivars-kernel-module>#</a>
-</h4>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>modprobe efivars
-</code></pre></div><h4 id=finish-the-grub-install>Finish the GRUB install
-<a class=anchor href=#finish-the-grub-install>#</a>
-</h4>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>chroot /mnt
+</code></pre></div></li>
+<li>
+<p>Finish the GRUB install</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>chroot /mnt
 grub-install --target<span style=color:#f92672>=</span>x86_64-efi --efi-directory<span style=color:#f92672>=</span>/boot/efi --bootloader-id<span style=color:#f92672>=</span>DEBIAN
 grub-mkconfig -o /boot/grub/grub.cfg
-</code></pre></div><h4 id=unmount-and-reboot>Unmount and reboot
-<a class=anchor href=#unmount-and-reboot>#</a>
-</h4>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>umount -R /mnt
+</code></pre></div></li>
+<li>
+<p>Unmount and reboot</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>umount -R /mnt
 reboot
-</code></pre></div><h3 id=secure-boot>Secure Boot
+</code></pre></div></li>
+</ul>
+<h2 id=secure-boot>Secure Boot
 <a class=anchor href=#secure-boot>#</a>
-</h3>
-<p>Debian&rsquo;s <code>grub-efi</code> package comes with <code>shim</code> out of the box signed by Microsoft&rsquo;s third party UEFI CA; it is up to the user to enable it in VM settings.</p>
+</h2>
+<p>Debian&rsquo;s <code>grub-efi</code> package comes with <code>shim</code> out of the box signed by Microsoft&rsquo;s third
+party UEFI CA; it is up to the user to enable it in VM settings.</p>
 <p>Do keep in mind this is mainly theater, as userspace components are not verified.</p>
+<h2 id=see-also>See also
+<a class=anchor href=#see-also>#</a>
+</h2>
+<ul>
+<li><a href=https://forums.whonix.org>https://forums.whonix.org</a></li>
+<li>some link to some hyper-v research</li>
+<li>more links to hyper-v research</li>
+</ul>
 </article>
 <article>
 <h2><a class=article-title href=https://qua3k.github.io/security/email/>Email (In)security</a> &#183; <time datetime=2021-06-01>01 Jun 2021</time></h2>
@@ -368,26 +407,6 @@ reboot
 <li>Log and crash report endpoints,</li>
 <li>Et cetera.</li>
 </ul>
-<details>
-<summary><a href=https://github.com/lynn-stephenson>@lynn-stephenson</a> — you can even change the URLs of "Google URLs" with some switches</summary>
-<p><code>--google-apis-url</code>
-<p><code>--google-base-url</code>
-<p><code>--google-url</code>
-<p><code>--autofill-assistant-url</code>
-<p><code>--autofill-server-url</code>
-<p><code>--cloud-print-url</code>
-<p><code>--connectivity-check-url</code>
-<p><code>--crash-server-url</code>
-<p><code>--cryptauth-http-host</code>
-<p><code>--cryptauth-v2-devicesync-http-host</code>
-<p><code>--cryptauth-v2-enrollment-http-host</code>
-<p><code>--data-reduction-proxy-config-url</code>
-<p><code>--data-reduction-proxy-pingback-url</code>
-<p><code>--data-reduction-proxy-secure-proxy-check-url</code>
-<p><code>--device-management-url</code>
-<p><code>--disable-sync</code>
-<p><code>--disable-sync-types</code>
-</details>
 <h2 id=disable-profile-avatar-downloadingpatch>disable-profile-avatar-downloading.patch
 <a class=anchor href=#disable-profile-avatar-downloadingpatch>#</a>
 </h2>
@@ -461,6 +480,8 @@ reboot
 <p>i am cool</p>
 </article>
 </main>
-<footer>this is a footer</footer>
+<footer>
+<a href=/posts-list/>a list of all posts</a>
+</footer>
 </body>
 </html>
