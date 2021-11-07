@@ -20,7 +20,7 @@ work and does not expend any effort to make them work.
 
 ### Verify the signature
 
-See https://www.whonix.org/wiki/Verify_the_Whonix_images
+See the [Whonix wiki](https://www.whonix.org/wiki/Verify_the_Whonix_images).
 
 ### Extract the archive
 
@@ -60,7 +60,7 @@ VBoxManage.exe clonehd source.vmdk target.vhd --format vhd
 ### Create virtual machines
 
 Whonix still uses GRUB's BIOS payload. It isn't UEFI compatible and doesn't run
-in Hyper-V's "Gen 2" VMs, which bring various security improvements. However, 
+in Hyper-V's "Gen 2" VMs, which bring various security improvements. However,
 you can attempt to run Whonix in "Gen 2" VMs here.
 
 *   Create two virtual machines and one virtual disk (`whonix-xxxx-disk00x.vhd`)
@@ -134,7 +134,8 @@ apt purge grub-pc-bin
 
 ## Secure Boot
 
-Debian's `grub-efi` package comes with `shim` out of the box signed by Microsoft's third party UEFI CA; it is up to the user to enable it in VM settings.
+Debian's `grub-efi` package comes with `shim` out of the box signed by Microsoft's third
+party UEFI CA; it is up to the user to enable it in VM settings.
 
 Do keep in mind this is mainly theater, as userspace components are not verified.
 

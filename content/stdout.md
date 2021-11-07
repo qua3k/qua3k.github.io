@@ -13,13 +13,13 @@ For instance, I learned that `echo` writes to `stdout`, the standard output, by
 default.
 
 ```shell
-{{<code "paste" "echo 'This prints to stdout'">}} 
+{{<code "paste" "echo 'This prints to stdout'">}}
 ```
 
 You can even redirect it to `stderr`!
 
 ```shell
-{{<code "paste" ">&2 echo 'This prints to stderr'">}} 
+{{<code "paste" ">&2 echo 'This prints to stderr'">}}
 ```
 
 Anyways, that's all I wanted to share.

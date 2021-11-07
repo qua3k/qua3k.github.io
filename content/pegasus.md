@@ -16,7 +16,7 @@ Frightened users might ask:
 *   Does this affect the latest Android/iOS?
 *   Should I stop using Android/iOS?
 
-The answer is largely **no**. 
+The answer is largely **no**.
 
 The Pegasus spyware isn't new. We've known about it for a long time, and we know
 it takes advantage of a variety of exploits to exploit different types of
@@ -50,7 +50,7 @@ engineers, and Titan M isn't found in any other phones. The
 security researchers and is a hardened OS meant to defend against memory
 corruption and other common vulnerabilities. Neither iOS nor GrapheneOS will
 protect you from an adversary with unlimited resources and time, but they will
-raise the time and the cost to successfully exploit a device. 
+raise the time and the cost to successfully exploit a device.
 
 In the end, Pegasus is not a concern for most users, and you should refrain from
 listening to people trying to sell you things in the wake of the news.
