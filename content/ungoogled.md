@@ -4,183 +4,270 @@ date = 2021-05-29
 description = "A review of ungoogled-chromium patches"
 +++
 
-As one of the most used applications in the system, it is ideal to have a secure browser. Browsers have large attack surface due to a combination of their complexity, handling of untrusted input, and use of unsafe languages. Even while browser makers continually work make their browsers more secure, most browsers have poor privacy out of the box. [ungoogled-chromium](https://github.com/Eloston/ungoogled-chromium) is an often recommended browser because of its approach of stripping out Google web services from Chromium.
+The browser is one of the most used applications in any system. For many,
+significant portions of their online life flow through their browser and as
+such, the browser and the developers behind it are in a position to abuse their
+power to invade peoples' privacy.
 
-I have a couple of concerns with this recommendation, namely:
+As a consequence, projects such as
+[ungoogled-chromium](https://github.com/Eloston/ungoogled-chromium) were born to
+"remove integration with Google services" within the codebase and "enhance
+privacy, control, and transparency".
 
-*   ungoogled-chromium lags behind upstream Chrome for days [every release](https://github.com/Eloston/ungoogled-chromium/releases).
-*   The team does not ship official binaries; [third parties contribute prebuilt binaries](https://github.com/Eloston/ungoogled-chromium#downloads), so there is no central party to trust.
-*   Additionally, the maintainers of the packages tend to [weaken exploit mitigations such as Control-Flow Integrity by opting to use system libraries](https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=ungoogled-chromium#n143) or [build with unsupported toolchains](https://github.com/ungoogled-software/ungoogled-chromium-fedora).
-*   Component updates are disabled, instead opting to ship components each browser update. Components were originally unbundled from browser updates so that they could be updated faster.
-*   Links to documentation and troubleshooting are broken by their patches.
+However, there are some glaring flaws with the ungoogled-chromium project. For
+instance, ungoogled-chromium lags behind upstream Chrome for
+[days](https://chromereleases.googleblog.com/)
+[every release](https://github.com/Eloston/ungoogled-chromium/releases). The
+time that n-days are exploitable in ungoogled-chromium is *significantly* longer
+than in either Chrome or Edge.
 
-Security issues aside, they must be doing unique and great work in privacy, right?
+The team also **does not** ship official binaries and requires users to either
+trust an additional unknown
+[third party](https://github.com/Eloston/ungoogled-chromium#downloads) or build
+from source. It *may not* be a concern depending on the vendor distributing the
+binaries, however, and
+[reproducible builds don't solve this problem](https://blog.cmpxchg8b.com/2020/07/you-dont-need-reproducible-builds.html).
 
-Not necessarily. Most of the functionality of the patches are either in the best case minimally beneficial or can be reproduced with either a setting, a flag, or a switch, and using a browser specifically for these patches should not merit the tradeoff in security.
+Keeping that in mind, the third parties that are trusted to distribute prebuilt
+binaries tend to cripple security features either by weaken exploit mitigations
+such as Control-Flow Integrity by
+[opting to use system libraries](https://github.com/ungoogled-software/ungoogled-chromium-archlinux/blob/7c5d8f35f827d317a003f89534e9df33bc791080/PKGBUILD#L96)
+often not compiled with CFI or
+[building with unsupported toolchains](https://github.com/ungoogled-software/ungoogled-chromium-fedora).
 
-This blog post aims to detail the patches in the order they apply in, their functions, and how they can be reproduced in Chrome.
+Furthermore, component updates are disabled, even though components are
+delivered via the component updater because they require faster out-of-band
+updates than regular browser updates, and the ungoogled-chromium team does not
+seem to have any interest in delivering component updates.
 
-## 0001-fix-building-without-safebrowsing.patch, unrar.patch, safe_browsing-disable-incident-reporting.patch, safe_browsing-disable-reporting-of-safebrowsing-over.patch, remove-unused-preferences-fields.patch
+Finally, *the patches don't make sense*. Performing domain substitution on every
+URL in the codebase, including documentation and troubleshooting, doesn't appear
+to be driven by a real or perceived threat.
 
-These patches disable Safe Browsing. Related prefs are removed in `remove-unused-preferences-fields`.
+In addition, most of the functionality of the patches can be easily driven by
+**disabling crash and metrics reporting in Chrome settings**. The patches that
+can't be reproduced easily in Chrome settings are in the best case minimally
+beneficial or actually harmful. Using a browser specifically to gain a perceived
+notion of privacy should not involve making significant tradeoffs in security.
 
-* Safe Browsing can be turned off in `chrome://settings`.
+As such, this blog post is meant to shed some light on the function of
+ungoogled-chromium patches and how they compare to Chrome's user facing
+settings.
 
-## 0003-disable-autofill-download-manager.patch
+{{< table_of_contents >}}
 
-This patch disables form Autofill data transmission to Google.
+## Safe Browsing
 
-* Autofill can be turned off in `chrome://settings`.
+The ungoogled-chromium project has written and uses multiple patches to
+wipe Google's Safe Browsing service from the codebase even though users can
+disable Safe Browsing from the settings. For instance:
 
-## 0005-disable-default-extensions.patch
+### fix building without safebrowsing
 
-This patch disables:
+removes parts of the Safe Browsing service such as the Safe Browsing
+interstitial.
 
-* Google Wallet
-* Google Feedback
-* Google Web Store
-* Google Hangouts
-* Google Branding
+### unrar
 
-## 0007-disable-web-resource-service.patch
+disables "support for safe browsing inspection of rar files".
 
-This patch disables Chrome's WebResourceService, which periodically fetches data from a Google server to dynamically configure the browser. It is(was) used by PluginsResourceService to download security updates for plugins, the last of which was Flash. It is used by PromoResourceService to dynamically change the appearance of the new tab page, although the only platform that still runs promos is iOS.
+### disable incident reporting
 
-## 0009-disable-google-ipv6-probes.patch
+disables "the safebrowsing incident reporting where you could upload
+information about a blocked URL to Google (also added a trk prefix to the URL so
+we get notified if this happens again in the future)."
 
-This patch uses RIPE NCC servers instead of Google servers for IPv6 probes.
+### disable reporting of safebrowsing override
 
-## 0015-disable-update-pings.patch
+disables "reporting of the safebrowsing override, i.e. the report sent if a
+user decides to visit a page that was flagged as "insecure". This
+prevents trk:148 (phishing) and trk:149 (malware)".
 
-This patch disables pings to clients2.google.com/ for component updates.
+### remove unused preferences fields
 
-* Component updates can be disabled with switch `--disable-component-update`.
+removes "unused Safe Browsing and Sign-in fields from the Preferences file".
 
-## 0017-disable-new-avatar-menu.patch
+## Autofill
 
-This cosmetic patch disables the new avatar menu.
+The ungoogled-chromium project removes parts of the Autofill service to prevent
+Chrome from sending
+"[hashed descriptions of the form and its fields](https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/components/autofill/core/browser/autofill_download_manager.cc#254)"
+when the user encounters a web form. Note that Autofill can be turned off in
+Chrome settings.
 
-## 0021-disable-rlz.patch
+## Default Extensions
 
-This patch disables RLZ, a promotional tag used to measure searches and Chrome usage. This non-unique tag sent is sent with searches made on Google, telemetry, and crash reports.
+The ungoogled-chromium project disables certain built-in extensions such as the
+Chrome Web Store, and the exclusive to `GOOGLE_CHROME_BRANDING` in-app payments
+support application and Feedback app.
 
-* RLZ can be disabled by defining `"rlz_disabled":true` in the preferences file.
+## WebResourceService
 
-## disable-crash-reporter.patch
+ungoogled-chromium removes portions of Chrome's WebResourceService, used by
+Chrome's[PluginsResourceService](https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/plugins/plugins_resource_service.cc#79)
+to download security updates to various pepper plugins in Chrome, such as
+[Adobe Flash](https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/resources/plugin_metadata/plugins_win.json#3)
+and the
+[Chrome PDF viewer](https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/resources/plugin_metadata/plugins_win.json#23);
+this may change with the advent of the
+[Unseasoned PDF viewer](https://docs.google.com/document/d/1olIb-1IFVqP2fLTq0eAdW-aL-K2dDDZGDe5mZgHGfO8/edit)
+and the deprecation of PPAPI.
 
-This patch disables the uploading of crash reports to Google. Chromium does not report crashes.
+## IPv6 Probes
 
-* Disable the crash reporter with switch `--disable-crash-reporter`.
+ungoogled-chromium uses RIPE NCC servers instead of Google servers for IPv6
+probes (connectivity checks) and adds a feature flag for disabling IPv6 probes
+altogether.
 
-## disable-google-host-detection.patch
+## Component Updates
 
-This patch disables specific features and restrictions applied to Google domains.
+The ungoogled-chromium project stubs out the URL for component updates, posing a
+legitimate risk by denying users out-of-band security updates to components such
+as Chrome's CRLSets, used to
+"[quickly block certificates in emergency situations](https://dev.chromium.org/Home/chromium-security/crlsets)".
+In contrast, GrapheneOS's Vanadium subproject
+[disables potentially invasive component updater pings](https://github.com/GrapheneOS/Vanadium/blob/bef7ed9b6884968e7506badea79a13a3247485f2/patches/0048-disable-component-updater-pings-by-default.patch)
+while still allowing for component updates, and
+[they are looking into providing component updates via their own server](https://github.com/GrapheneOS/Vanadium/issues/62).
 
-## replace-google-search-engine-with-nosearch.patch
+## Sign-in / new avatar menu
 
-This patch replaces Google with "No Search" (disabling search from omnibox).
+ungoogled-chromium disables sign-in – it used to additionally control the new
+avatar menu but doesn't anymore and never got renamed.
 
-* Use another search engine.
+## RLZ
 
-## disable-signin.patch, fix-building-without-one-click-signin.patch, disable-gaia.patch
+ungoogled-chromium disables the use of RLZ, a promotional tag used to measure
+searches and Chrome usage. The non-unique tag
+"[contains information about how Chrome was obtained, the week when Chrome was installed, and the week when the first search was performed](https://www.google.com/chrome/privacy/whitepaper.html#measurepromotions)"
+and is sent with searches made on Google, telemetry, and crash reports. However,
+users can "opt-out of sending this data to Google by...installing a version
+downloaded directly from [www.google.com/chrome](https://www.google.com/chrome).
+To opt-out of sending the RLZ string in Chrome OS, press Ctrl + Alt + T to open
+the `crosh` shell, type `rlz disable` followed by the enter key, and then
+reboot your device."
 
-This patch disables browser management of sign-in of Google Accounts. Requires API keys found only in Chrome.
+## Crash Reporting
 
-* Disabled with switches `--disable-gaia-services`, `--disable-sync`, `--allow-browser-signin=false`
+ungoogled-chromium disables the uploading of crash reports to Google. However,
+builds without `GOOGLE_CHROME_BRANDING`
+[do not report crashes](https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/components/crash/core/app/crash_reporter_client.cc#26).
 
-## toggle-translation-via-switch.patch
+## Google Domains Functionality
 
-This patch disables translation and removes the "Translate to" context menu when `--translate-script-url` is not set.
+ungoogled-chromium disables specific features and restrictions applied to
+Google domains.
 
-* Define a non-existent `--translate-script-url`.
+## Search Engine
 
-## all-add-trk-prefixes-to-possibly-evil-connection.patch, disable-untraceable-urls.patch, block-trk-and-subdomains.patch, disable-webstore-urls.patch, fix-learn-doubleclick-hsts.patch, block-requests.patch
+ungoogled-chromium replaces Google with "No Search" (disabling search from
+omnibox).
 
-These patches disable all connections hard-coded into the browser using domain substitution. Many of these connections are only made on user interaction and not transparently made in the background.
+## Google Accounts (GAIA)
 
-Connections patched out include
+ungoogled-chromium disables browser management of sign-in of Google Accounts.
 
-* AppID faucets used in U2F,
-* Browser customization,
-* Chrome Web Store,
-* Component and Extension endpoints,
-* Documentation: e.g. the "learn more" page in incognito mode.,
-* Extensions functionality,
-* Login endpoints,
-* Log and crash report endpoints,
-* Et cetera.
+## Translate
 
-<details>
-    <summary><a href="https://github.com/lynn-stephenson">@lynn-stephenson</a> — you can even change the URLs of "Google URLs" with some switches</summary>
-    <p><code>--google-apis-url</code>
-    <p><code>--google-base-url</code>
-    <p><code>--google-url</code>
-    <p><code>--autofill-assistant-url</code>
-    <p><code>--autofill-server-url</code>
-    <p><code>--cloud-print-url</code>
-    <p><code>--connectivity-check-url</code>
-    <p><code>--crash-server-url</code>
-    <p><code>--cryptauth-http-host</code>
-    <p><code>--cryptauth-v2-devicesync-http-host</code>
-    <p><code>--cryptauth-v2-enrollment-http-host</code>
-    <p><code>--data-reduction-proxy-config-url</code>
-    <p><code>--data-reduction-proxy-pingback-url</code>
-    <p><code>--data-reduction-proxy-secure-proxy-check-url</code>
-    <p><code>--device-management-url</code>
-    <p><code>--disable-sync</code>
-    <p><code>--disable-sync-types</code>
-</details>
+ungoogled-chromium disables translation and removes the "Translate to" context
+menu when `--translate-script-url` is not set.
+
+## Domain Substitution
+
+ungoogled-chromium includes multiple patches to disable all connections
+hard-coded into the browser using domain substitution. Many of these
+connections are only made on user interaction and not transparently made in the
+background.
+
+Connections substituted out include
+
+*   AppID faucets used in U2F,
+*   Browser customization,
+*   Chrome Web Store,
+*   Component and Extension endpoints,
+*   Documentation: e.g. the "learn more" page in incognito mode.,
+*   Extensions functionality,
+*   Login endpoints,
+*   Log and crash report endpoints,
+*   Et cetera.
 
 ## disable-profile-avatar-downloading.patch
 
-This patch disables the downloading of profile avatars from Google.
+ungoogled-chromium disables the downloading of high-res profile avatars from
+Google whenever a user selects an avatar in Chrome settings.
 
-## disable-gcm.patch
+## chrome.gcm
 
-Disables the Google Cloud Messaging component of the `chrome.gcm` API that extensions can use to send messages through Firebase Cloud Messaging.
+ungoogled-chromium removes the Google Cloud Messaging component of the
+`chrome.gcm` API that extensions can use to send messages through Firebase
+Cloud Messaging.
 
-## disable-domain-reliability.patch
+## Domain Reliability
 
-The domain reliability monitor sends info to Google whenever an error occurs while visiting a Google domain.
+The Domain Reliability monitor sends info to Google whenever an error occurs
+while visiting a Google domain. The ungoogled-chromium project disables the
+creating of the Domain Reliability service in all cases, even though it can be
+disabled by
+[disabling metrics and crash reporting](https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/domain_reliability/service_factory.cc#35).
 
-* Disable domain reliability with switch `--disable-domain-reliability`.
+## Remote Fonts
 
-## disable-fonts-googleapis-references.patch
+ungoogled-chromium removes references to
+[fonts.googleapis.com/](https://fonts.googleapis.com/) hardcoded in the
+browser, replacing them with alternative local fonts.
 
-This patch disables references to fonts.googleapis.com/ hardcoded in the browser.
+## WebRTC Log Uploader
 
-## disable-webrtc-log-uploader.patch
+ungoogled-chromium disables the uploading of WebRTC logs for the private WebRTC
+logging APIs used by the Hangouts/Meets services, although it would mean no data
+would have been uploaded in the first place due to domain substitution.
 
-This patch disables the uploading of WebRTC logs for the Hangouts extension.
+## Local DevTools Files
 
-* Disable reporting additional diagnostics in Hangouts settings.
+ungoogled-chromium always uses local DevTools files instead of remote files
+from Google.
 
-## use-local-devtools-files.patch
+## Browser Network Time
 
-This patch always uses local DevTools files instead of remote files from Google.
+ungoogled-chromium disables
+"[occasional queries to a Google server to retrieve an accurate timestamp](https://chromeenterprise.google/policies/#BrowserNetworkTimeQueriesEnabled)".
 
-## disable-network-time-tracker.patch
+* Disable the network time tracker with switch
+`--disable-features=NetworkTimeServiceQuerying`
 
-This patch disables connections to Google to check if the system time is correct when a website certificate date seems incorrect.
+## MEI Preloading
 
-* Disable the network time tracker with switch `--disable-features=NetworkTimeServiceQuerying`
+ungoogled-chromium disables downloading of a
+[list of sites](https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/resources/media/mei_preload/preloaded_data.pb)
+with a high
+[Media Engagement Index](https://developer.chrome.com/blog/autoplay/#media-engagement-index)
+used to determine whether or not a site autoplays. Users can disable MEI
+preloading with switch
+`--disable-features=PreloadMediaEngagementData,
+MediaEngagementBypassAutoplayPolicies`
 
-## disable-mei-preload.patch
+## Reporting API
 
-This patch disables downloading of a list of sites with a high Media Engagement Index, used to determine whether or not a site autoplays.
+ungoogled-chromium allows building with `enable_reporting = false`. (disables
+Reporting API)
 
-* Disable MEI preloading with switch `--disable-features=PreloadMediaEngagementData, MediaEngagementBypassAutoplayPolicies`
+## Field Trials
 
-## fix-building-without-enabling-reporting.patch
+ungoogled-chromium disables the downloading of field trials (Google’s A/B
+testing).
 
-This patch disables reporting COEP/COOP violations.
+## Conclusion
 
-## disable-fetching-field-trials.patch
+ungoogled-chromium really isn't a security-oriented browser and is often a
+regression over Chrome due to various problems with their approach. There are
+other downstream forks such as Vanadium that add meaningful security
+improvements that upstream won't due to performance regressions, but Chrome
+will always be the first to receive security updates, which is kind of a big
+thing going for it.
 
-This patch disables the downloading of field trials (Google’s A/B testing).
+## See also
 
-* Field trials can be disabled with switch `--disable-field-trial-config`.
-
-With the relative ease that these settings can be changed, there are few reasons to use `ungoogled-chromium` as a main browser when Chrome can be configured similarly.
-
-If you do decide to use `ungoogled-chromium`, against the advice of this article, please properly build it yourself.
+*   [Hexavalent](https://github.com/Hexavalent-Browser/Hexavalent)
+*   [Vanadium](https://github.com/GrapheneOS/Vanadium)
+*   [Google Chrome Privacy Whitepaper](https://www.google.com/chrome/privacy/whitepaper.html)
+*   [Random switches the Chromium Authors expose](https://gist.github.com/qua3k/6bde83af45355f8b3e7eef845a8a2ece)
