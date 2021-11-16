@@ -1,0 +1,69 @@
+<!doctype html><html lang=en-us prefix="og: https://ogp.me/ns#">
+<head><meta charset=utf-8>
+<title>Improving Browser Security &#183; segmentation-fault</title>
+<meta name=viewport content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name=color-scheme content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://qua3k.github.io/hexavalent/">
+<link href=https://qua3k.github.io/LICENSE.txt rel=license>
+<meta property="og:title" content="Improving Browser Security &#183; segmentation-fault">
+<link rel=icon href=favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.png>
+<link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png>
+<meta property="og:image" content="/images/apple-touch-icon.png">
+<meta property="og:image:alt" content="A picture of a duck">
+<link href=https://qua3k.github.io/main.min.css rel=stylesheet>
+</head>
+<body>
+<header><h1><a href=/>segmentation-fault</a></h1></header>
+<main>
+<h1>Improving Browser Security</h1>
+<p class=author>duck
+(<a href=https://github.com/qua3k>@qua3k</a>)
+<p><a href=https://twitter.com/CliffMaceyak/status/1459355718834864130>Following up on my Twitter thread</a> –
+I am excited to disclose some details of Hexavalent and discuss potential
+future plans.</p>
+<h2 id=about>About
+<a class=anchor href=#about>#</a>
+</h2>
+<p>Hexavalent is a security and privacy focused web browser based on the open
+source Chromium project. It seeks to develop meaningful security improvements
+with a defined threat model and is currently in development.</p>
+<h2 id=changes>Changes
+<a class=anchor href=#changes>#</a>
+</h2>
+<p>We&rsquo;ve lifted patches from GrapheneOS&rsquo;s
+<a href=https://github.com/GrapheneOS/Vanadium>Vanadium</a> subproject and are currently
+in the process of developing and enabling security features that aren&rsquo;t enabled
+upstream due to immaturity or performance overhead such as strict origin
+isolation to address real exploits taking advantage of Chrome&rsquo;s site isolation
+and Ubercage (V8&rsquo;s heap sandbox intended to prevent memory corruption outside
+the V8 heap). Hexavalent is able to benefit from upstream hardening done by
+other organizations such as Microsoft to improve the security of the privileged
+WebUI by using Trusted Types. Our work also involves hardening Chrome&rsquo;s heap
+allocator, PartitionAlloc, to provide more protection against heap corruption.
+Additionally, the work being done to tighten the Linux sandbox such as by
+preventing dynamic code generation by applying restrictions on mapping writable
+and executable pages and marking non-executable pages as executable in
+processes that do not generate dynamic code is in the process of being tested
+and may be upstreamed into the Vanadium subproject. Some of the work we&rsquo;re
+doing, such as with the heap allocator, come directly from past work done by
+other projects such as
+<a href=https://github.com/struct/HardenedPartitionAlloc>HardenedPartitionAlloc</a>.</p>
+<h2 id=future-work>Future Work
+<a class=anchor href=#future-work>#</a>
+</h2>
+<p>We&rsquo;re going to be looking into reducing the attack surface of the browser by
+disabling complex APIs, file formats/parsers, etc, that introduce large amounts
+of attack surface and are overly complicated. In addition, we may look into
+entirely replacing the heap allocator with one with one focused primarily on
+security such as GrapheneOS&rsquo;s
+<a href=https://github.com/GrapheneOS/hardened_malloc>hardened_malloc</a> or Chris
+Rolf&rsquo;s <a href=https://github.com/struct/isoalloc>isoalloc</a>.</p>
+</main>
+<footer>
+<a href=/posts-list/>a list of all posts</a>
+</footer>
+</body>
+</html>
