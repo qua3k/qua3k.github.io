@@ -23,106 +23,214 @@
 <h1>Ungoogled-Chromium</h1>
 <p class=author>duck
 (<a href=https://github.com/qua3k>@qua3k</a>)
-<p>As one of the most used applications in the system, it is ideal to have a secure browser. Browsers have large attack surface due to a combination of their complexity, handling of untrusted input, and use of unsafe languages. Even while browser makers continually work make their browsers more secure, most browsers have poor privacy out of the box. <a href=https://github.com/Eloston/ungoogled-chromium>ungoogled-chromium</a> is an often recommended browser because of its approach of stripping out Google web services from Chromium.</p>
-<p>I have a couple of concerns with this recommendation, namely:</p>
+<p>The browser is one of the most used applications in any system. For many,
+significant portions of their online life flow through their browser and as
+such, the browser and the developers behind it are in a position to abuse their
+power to invade peoples' privacy.</p>
+<p>As a consequence, projects such as
+<a href=https://github.com/Eloston/ungoogled-chromium>ungoogled-chromium</a> were born to
+&ldquo;remove integration with Google services&rdquo; within the codebase and &ldquo;enhance
+privacy, control, and transparency&rdquo;.</p>
+<p>However, there are some glaring flaws with the ungoogled-chromium project. For
+instance, ungoogled-chromium lags behind upstream Chrome for
+<a href=https://chromereleases.googleblog.com/>days</a>
+<a href=https://github.com/Eloston/ungoogled-chromium/releases>every release</a>. The
+time that n-days are exploitable in ungoogled-chromium is <em>significantly</em> longer
+than in either Chrome or Edge.</p>
+<p>The team also <strong>does not</strong> ship official binaries and requires users to either
+trust an additional unknown
+<a href=https://github.com/Eloston/ungoogled-chromium#downloads>third party</a> or build
+from source. It <em>may not</em> be a concern depending on the vendor distributing the
+binaries, however, and
+<a href=https://blog.cmpxchg8b.com/2020/07/you-dont-need-reproducible-builds.html>reproducible builds don&rsquo;t solve this problem</a>.</p>
+<p>Keeping that in mind, the third parties that are trusted to distribute prebuilt
+binaries tend to cripple security features either by weaken exploit mitigations
+such as Control-Flow Integrity by
+<a href=https://github.com/ungoogled-software/ungoogled-chromium-archlinux/blob/7c5d8f35f827d317a003f89534e9df33bc791080/PKGBUILD#L96>opting to use system libraries</a>
+often not compiled with CFI or
+<a href=https://github.com/ungoogled-software/ungoogled-chromium-fedora>building with unsupported toolchains</a>.</p>
+<p>Furthermore, component updates are disabled, even though components are
+delivered via the component updater because they require faster out-of-band
+updates than regular browser updates, and the ungoogled-chromium team does not
+seem to have any interest in delivering component updates.</p>
+<p>Finally, <em>the patches don&rsquo;t make sense</em>. Performing domain substitution on every
+URL in the codebase, including documentation and troubleshooting, doesn&rsquo;t appear
+to be driven by a real or perceived threat.</p>
+<p>In addition, most of the functionality of the patches can be easily driven by
+<strong>disabling crash and metrics reporting in Chrome settings</strong>. The patches that
+can&rsquo;t be reproduced easily in Chrome settings are in the best case minimally
+beneficial or actually harmful. Using a browser specifically to gain a perceived
+notion of privacy should not involve making significant tradeoffs in security.</p>
+<p>As such, this blog post is meant to shed some light on the function of
+ungoogled-chromium patches and how they compare to Chrome&rsquo;s user facing
+settings.</p>
+<nav>
+<h2 id=#table-of-contents>Table of Contents
+<a class=anchor href=#table-of-contents>#</a>
+</h2>
+<nav id=TableOfContents>
 <ul>
-<li>ungoogled-chromium lags behind upstream Chrome for days <a href=https://github.com/Eloston/ungoogled-chromium/releases>every release</a>.</li>
-<li>The team does not ship official binaries; <a href=https://github.com/Eloston/ungoogled-chromium#downloads>third parties contribute prebuilt binaries</a>, so there is no central party to trust.</li>
-<li>Additionally, the maintainers of the packages tend to <a href="https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=ungoogled-chromium#n143">weaken exploit mitigations such as Control-Flow Integrity by opting to use system libraries</a> or <a href=https://github.com/ungoogled-software/ungoogled-chromium-fedora>build with unsupported toolchains</a>.</li>
-<li>Component updates are disabled, instead opting to ship components each browser update. Components were originally unbundled from browser updates so that they could be updated faster.</li>
-<li>Links to documentation and troubleshooting are broken by their patches.</li>
-</ul>
-<p>Security issues aside, they must be doing unique and great work in privacy, right?</p>
-<p>Not necessarily. Most of the functionality of the patches are either in the best case minimally beneficial or can be reproduced with either a setting, a flag, or a switch, and using a browser specifically for these patches should not merit the tradeoff in security.</p>
-<p>This blog post aims to detail the patches in the order they apply in, their functions, and how they can be reproduced in Chrome.</p>
-<h2 id=0001-fix-building-without-safebrowsingpatch-unrarpatch-safe_browsing-disable-incident-reportingpatch-safe_browsing-disable-reporting-of-safebrowsing-overpatch-remove-unused-preferences-fieldspatch>0001-fix-building-without-safebrowsing.patch, unrar.patch, safe_browsing-disable-incident-reporting.patch, safe_browsing-disable-reporting-of-safebrowsing-over.patch, remove-unused-preferences-fields.patch
-<a class=anchor href=#0001-fix-building-without-safebrowsingpatch-unrarpatch-safe_browsing-disable-incident-reportingpatch-safe_browsing-disable-reporting-of-safebrowsing-overpatch-remove-unused-preferences-fieldspatch>#</a>
-</h2>
-<p>These patches disable Safe Browsing. Related prefs are removed in <code>remove-unused-preferences-fields</code>.</p>
+<li><a href=#safe-browsing>Safe Browsing</a>
 <ul>
-<li>Safe Browsing can be turned off in <code>chrome://settings</code>.</li>
+<li><a href=#fix-building-without-safebrowsing>fix building without safebrowsing</a></li>
+<li><a href=#unrar>unrar</a></li>
+<li><a href=#disable-incident-reporting>disable incident reporting</a></li>
+<li><a href=#disable-reporting-of-safebrowsing-override>disable reporting of safebrowsing override</a></li>
+<li><a href=#remove-unused-preferences-fields>remove unused preferences fields</a></li>
 </ul>
-<h2 id=0003-disable-autofill-download-managerpatch>0003-disable-autofill-download-manager.patch
-<a class=anchor href=#0003-disable-autofill-download-managerpatch>#</a>
-</h2>
-<p>This patch disables form Autofill data transmission to Google.</p>
-<ul>
-<li>Autofill can be turned off in <code>chrome://settings</code>.</li>
+</li>
+<li><a href=#autofill>Autofill</a></li>
+<li><a href=#default-extensions>Default Extensions</a></li>
+<li><a href=#webresourceservice>WebResourceService</a></li>
+<li><a href=#ipv6-probes>IPv6 Probes</a></li>
+<li><a href=#component-updates>Component Updates</a></li>
+<li><a href=#sign-in--new-avatar-menu>Sign-in / new avatar menu</a></li>
+<li><a href=#rlz>RLZ</a></li>
+<li><a href=#crash-reporting>Crash Reporting</a></li>
+<li><a href=#google-domains-functionality>Google Domains Functionality</a></li>
+<li><a href=#search-engine>Search Engine</a></li>
+<li><a href=#google-accounts-gaia>Google Accounts (GAIA)</a></li>
+<li><a href=#translate>Translate</a></li>
+<li><a href=#domain-substitution>Domain Substitution</a></li>
+<li><a href=#disable-profile-avatar-downloadingpatch>disable-profile-avatar-downloading.patch</a></li>
+<li><a href=#chromegcm>chrome.gcm</a></li>
+<li><a href=#domain-reliability>Domain Reliability</a></li>
+<li><a href=#remote-fonts>Remote Fonts</a></li>
+<li><a href=#webrtc-log-uploader>WebRTC Log Uploader</a></li>
+<li><a href=#local-devtools-files>Local DevTools Files</a></li>
+<li><a href=#browser-network-time>Browser Network Time</a></li>
+<li><a href=#mei-preloading>MEI Preloading</a></li>
+<li><a href=#reporting-api>Reporting API</a></li>
+<li><a href=#field-trials>Field Trials</a></li>
+<li><a href=#conclusion>Conclusion</a></li>
+<li><a href=#see-also>See also</a></li>
 </ul>
-<h2 id=0005-disable-default-extensionspatch>0005-disable-default-extensions.patch
-<a class=anchor href=#0005-disable-default-extensionspatch>#</a>
+</nav>
+</nav>
+<h2 id=safe-browsing>Safe Browsing
+<a class=anchor href=#safe-browsing>#</a>
 </h2>
-<p>This patch disables:</p>
-<ul>
-<li>Google Wallet</li>
-<li>Google Feedback</li>
-<li>Google Web Store</li>
-<li>Google Hangouts</li>
-<li>Google Branding</li>
-</ul>
-<h2 id=0007-disable-web-resource-servicepatch>0007-disable-web-resource-service.patch
-<a class=anchor href=#0007-disable-web-resource-servicepatch>#</a>
+<p>The ungoogled-chromium project has written and uses multiple patches to
+wipe Google&rsquo;s Safe Browsing service from the codebase even though users can
+disable Safe Browsing from the settings. For instance:</p>
+<h3 id=fix-building-without-safebrowsing>fix building without safebrowsing
+<a class=anchor href=#fix-building-without-safebrowsing>#</a>
+</h3>
+<p>removes parts of the Safe Browsing service such as the Safe Browsing
+interstitial.</p>
+<h3 id=unrar>unrar
+<a class=anchor href=#unrar>#</a>
+</h3>
+<p>disables &ldquo;support for safe browsing inspection of rar files&rdquo;.</p>
+<h3 id=disable-incident-reporting>disable incident reporting
+<a class=anchor href=#disable-incident-reporting>#</a>
+</h3>
+<p>disables &ldquo;the safebrowsing incident reporting where you could upload
+information about a blocked URL to Google (also added a trk prefix to the URL so
+we get notified if this happens again in the future).&rdquo;</p>
+<h3 id=disable-reporting-of-safebrowsing-override>disable reporting of safebrowsing override
+<a class=anchor href=#disable-reporting-of-safebrowsing-override>#</a>
+</h3>
+<p>disables &ldquo;reporting of the safebrowsing override, i.e. the report sent if a
+user decides to visit a page that was flagged as &ldquo;insecure&rdquo;. This
+prevents trk:148 (phishing) and trk:149 (malware)&rdquo;.</p>
+<h3 id=remove-unused-preferences-fields>remove unused preferences fields
+<a class=anchor href=#remove-unused-preferences-fields>#</a>
+</h3>
+<p>removes &ldquo;unused Safe Browsing and Sign-in fields from the Preferences file&rdquo;.</p>
+<h2 id=autofill>Autofill
+<a class=anchor href=#autofill>#</a>
 </h2>
-<p>This patch disables Chrome&rsquo;s WebResourceService, which periodically fetches data from a Google server to dynamically configure the browser. It is(was) used by PluginsResourceService to download security updates for plugins, the last of which was Flash. It is used by PromoResourceService to dynamically change the appearance of the new tab page, although the only platform that still runs promos is iOS.</p>
-<h2 id=0009-disable-google-ipv6-probespatch>0009-disable-google-ipv6-probes.patch
-<a class=anchor href=#0009-disable-google-ipv6-probespatch>#</a>
+<p>The ungoogled-chromium project removes parts of the Autofill service to prevent
+Chrome from sending
+&ldquo;<a href=https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/components/autofill/core/browser/autofill_download_manager.cc#254>hashed descriptions of the form and its fields</a>&rdquo;
+when the user encounters a web form. Note that Autofill can be turned off in
+Chrome settings.</p>
+<h2 id=default-extensions>Default Extensions
+<a class=anchor href=#default-extensions>#</a>
 </h2>
-<p>This patch uses RIPE NCC servers instead of Google servers for IPv6 probes.</p>
-<h2 id=0015-disable-update-pingspatch>0015-disable-update-pings.patch
-<a class=anchor href=#0015-disable-update-pingspatch>#</a>
+<p>The ungoogled-chromium project disables certain built-in extensions such as the
+Chrome Web Store, and the exclusive to <code>GOOGLE_CHROME_BRANDING</code> in-app payments
+support application and Feedback app.</p>
+<h2 id=webresourceservice>WebResourceService
+<a class=anchor href=#webresourceservice>#</a>
 </h2>
-<p>This patch disables pings to clients2.google.com/ for component updates.</p>
-<ul>
-<li>Component updates can be disabled with switch <code>--disable-component-update</code>.</li>
-</ul>
-<h2 id=0017-disable-new-avatar-menupatch>0017-disable-new-avatar-menu.patch
-<a class=anchor href=#0017-disable-new-avatar-menupatch>#</a>
+<p>ungoogled-chromium removes portions of Chrome&rsquo;s WebResourceService, used by
+Chrome&rsquo;s<a href=https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/plugins/plugins_resource_service.cc#79>PluginsResourceService</a>
+to download security updates to various pepper plugins in Chrome, such as
+<a href=https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/resources/plugin_metadata/plugins_win.json#3>Adobe Flash</a>
+and the
+<a href=https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/resources/plugin_metadata/plugins_win.json#23>Chrome PDF viewer</a>;
+this may change with the advent of the
+<a href=https://docs.google.com/document/d/1olIb-1IFVqP2fLTq0eAdW-aL-K2dDDZGDe5mZgHGfO8/edit>Unseasoned PDF viewer</a>
+and the deprecation of PPAPI.</p>
+<h2 id=ipv6-probes>IPv6 Probes
+<a class=anchor href=#ipv6-probes>#</a>
 </h2>
-<p>This cosmetic patch disables the new avatar menu.</p>
-<h2 id=0021-disable-rlzpatch>0021-disable-rlz.patch
-<a class=anchor href=#0021-disable-rlzpatch>#</a>
+<p>ungoogled-chromium uses RIPE NCC servers instead of Google servers for IPv6
+probes (connectivity checks) and adds a feature flag for disabling IPv6 probes
+altogether.</p>
+<h2 id=component-updates>Component Updates
+<a class=anchor href=#component-updates>#</a>
 </h2>
-<p>This patch disables RLZ, a promotional tag used to measure searches and Chrome usage. This non-unique tag sent is sent with searches made on Google, telemetry, and crash reports.</p>
-<ul>
-<li>RLZ can be disabled by defining <code>"rlz_disabled":true</code> in the preferences file.</li>
-</ul>
-<h2 id=disable-crash-reporterpatch>disable-crash-reporter.patch
-<a class=anchor href=#disable-crash-reporterpatch>#</a>
+<p>The ungoogled-chromium project stubs out the URL for component updates, posing a
+legitimate risk by denying users out-of-band security updates to components such
+as Chrome&rsquo;s CRLSets, used to
+&ldquo;<a href=https://dev.chromium.org/Home/chromium-security/crlsets>quickly block certificates in emergency situations</a>&rdquo;.
+In contrast, GrapheneOS&rsquo;s Vanadium subproject
+<a href=https://github.com/GrapheneOS/Vanadium/blob/bef7ed9b6884968e7506badea79a13a3247485f2/patches/0048-disable-component-updater-pings-by-default.patch>disables potentially invasive component updater pings</a>
+while still allowing for component updates, and
+<a href=https://github.com/GrapheneOS/Vanadium/issues/62>they are looking into providing component updates via their own server</a>.</p>
+<h2 id=sign-in--new-avatar-menu>Sign-in / new avatar menu
+<a class=anchor href=#sign-in--new-avatar-menu>#</a>
 </h2>
-<p>This patch disables the uploading of crash reports to Google. Chromium does not report crashes.</p>
-<ul>
-<li>Disable the crash reporter with switch <code>--disable-crash-reporter</code>.</li>
-</ul>
-<h2 id=disable-google-host-detectionpatch>disable-google-host-detection.patch
-<a class=anchor href=#disable-google-host-detectionpatch>#</a>
+<p>ungoogled-chromium disables sign-in – it used to additionally control the new
+avatar menu but doesn&rsquo;t anymore and never got renamed.</p>
+<h2 id=rlz>RLZ
+<a class=anchor href=#rlz>#</a>
 </h2>
-<p>This patch disables specific features and restrictions applied to Google domains.</p>
-<h2 id=replace-google-search-engine-with-nosearchpatch>replace-google-search-engine-with-nosearch.patch
-<a class=anchor href=#replace-google-search-engine-with-nosearchpatch>#</a>
+<p>ungoogled-chromium disables the use of RLZ, a promotional tag used to measure
+searches and Chrome usage. The non-unique tag
+&ldquo;<a href=https://www.google.com/chrome/privacy/whitepaper.html#measurepromotions>contains information about how Chrome was obtained, the week when Chrome was installed, and the week when the first search was performed</a>&rdquo;
+and is sent with searches made on Google, telemetry, and crash reports. However,
+users can &ldquo;opt-out of sending this data to Google by&mldr;installing a version
+downloaded directly from <a href=https://www.google.com/chrome>www.google.com/chrome</a>.
+To opt-out of sending the RLZ string in Chrome OS, press Ctrl + Alt + T to open
+the <code>crosh</code> shell, type <code>rlz disable</code> followed by the enter key, and then
+reboot your device.&rdquo;</p>
+<h2 id=crash-reporting>Crash Reporting
+<a class=anchor href=#crash-reporting>#</a>
 </h2>
-<p>This patch replaces Google with &ldquo;No Search&rdquo; (disabling search from omnibox).</p>
-<ul>
-<li>Use another search engine.</li>
-</ul>
-<h2 id=disable-signinpatch-fix-building-without-one-click-signinpatch-disable-gaiapatch>disable-signin.patch, fix-building-without-one-click-signin.patch, disable-gaia.patch
-<a class=anchor href=#disable-signinpatch-fix-building-without-one-click-signinpatch-disable-gaiapatch>#</a>
+<p>ungoogled-chromium disables the uploading of crash reports to Google. However,
+builds without <code>GOOGLE_CHROME_BRANDING</code>
+<a href=https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/components/crash/core/app/crash_reporter_client.cc#26>do not report crashes</a>.</p>
+<h2 id=google-domains-functionality>Google Domains Functionality
+<a class=anchor href=#google-domains-functionality>#</a>
 </h2>
-<p>This patch disables browser management of sign-in of Google Accounts. Requires API keys found only in Chrome.</p>
-<ul>
-<li>Disabled with switches <code>--disable-gaia-services</code>, <code>--disable-sync</code>, <code>--allow-browser-signin=false</code></li>
-</ul>
-<h2 id=toggle-translation-via-switchpatch>toggle-translation-via-switch.patch
-<a class=anchor href=#toggle-translation-via-switchpatch>#</a>
+<p>ungoogled-chromium disables specific features and restrictions applied to
+Google domains.</p>
+<h2 id=search-engine>Search Engine
+<a class=anchor href=#search-engine>#</a>
 </h2>
-<p>This patch disables translation and removes the &ldquo;Translate to&rdquo; context menu when <code>--translate-script-url</code> is not set.</p>
-<ul>
-<li>Define a non-existent <code>--translate-script-url</code>.</li>
-</ul>
-<h2 id=all-add-trk-prefixes-to-possibly-evil-connectionpatch-disable-untraceable-urlspatch-block-trk-and-subdomainspatch-disable-webstore-urlspatch-fix-learn-doubleclick-hstspatch-block-requestspatch>all-add-trk-prefixes-to-possibly-evil-connection.patch, disable-untraceable-urls.patch, block-trk-and-subdomains.patch, disable-webstore-urls.patch, fix-learn-doubleclick-hsts.patch, block-requests.patch
-<a class=anchor href=#all-add-trk-prefixes-to-possibly-evil-connectionpatch-disable-untraceable-urlspatch-block-trk-and-subdomainspatch-disable-webstore-urlspatch-fix-learn-doubleclick-hstspatch-block-requestspatch>#</a>
+<p>ungoogled-chromium replaces Google with &ldquo;No Search&rdquo; (disabling search from
+omnibox).</p>
+<h2 id=google-accounts-gaia>Google Accounts (GAIA)
+<a class=anchor href=#google-accounts-gaia>#</a>
 </h2>
-<p>These patches disable all connections hard-coded into the browser using domain substitution. Many of these connections are only made on user interaction and not transparently made in the background.</p>
-<p>Connections patched out include</p>
+<p>ungoogled-chromium disables browser management of sign-in of Google Accounts.</p>
+<h2 id=translate>Translate
+<a class=anchor href=#translate>#</a>
+</h2>
+<p>ungoogled-chromium disables translation and removes the &ldquo;Translate to&rdquo; context
+menu when <code>--translate-script-url</code> is not set.</p>
+<h2 id=domain-substitution>Domain Substitution
+<a class=anchor href=#domain-substitution>#</a>
+</h2>
+<p>ungoogled-chromium includes multiple patches to disable all connections
+hard-coded into the browser using domain substitution. Many of these
+connections are only made on user interaction and not transparently made in the
+background.</p>
+<p>Connections substituted out include</p>
 <ul>
 <li>AppID faucets used in U2F,</li>
 <li>Browser customization,</li>
@@ -137,60 +245,86 @@
 <h2 id=disable-profile-avatar-downloadingpatch>disable-profile-avatar-downloading.patch
 <a class=anchor href=#disable-profile-avatar-downloadingpatch>#</a>
 </h2>
-<p>This patch disables the downloading of profile avatars from Google.</p>
-<h2 id=disable-gcmpatch>disable-gcm.patch
-<a class=anchor href=#disable-gcmpatch>#</a>
+<p>ungoogled-chromium disables the downloading of high-res profile avatars from
+Google whenever a user selects an avatar in Chrome settings.</p>
+<h2 id=chromegcm>chrome.gcm
+<a class=anchor href=#chromegcm>#</a>
 </h2>
-<p>Disables the Google Cloud Messaging component of the <code>chrome.gcm</code> API that extensions can use to send messages through Firebase Cloud Messaging.</p>
-<h2 id=disable-domain-reliabilitypatch>disable-domain-reliability.patch
-<a class=anchor href=#disable-domain-reliabilitypatch>#</a>
+<p>ungoogled-chromium removes the Google Cloud Messaging component of the
+<code>chrome.gcm</code> API that extensions can use to send messages through Firebase
+Cloud Messaging.</p>
+<h2 id=domain-reliability>Domain Reliability
+<a class=anchor href=#domain-reliability>#</a>
 </h2>
-<p>The domain reliability monitor sends info to Google whenever an error occurs while visiting a Google domain.</p>
+<p>The Domain Reliability monitor sends info to Google whenever an error occurs
+while visiting a Google domain. The ungoogled-chromium project disables the
+creating of the Domain Reliability service in all cases, even though it can be
+disabled by
+<a href=https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/domain_reliability/service_factory.cc#35>disabling metrics and crash reporting</a>.</p>
+<h2 id=remote-fonts>Remote Fonts
+<a class=anchor href=#remote-fonts>#</a>
+</h2>
+<p>ungoogled-chromium removes references to
+<a href=https://fonts.googleapis.com/>fonts.googleapis.com/</a> hardcoded in the
+browser, replacing them with alternative local fonts.</p>
+<h2 id=webrtc-log-uploader>WebRTC Log Uploader
+<a class=anchor href=#webrtc-log-uploader>#</a>
+</h2>
+<p>ungoogled-chromium disables the uploading of WebRTC logs for the private WebRTC
+logging APIs used by the Hangouts/Meets services, although it would mean no data
+would have been uploaded in the first place due to domain substitution.</p>
+<h2 id=local-devtools-files>Local DevTools Files
+<a class=anchor href=#local-devtools-files>#</a>
+</h2>
+<p>ungoogled-chromium always uses local DevTools files instead of remote files
+from Google.</p>
+<h2 id=browser-network-time>Browser Network Time
+<a class=anchor href=#browser-network-time>#</a>
+</h2>
+<p>ungoogled-chromium disables
+&ldquo;<a href=https://chromeenterprise.google/policies/#BrowserNetworkTimeQueriesEnabled>occasional queries to a Google server to retrieve an accurate timestamp</a>&rdquo;.</p>
 <ul>
-<li>Disable domain reliability with switch <code>--disable-domain-reliability</code>.</li>
+<li>Disable the network time tracker with switch
+<code>--disable-features=NetworkTimeServiceQuerying</code></li>
 </ul>
-<h2 id=disable-fonts-googleapis-referencespatch>disable-fonts-googleapis-references.patch
-<a class=anchor href=#disable-fonts-googleapis-referencespatch>#</a>
+<h2 id=mei-preloading>MEI Preloading
+<a class=anchor href=#mei-preloading>#</a>
 </h2>
-<p>This patch disables references to fonts.googleapis.com/ hardcoded in the browser.</p>
-<h2 id=disable-webrtc-log-uploaderpatch>disable-webrtc-log-uploader.patch
-<a class=anchor href=#disable-webrtc-log-uploaderpatch>#</a>
+<p>ungoogled-chromium disables downloading of a
+<a href=https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/resources/media/mei_preload/preloaded_data.pb>list of sites</a>
+with a high
+<a href=https://developer.chrome.com/blog/autoplay/#media-engagement-index>Media Engagement Index</a>
+used to determine whether or not a site autoplays. Users can disable MEI
+preloading with switch
+<code>--disable-features=PreloadMediaEngagementData, MediaEngagementBypassAutoplayPolicies</code></p>
+<h2 id=reporting-api>Reporting API
+<a class=anchor href=#reporting-api>#</a>
 </h2>
-<p>This patch disables the uploading of WebRTC logs for the Hangouts extension.</p>
+<p>ungoogled-chromium allows building with <code>enable_reporting = false</code>. (disables
+Reporting API)</p>
+<h2 id=field-trials>Field Trials
+<a class=anchor href=#field-trials>#</a>
+</h2>
+<p>ungoogled-chromium disables the downloading of field trials (Google’s A/B
+testing).</p>
+<h2 id=conclusion>Conclusion
+<a class=anchor href=#conclusion>#</a>
+</h2>
+<p>ungoogled-chromium really isn&rsquo;t a security-oriented browser and is often a
+regression over Chrome due to various problems with their approach. There are
+other downstream forks such as Vanadium that add meaningful security
+improvements that upstream won&rsquo;t due to performance regressions, but Chrome
+will always be the first to receive security updates, which is kind of a big
+thing going for it.</p>
+<h2 id=see-also>See also
+<a class=anchor href=#see-also>#</a>
+</h2>
 <ul>
-<li>Disable reporting additional diagnostics in Hangouts settings.</li>
+<li><a href=https://github.com/Hexavalent-Browser/Hexavalent>Hexavalent</a></li>
+<li><a href=https://github.com/GrapheneOS/Vanadium>Vanadium</a></li>
+<li><a href=https://www.google.com/chrome/privacy/whitepaper.html>Google Chrome Privacy Whitepaper</a></li>
+<li><a href=https://gist.github.com/qua3k/6bde83af45355f8b3e7eef845a8a2ece>Random switches the Chromium Authors expose</a></li>
 </ul>
-<h2 id=use-local-devtools-filespatch>use-local-devtools-files.patch
-<a class=anchor href=#use-local-devtools-filespatch>#</a>
-</h2>
-<p>This patch always uses local DevTools files instead of remote files from Google.</p>
-<h2 id=disable-network-time-trackerpatch>disable-network-time-tracker.patch
-<a class=anchor href=#disable-network-time-trackerpatch>#</a>
-</h2>
-<p>This patch disables connections to Google to check if the system time is correct when a website certificate date seems incorrect.</p>
-<ul>
-<li>Disable the network time tracker with switch <code>--disable-features=NetworkTimeServiceQuerying</code></li>
-</ul>
-<h2 id=disable-mei-preloadpatch>disable-mei-preload.patch
-<a class=anchor href=#disable-mei-preloadpatch>#</a>
-</h2>
-<p>This patch disables downloading of a list of sites with a high Media Engagement Index, used to determine whether or not a site autoplays.</p>
-<ul>
-<li>Disable MEI preloading with switch <code>--disable-features=PreloadMediaEngagementData, MediaEngagementBypassAutoplayPolicies</code></li>
-</ul>
-<h2 id=fix-building-without-enabling-reportingpatch>fix-building-without-enabling-reporting.patch
-<a class=anchor href=#fix-building-without-enabling-reportingpatch>#</a>
-</h2>
-<p>This patch disables reporting COEP/COOP violations.</p>
-<h2 id=disable-fetching-field-trialspatch>disable-fetching-field-trials.patch
-<a class=anchor href=#disable-fetching-field-trialspatch>#</a>
-</h2>
-<p>This patch disables the downloading of field trials (Google’s A/B testing).</p>
-<ul>
-<li>Field trials can be disabled with switch <code>--disable-field-trial-config</code>.</li>
-</ul>
-<p>With the relative ease that these settings can be changed, there are few reasons to use <code>ungoogled-chromium</code> as a main browser when Chrome can be configured similarly.</p>
-<p>If you do decide to use <code>ungoogled-chromium</code>, against the advice of this article, please properly build it yourself.</p>
 </main>
 <footer>
 <a href=/posts-list/>a list of all posts</a>
