@@ -104,7 +104,8 @@ support application and Feedback app.
 ## WebResourceService
 
 ungoogled-chromium removes portions of Chrome's WebResourceService, used by
-Chrome's[PluginsResourceService](https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/plugins/plugins_resource_service.cc#79)
+Chrome's
+[PluginsResourceService](https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/plugins/plugins_resource_service.cc#79)
 to download security updates to various pepper plugins in Chrome, such as
 [Adobe Flash](https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/resources/plugin_metadata/plugins_win.json#3)
 and the
