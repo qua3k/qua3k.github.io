@@ -53,9 +53,9 @@ isolated. It&rsquo;s something upstream is also looking into enabling by default
 won&rsquo;t until <code>document.domain</code> usage drops to a negligible level. The
 development of V8&rsquo;s Ubercage is something we&rsquo;re also paying close attention to
 and will enable by default once it is more mature.</p>
-<p>Some of our current original work involves tightening the Linux sandbox to
-prevent dynamic code generation by placing PaX MPROTECT-inspired restrictions in
-processes that do not generate dynamic code are currently being tested and may
+<p>Some of our current original work involving tightening the Linux sandbox to
+prevent dynamic code generation by placing PaX MPROTECT-inspired restrictions on
+processes that do not generate dynamic code is currently being tested and may
 be upstreamed in the future. We&rsquo;re additionally looking into hardening the heap
 allocator based on past work by projects such as
 <a href=https://github.com/struct/HardenedPartitionAlloc>HardenedPartitionAlloc</a>. It
