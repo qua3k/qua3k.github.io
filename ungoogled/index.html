@@ -10,11 +10,10 @@
 <meta name=description content="A review of ungoogled-chromium patches">
 <meta property="og:description" content="A review of ungoogled-chromium patches">
 <link rel=icon href=favicon.ico>
-<link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.png>
-<link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png>
-<meta property="og:image" content="/images/apple-touch-icon.png">
-<meta property="og:image:alt" content="A picture of a duck">
+<link rel=apple-touch-icon sizes=180x180 href=/favicon.svg>
+<link rel=mask-icon color=#dd8c79 href=/mask-icon.svg>
+<meta property="og:image" content="/ogp.png">
+<meta property="og:image:alt" content="a gravatar identicon">
 <link href=https://qua3k.github.io/main.min.css rel=stylesheet>
 </head>
 <body>
@@ -156,7 +155,8 @@ support application and Feedback app.</p>
 <a class=anchor href=#webresourceservice>#</a>
 </h2>
 <p>ungoogled-chromium removes portions of Chrome&rsquo;s WebResourceService, used by
-Chrome&rsquo;s<a href=https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/plugins/plugins_resource_service.cc#79>PluginsResourceService</a>
+Chrome&rsquo;s
+<a href=https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/plugins/plugins_resource_service.cc#79>PluginsResourceService</a>
 to download security updates to various pepper plugins in Chrome, such as
 <a href=https://chromium.googlesource.com/chromium/src/+/refs/tags/97.0.4686.3/chrome/browser/resources/plugin_metadata/plugins_win.json#3>Adobe Flash</a>
 and the
