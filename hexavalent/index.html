@@ -50,14 +50,13 @@ to it being the only real mitigation against known speculative execution side
 channels that can be used to steal data from sites that aren&rsquo;t cross-origin
 isolated. It&rsquo;s something upstream is also looking into enabling by default but
 won&rsquo;t until <code>document.domain</code> usage drops to a negligible level. The
-development of V8&rsquo;s Ubercage is something we&rsquo;re paying close attention to and
-will enable by default once it gets more mature.</p>
-<p>Some of our current work involves tightening the Linux sandbox to prevent
-dynamic code generation by placing PaX MPROTECT-inspired restrictions in
+development of V8&rsquo;s Ubercage is something we&rsquo;re also paying close attention to
+and will enable by default once it is more mature.</p>
+<p>Some of our current original work involves tightening the Linux sandbox to
+prevent dynamic code generation by placing PaX MPROTECT-inspired restrictions in
 processes that do not generate dynamic code are currently being tested and may
-be upstreamed in the future.</p>
-<p>We&rsquo;re additionally looking into hardening the heap allocator based on past work
-by projects such as
+be upstreamed in the future. We&rsquo;re additionally looking into hardening the heap
+allocator based on past work by projects such as
 <a href=https://github.com/struct/HardenedPartitionAlloc>HardenedPartitionAlloc</a>. It
 is still a work-in-progress but we expect to be able to enable random canaries
 in release builds to absorb overflows, zero allocations on free, and more. Some
