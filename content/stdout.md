@@ -3,7 +3,7 @@ date = 2021-10-03
 description = "A cool pastejacking demo"
 title = "Standard Streams"
 script = "/modules/paste.mjs"
-summary = "Some cool stuff about standard streams."
+summary = "Today I learned about standard streams. I now have a deeper understanding of computers than ever before."
 +++
 
 Today I learned about standard streams. I now have a deeper understanding of

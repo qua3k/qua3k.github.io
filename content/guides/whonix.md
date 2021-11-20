@@ -2,7 +2,7 @@
 title = "Hacking Whonix onto Hyper-V"
 date = 2021-06-05
 description = "A guide to get Whonix running on Hyper-V."
-summary = "A guide to get Whonix running on Hyper-V."
+summary = "This guide aims to get the Whonix™ operating system running on Hyper-V. This guide does not expect Virtualbox specific features such as guest additions to work and does not expend any effort to make them work."
 +++
 
 This guide aims to get the Whonix™ operating system running on Hyper-V. This
