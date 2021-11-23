@@ -1,0 +1,30 @@
+<!doctype html><html lang=en-us prefix="og: https://ogp.me/ns#">
+<head><meta charset=utf-8>
+<title>Hardening PartitionAlloc &#183; segmentation-fault</title>
+<meta name=viewport content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name=color-scheme content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://qua3k.github.io/partitionalloc/">
+<link href=/LICENSE.txt rel=license>
+<meta property="og:title" content="Hardening PartitionAlloc &#183; segmentation-fault">
+<link rel=icon href=/favicon.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/favicon.svg>
+<link rel=mask-icon color=#dd8c79 href=/mask-icon.svg>
+<meta property="og:image" content="/ogp.png">
+<meta property="og:image:alt" content="a gravatar identicon">
+<link href=https://qua3k.github.io/main.min.css rel=stylesheet>
+</head>
+<body>
+<header><h1><a href=/>segmentation-fault</a></h1></header>
+<main>
+<h1>Hardening PartitionAlloc</h1>
+<p class=author>duck
+(<a href=https://github.com/qua3k>@qua3k</a>)
+<p>PartitionAlloc is Google&rsquo;s own heap allocator used in Chrome. It comes with various security features, such as</p>
+<p>All new pages should be zeroed by the operating system, so PartitionAlloc refrains from zeroing unless they aren&rsquo;t. There is an option to initialize it with the pattern-based init but that isn&rsquo;t the default.</p>
+</main>
+<footer>
+<a href=/posts-list/>a list of all posts</a>
+</footer>
+</body>
+</html>
