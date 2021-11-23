@@ -16,7 +16,7 @@ privacy, control, and transparency".
 
 However, there are some glaring flaws with the ungoogled-chromium project. For
 instance, ungoogled-chromium lags behind upstream Chrome for
-[days](https://chromereleases.googleblog.com/)
+[days](https://chromiumdash.appspot.com/releases)
 [every release](https://github.com/Eloston/ungoogled-chromium/releases). The
 time that n-days are exploitable in ungoogled-chromium is *significantly* longer
 than in either Chrome or Edge.
