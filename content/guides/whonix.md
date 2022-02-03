@@ -9,7 +9,7 @@ This guide aims to get the Whonix™ operating system running on Hyper-V. This
 guide does not expect Virtualbox specific features such as guest additions to
 work and does not expend any effort to make them work.
 
-{{< table_of_contents >}}
+{{< toc >}}
 
 ## Prerequisites
 
@@ -142,5 +142,3 @@ Do keep in mind this is mainly theater, as userspace components are not verified
 ## See also
 
 *   [https://forums.whonix.org](https://forums.whonix.org)
-*   some link to some hyper-v research
-*   more links to hyper-v research

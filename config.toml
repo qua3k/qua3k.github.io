@@ -1,18 +1,22 @@
+Authors = ["duck"]
 baseURL = "https://qua3k.github.io/"
 languageCode = "en-us"
-theme = "blog-theme"
-title = "segmentation-fault"
-
-[author]
-  name = "duck"
-  url = "https://github.com/qua3k"
-  username = "qua3k"
+theme = "new-theme"
+title = "segmentation fault"
 
 [markup]
   [markup.tableOfContents]
     endLevel = 6
     ordered = false
     startLevel = 2
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    lineNumbersInTable = true
+    noClasses = false
+    style = 'github'
+    tabWidth = 4
 
 
 [params]

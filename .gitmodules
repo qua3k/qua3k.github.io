@@ -1,3 +1,6 @@
 [submodule "themes/blog-theme"]
 	path = themes/blog-theme
 	url = https://github.com/qua3k/blog-theme
+[submodule "themes/new-theme"]
+	path = themes/new-theme
+	url = https://github.com/qua3k/new-theme

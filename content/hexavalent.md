@@ -1,7 +1,7 @@
 +++
 title = "Improving Browser Security"
 date = "2021-11-07"
-description = "Details about Hexavalent"
+description = "A status update on Hexavalent."
 summary = "Hexavalent is a security and privacy focused web browser based on the open source Chromium project. It seeks to develop meaningful security improvements focusing on mitigating classes of bugs rather than individual vulnerabilities and is currently an unfinished product."
 +++
 

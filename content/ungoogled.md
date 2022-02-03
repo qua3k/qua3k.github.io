@@ -54,7 +54,7 @@ As such, this blog post is meant to shed some light on the function of
 ungoogled-chromium patches and how they compare to Chrome's user facing
 settings.
 
-{{< table_of_contents >}}
+{{< toc >}}
 
 ## Safe Browsing
 
