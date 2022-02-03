@@ -1,34 +1,36 @@
 <!doctype html><html lang=en-us prefix="og: https://ogp.me/ns#">
-<head><meta charset=utf-8>
-<title>Hacking Whonix Onto Hyper-V &#183; segmentation-fault</title>
-<meta name=viewport content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta charset=utf-8>
 <meta name=color-scheme content="light dark">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://qua3k.github.io/guides/whonix/">
-<link href=/LICENSE.txt rel=license>
-<meta property="og:title" content="Hacking Whonix onto Hyper-V &#183; segmentation-fault">
+<meta name=theme-color content="#fff">
+<meta name=viewport content="initial-scale=1,minimum-scale=1,width=device-width">
 <meta name=description content="A guide to get Whonix running on Hyper-V.">
-<meta property="og:description" content="A guide to get Whonix running on Hyper-V.">
+<title>Hacking Whonix onto Hyper-V</title>
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hacking Whonix onto Hyper-V">
+<meta property="article:published_time" content="2021-06-05T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-06-05T00:00:00+00:00">
+<meta property="article:section" content="blog">
+<meta property="og:image" content="https://qua3k.github.io/ogp.png">
+<meta property="og:image:alt" content="a gravatar identicon">
+<meta property="og:site_name" content="segmentation fault">
+<meta property="og:url" content="https://qua3k.github.io/guides/whonix/">
+<link href=/css/main.min.css rel=stylesheet>
+<link href=/css/highlight.min.css rel=stylesheet>
 <link rel=icon href=/favicon.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/favicon.svg>
 <link rel=mask-icon color=#dd8c79 href=/mask-icon.svg>
-<meta property="og:image" content="/ogp.png">
-<meta property="og:image:alt" content="a gravatar identicon">
-<link href=https://qua3k.github.io/main.min.css rel=stylesheet>
-</head>
-<body>
-<header><h1><a href=/>segmentation-fault</a></h1></header>
+<header><a href=/>segmentation fault</a></header>
 <main>
-<h1>Hacking Whonix Onto Hyper-V</h1>
-<p class=author>duck
-(<a href=https://github.com/qua3k>@qua3k</a>)
+<span class=site-metadata>
+<time datetime=2021-06-05>05 Jun 2021</time>
+</span>
+<h1 class=title>Hacking Whonix onto Hyper-V</h1>
+<p class=description>A guide to get Whonix running on Hyper-V.</p>
 <p>This guide aims to get the Whonix™ operating system running on Hyper-V. This
 guide does not expect Virtualbox specific features such as guest additions to
 work and does not expend any effort to make them work.</p>
 <nav>
-<h2 id=#table-of-contents>Table of Contents
-<a class=anchor href=#table-of-contents>#</a>
-</h2>
+<h2 id=#table-of-contents>Table of Contents</h2>
 <nav id=TableOfContents>
 <ul>
 <li><a href=#prerequisites>Prerequisites</a>
@@ -57,36 +59,22 @@ work and does not expend any effort to make them work.</p>
 </ul>
 </nav>
 </nav>
-<h2 id=prerequisites>Prerequisites
-<a class=anchor href=#prerequisites>#</a>
-</h2>
-<h3 id=acquire-the-necessary-tools>Acquire the necessary tools
-<a class=anchor href=#acquire-the-necessary-tools>#</a>
-</h3>
+<h2 id=prerequisites>Prerequisites</h2>
+<h3 id=acquire-the-necessary-tools>Acquire the necessary tools</h3>
 <ul>
 <li><a href=https://www.whonix.org/wiki/VirtualBox>Whonix for VirtualBox</a></li>
 <li><a href=https://www.virtualbox.org/wiki/Downloads>VirtualBox for Windows</a></li>
 </ul>
-<h3 id=verify-the-signature>Verify the signature
-<a class=anchor href=#verify-the-signature>#</a>
-</h3>
+<h3 id=verify-the-signature>Verify the signature</h3>
 <p>See the <a href=https://www.whonix.org/wiki/Verify_the_Whonix_images>Whonix wiki</a>.</p>
-<h3 id=extract-the-archive>Extract the archive
-<a class=anchor href=#extract-the-archive>#</a>
-</h3>
+<h3 id=extract-the-archive>Extract the archive</h3>
 <p>Use <code>tar</code> or another archive utility of choice to extract the <code>ova</code> archive,
 producing two <code>vmdk</code> virtual disks.</p>
-<h3 id=convert-the-disks>Convert the disks
-<a class=anchor href=#convert-the-disks>#</a>
-</h3>
+<h3 id=convert-the-disks>Convert the disks</h3>
 <p>Convert both virtual disks to <code>vhd</code>.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>VBoxManage.exe clonehd source.vmdk target.vhd --format vhd
-</code></pre></div><h2 id=virtual-machine-setup>Virtual Machine Setup
-<a class=anchor href=#virtual-machine-setup>#</a>
-</h2>
-<h3 id=set-up-networking>Set up networking
-<a class=anchor href=#set-up-networking>#</a>
-</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=n>VBoxManage</span><span class=p>.</span><span class=n>exe</span> <span class=n>clonehd</span> <span class=n>source</span><span class=p>.</span><span class=n>vmdk</span> <span class=n>target</span><span class=p>.</span><span class=n>vhd</span> <span class=p>-</span><span class=n>-format</span> <span class=n>vhd</span>
+</code></pre></div><h2 id=virtual-machine-setup>Virtual Machine Setup</h2>
+<h3 id=set-up-networking>Set up networking</h3>
 <ul>
 <li>
 <p>Create an internal switch named WhonixGateway and find its
@@ -94,22 +82,20 @@ producing two <code>vmdk</code> virtual disks.</p>
 <ul>
 <li>
 <p>Create the NAT gateway with the previously mentioned interface index</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-NetIPAddress -IPAddress 10.0.2.2 -PrefixLength 24 -InterfaceIndex &lt;ifIndex&gt;
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=nb>New-NetIPAddress</span> <span class=n>-IPAddress</span> <span class=n>10</span><span class=p>.</span><span class=n>0</span><span class=p>.</span><span class=n>2</span><span class=p>.</span><span class=n>2</span> <span class=n>-PrefixLength</span> <span class=n>24</span> <span class=n>-InterfaceIndex</span> <span class=p>&lt;</span><span class=n>ifIndex</span><span class=p>&gt;</span>
 </code></pre></div></li>
 <li>
 <p>Configure the NAT Network&rsquo;s name and NAT subnet prefix</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-NetNat -Name Gateway -InternalIPInterfaceAddressPrefix 10.0.2.0/24
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=nb>New-NetNat</span> <span class=n>-Name</span> <span class=n>Gateway</span> <span class=n>-InternalIPInterfaceAddressPrefix</span> <span class=n>10</span><span class=p>.</span><span class=n>0</span><span class=p>.</span><span class=n>2</span><span class=p>.</span><span class=n>0</span><span class=p>/</span><span class=n>24</span>
 </code></pre></div></li>
 </ul>
 </li>
 <li>
 <p>Create a private switch, used to connect Whonix-Gateway to Whonix-Workstation.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>New-VMSwitch -SwitchName WhonixPrivate -SwitchType Private
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=nb>New-VMSwitch</span> <span class=n>-SwitchName</span> <span class=n>WhonixPrivate</span> <span class=n>-SwitchType</span> <span class=n>Private</span>
 </code></pre></div></li>
 </ul>
-<h3 id=create-virtual-machines>Create virtual machines
-<a class=anchor href=#create-virtual-machines>#</a>
-</h3>
+<h3 id=create-virtual-machines>Create virtual machines</h3>
 <p>Whonix still uses GRUB&rsquo;s BIOS payload. It isn&rsquo;t UEFI compatible and doesn&rsquo;t run
 in Hyper-V&rsquo;s &ldquo;Gen 2&rdquo; VMs, which bring various security improvements. However,
 you can attempt to run Whonix in &ldquo;Gen 2&rdquo; VMs here.</p>
@@ -121,17 +107,13 @@ to each.</li>
 <li>Create virtual network adapters on both VMs connecting to the &ldquo;WhonixPrivate&rdquo;
 virtual switch.</li>
 </ul>
-<h2 id=post-boot-configuration>Post-boot configuration
-<a class=anchor href=#post-boot-configuration>#</a>
-</h2>
+<h2 id=post-boot-configuration>Post-boot configuration</h2>
 <p>We need to load some kernel modules to get networking working on Whonix. See
 <a href=https://blog.jitdor.com/2020/02/08/enable-hyper-v-integration-services-for-your-ubuntu-guest-vms/>this link</a>
 for more info.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>printf <span style=color:#e6db74>&#34;hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc&#34;</span> &gt;&gt; /etc/initramfs-tools/modules
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=nb>printf</span> <span class=s2>&#34;hv_utils \nhv_vmbus \nhv_storvsc \nhv_blksvc \nhv_netvsc&#34;</span> &gt;&gt; /etc/initramfs-tools/modules
 update-initramfs -u
-</code></pre></div><h2 id=round-2-working-with-efi>Round 2: Working with EFI
-<a class=anchor href=#round-2-working-with-efi>#</a>
-</h2>
+</code></pre></div><h2 id=round-2-working-with-efi>Round 2: Working with EFI</h2>
 <p>Turns out EFI is relatively simple; install <code>grub-efi</code> and convert the partition
 table to GPT. This next section is for the people who need it.</p>
 <blockquote>
@@ -139,16 +121,12 @@ table to GPT. This next section is for the people who need it.</p>
 the disks within the Hyper-V Manager UI or with the PowerShell cmdlet
 <code>Convert-VHD</code>.</p>
 </blockquote>
-<h3 id=install-grub-efi>Install grub-efi
-<a class=anchor href=#install-grub-efi>#</a>
-</h3>
+<h3 id=install-grub-efi>Install grub-efi</h3>
 <p>Boot up your existing Generation 1 virtual machine and install <code>grub-efi-amd64</code>.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>apt update
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>apt update
 apt install grub-efi-amd64
 apt purge grub-pc-bin
-</code></pre></div><h3 id=partitioning>Partitioning
-<a class=anchor href=#partitioning>#</a>
-</h3>
+</code></pre></div><h3 id=partitioning>Partitioning</h3>
 <ul>
 <li>
 <p>Resize /dev/sda1 to create some free space for the EFi system partition with <code>cfdisk /dev/sda</code>.</p>
@@ -158,44 +136,33 @@ apt purge grub-pc-bin
 </li>
 <li>
 <p>Format the EFI partition</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>mkfs.fat -F <span style=color:#ae81ff>32</span> /dev/sda2
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>mkfs.fat -F <span class=m>32</span> /dev/sda2
 </code></pre></div></li>
 <li>
 <p>Mount partitions</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>mount /dev/sda1 /mnt
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>mount /dev/sda1 /mnt
 mkdir -p /mnt/boot/efi
 mount /dev/sda2 /mnt/boot/efi
-<span style=color:#66d9ef>for</span> d in dev proc run sys; <span style=color:#66d9ef>do</span> sudo mount -B /$d /mnt/$d; <span style=color:#66d9ef>done</span>
+<span class=k>for</span> d in dev proc run sys<span class=p>;</span> <span class=k>do</span> sudo mount -B /<span class=nv>$d</span> /mnt/<span class=nv>$d</span><span class=p>;</span> <span class=k>done</span>
 </code></pre></div></li>
 <li>
 <p>Finish the GRUB install</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>chroot /mnt
-grub-install --target<span style=color:#f92672>=</span>x86_64-efi --efi-directory<span style=color:#f92672>=</span>/boot/efi --bootloader-id<span style=color:#f92672>=</span>DEBIAN
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>chroot /mnt
+grub-install --target<span class=o>=</span>x86_64-efi --efi-directory<span class=o>=</span>/boot/efi --bootloader-id<span class=o>=</span>DEBIAN
 grub-mkconfig -o /boot/grub/grub.cfg
 </code></pre></div></li>
 <li>
 <p>Unmount and reboot</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>umount -R /mnt
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>umount -R /mnt
 reboot
 </code></pre></div></li>
 </ul>
-<h2 id=secure-boot>Secure Boot
-<a class=anchor href=#secure-boot>#</a>
-</h2>
+<h2 id=secure-boot>Secure Boot</h2>
 <p>Debian&rsquo;s <code>grub-efi</code> package comes with <code>shim</code> out of the box signed by Microsoft&rsquo;s third
 party UEFI CA; it is up to the user to enable it in VM settings.</p>
 <p>Do keep in mind this is mainly theater, as userspace components are not verified.</p>
-<h2 id=see-also>See also
-<a class=anchor href=#see-also>#</a>
-</h2>
+<h2 id=see-also>See also</h2>
 <ul>
 <li><a href=https://forums.whonix.org>https://forums.whonix.org</a></li>
-<li>some link to some hyper-v research</li>
-<li>more links to hyper-v research</li>
 </ul>
 </main>
-<footer>
-<a href=/posts-list/>a list of all posts</a>
-</footer>
-</body>
-</html>
