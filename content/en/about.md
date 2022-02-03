@@ -6,7 +6,7 @@ summary = "About me"
 +++
 
 I'm a security researcher currently working on
-[Hexavalent](https://github.com/Hexavalent-Browser/Hexavalent)
+[Hexavalent](https://github.com/Hexavalent-Browser/Hexavalent).
 
 Links:
 
