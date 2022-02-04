@@ -1,4 +1,4 @@
-Authors = ["duck"]
+authors = ["duck"]
 baseURL = "https://qua3k.github.io/"
 languageCode = "en-us"
 theme = "new-theme"
@@ -13,8 +13,12 @@ defaultcontentlanguage = "en"
     weight = 1
   [languages.zh-cn]
     contentDir = "content/zh-cn"
+    languageCode = "zh-cn"
     languageName = "简体中文"
+    title = "分段错误"
     weight = 2
+    [languages.zh-cn.params]
+      description = "你好，我是一只鸭子，这些是我的胡言乱语。"
 
 [markup]
   [markup.tableOfContents]
@@ -30,7 +34,5 @@ defaultcontentlanguage = "en"
     style = 'github'
     tabWidth = 4
 
-
 [params]
   description = "hi i'm a duck and these are my ramblings"
-  listUrl = "/posts-list/"
