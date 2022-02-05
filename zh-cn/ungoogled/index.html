@@ -34,7 +34,7 @@ well as delegating third parties to produce &ldquo;contributor binaries&rdquo;. 
 the problems with entrusting third parties for builds, all of the builds weaken
 the security of the existing mitigations in some form.</p>
 <p><a href=https://github.com/ungoogled-software/ungoogled-chromium-debian/blob/unified/debian/rules#L59>Debian</a>
-的情况很糟糕—他们省略了使用 Clang 的控制流完整性 (CFI) 实现，使用户容易受到控制流劫持。此外，他们使用
+的情况很糟糕&ndash;他们省略了使用 Clang 的控制流完整性 (CFI) 实现，使用户容易受到控制流劫持。此外，他们使用
 <a href=https://github.com/google/tcmalloc>tcmalloc</a> 作为堆分配器。tcmalloc 是一个面向性能的分配器，
 没有堆保护。</p>
 <p>The default choice (PartitionAlloc) is substantially hardened against memory
