@@ -1,15 +1,15 @@
 +++
 title = "ungoogled-chromium"
 date = 2021-05-29
-description = "A review of ungoogled-chromium patches"
+description = "ungoogled-chromium 补丁的评论"
 +++
 
-The [ungoogled-chromium](https://github.com/Eloston/ungoogled-chromium) project
-is an often recommended browser to people seeking a private Chromium-based
-browser. However, many people are unaware that their patches often regress the
-privacy/security rather than improve it.
+抱歉，我的英文比我的中文好，有的词可能会翻译错的。
 
-## Toolchain Hardening
+许多人经常推荐 [ungoogled-chromium](https://github.com/Eloston/ungoogled-chromium) 项目作为
+Chrome 的私人替代品。然而，许多人不知道他们的补丁通常会降低浏览器的隐私/安全性，而不是改善它。
+
+## 工具链强化
 
 ungoogled-chromium produces some automatic builds through GitHub Actions, as
 well as delegating third parties to produce "contributor binaries". Disregarding
@@ -17,16 +17,14 @@ the problems with entrusting third parties for builds, all of the builds weaken
 the security of the existing mitigations in some form.
 
 [Debian](https://github.com/ungoogled-software/ungoogled-chromium-debian/blob/unified/debian/rules#L59)
-fares much worse—it omits building the browser with Clang's
-fine-grained, forwards-edge CFI implementation, rendering users vulnerable to
-control-flow hijacking. In addition, it uses
-[tcmalloc](https://github.com/google/tcmalloc) as the memory allocator, a
-performance-oriented allocator without defenses against heap corruption. In
-contrast, the default choice (PartitionAlloc) is substantially hardened against
-memory corruption and features type-based heap isolation for objects in Blink,
-as well as size-based bucketing within the partitions. The build is a
-substantial security regression over upstream and shouldn't be recommended to
-anyone in good faith.
+的情况很糟糕—他们省略了使用 Clang 的控制流完整性 (CFI) 实现，使用户容易受到控制流劫持。此外，他们使用
+[tcmalloc](https://github.com/google/tcmalloc) 作为堆分配器。tcmalloc 是一个面向性能的分配器，
+没有堆保护。
+
+The default choice (PartitionAlloc) is substantially hardened against memory
+corruption and features type-based heap isolation for objects in Blink, as well
+as size-based bucketing within the partitions. The build is a substantial
+regression over upstream and shouldn't be recommended to anyone in good faith.
 
 *   It's worth noting that upstream is
     [removing tcmalloc](https://crrev.com/c/3372825), which is good for users of
@@ -35,7 +33,7 @@ anyone in good faith.
 
 Fedora packaging of ungoogled-chromium was historically terrible; it used an
 [unsupported toolchain (gcc)](https://github.com/ungoogled-software/ungoogled-chromium-fedora/tree/8300097092afacf6d21d155524c5dc0695a0e43a)
-without support for Clang's Control-Flow Integrity, although they have rectified
+without support for Clang 的 CFI, although they have rectified
 this as of
 [November 10, 2021](https://github.com/ungoogled-software/ungoogled-chromium-fedora/commit/8054d652e66add0c46540296c08d4a593e049063).
 
@@ -43,7 +41,7 @@ In addition, all distros supported by ungoogled-chromium link against system
 libraries, which historically aren't compiled with Clang CFI, rendering CFI much
 less effective.
 
-## Security Updates
+## 安全更新
 
 The component updater, responsible for delivering out-of-band security updates
 to the various components of the browser, is disabled within ungoogled-chromium.
