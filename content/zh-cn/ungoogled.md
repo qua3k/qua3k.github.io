@@ -17,7 +17,7 @@ the problems with entrusting third parties for builds, all of the builds weaken
 the security of the existing mitigations in some form.
 
 [Debian](https://github.com/ungoogled-software/ungoogled-chromium-debian/blob/unified/debian/rules#L59)
-的情况很糟糕—他们省略了使用 Clang 的控制流完整性 (CFI) 实现，使用户容易受到控制流劫持。此外，他们使用
+的情况很糟糕--他们省略了使用 Clang 的控制流完整性 (CFI) 实现，使用户容易受到控制流劫持。此外，他们使用
 [tcmalloc](https://github.com/google/tcmalloc) 作为堆分配器。tcmalloc 是一个面向性能的分配器，
 没有堆保护。
 

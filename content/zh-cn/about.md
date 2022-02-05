@@ -10,4 +10,4 @@ summary = "关于我"
 链接
 
 * [GitHub](https://github.com/qua3k)
-* [Twitter](https://twitter.com/CliffMaceyak)
+* [推特](https://twitter.com/CliffMaceyak)
