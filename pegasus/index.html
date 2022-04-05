@@ -1,69 +1,27 @@
-<!doctype html><html lang=en-us prefix="og: https://ogp.me/ns#">
-<meta charset=utf-8>
-<meta name=color-scheme content="light dark">
-<meta name=viewport content="initial-scale=1,minimum-scale=1,width=device-width">
-<meta name=description content="Recently, a story has been making the rounds about the ‘new’ Pegasus spyware that has lead to mass panic in technical circles that has users worried. There are some questions that users might ask that haven’t been accurately answered and the events have been used by various companies to market their product.">
-<title>Some Thoughts About the NSO Group's Pegasus</title>
-<meta property="og:type" content="article">
-<meta property="og:title" content="Some Thoughts About the NSO Group's Pegasus">
-<meta property="article:published_time" content="2021-07-24T00:00:00+00:00">
-<meta property="article:modified_time" content="2021-07-24T00:00:00+00:00">
-<meta property="article:section" content="blog">
-<meta property="og:image" content="https://qua3k.github.io/ogp.png">
-<meta property="og:image:alt" content="a gravatar identicon">
-<meta property="og:site_name" content="segmentation fault">
-<meta property="og:url" content="https://qua3k.github.io/pegasus/">
-<link href=/css/main.min.css rel=stylesheet>
-<link href=/css/highlight.min.css rel=stylesheet>
-<link rel=icon href=/favicon.ico>
-<link rel=apple-touch-icon sizes=180x180 href=/favicon.svg>
-<link rel=mask-icon color=#dd8c79 href=/mask-icon.svg>
-<header><a href=/>segmentation fault</a></header>
-<main>
-<span class=site-metadata>
-<time datetime=2021-07-24>24 Jul 2021</time>
-</span>
-<h1 class=title>Some Thoughts About the NSO Group's Pegasus</h1>
-<p>Recently, a story has been making the rounds about the &lsquo;new&rsquo; Pegasus spyware
+<!doctype html><html lang=en-us prefix="og: https://ogp.me/ns#"><meta charset=utf-8><meta name=color-scheme content="light dark"><meta name=viewport content="initial-scale=1,minimum-scale=1,width=device-width"><meta name=description content="Recently, a story has been making the rounds about the ‘new’ Pegasus spyware that has lead to mass panic in technical circles that has users worried. There are some questions that users might ask that haven’t been accurately answered and the events have been used by various companies to market their product."><title>Some Thoughts About the NSO Group's Pegasus</title><meta property="og:type" content="article"><meta property="og:title" content="Some Thoughts About the NSO Group's Pegasus"><meta property="article:published_time" content="2021-07-24T00:00:00+00:00"><meta property="article:modified_time" content="2021-07-24T00:00:00+00:00"><meta property="article:section" content="blog"><meta property="og:image" content="https://qua3k.github.io/ogp.png"><meta property="og:image:alt" content="a gravatar identicon"><meta property="og:site_name" content="segmentation fault"><meta property="og:url" content="https://qua3k.github.io/pegasus/"><link href=/css/main.min.css rel=stylesheet><link href=/css/highlight.min.css rel=stylesheet><link rel=icon href=/favicon.ico><link rel=apple-touch-icon sizes=180x180 href=/favicon.svg><link rel=mask-icon color=#dd8c79 href=/mask-icon.svg><header><a href=/>segmentation fault</a></header><main><span class=site-metadata><time datetime=2021-07-24>24 Jul 2021</time></span><h1 class=title>Some Thoughts About the NSO Group's Pegasus</h1><p>Recently, a story has been making the rounds about the &rsquo;new&rsquo; Pegasus spyware
 that has lead to mass panic in technical circles that has users worried. There
 are some questions that users might ask that haven&rsquo;t been accurately answered
-and the events have been used by various companies to market their product.</p>
-<p>Frightened users might ask:</p>
-<ul>
-<li>Am I at risk?</li>
-<li>What do I do now?</li>
-<li>Does this affect the latest Android/iOS?</li>
-<li>Should I stop using Android/iOS?</li>
-</ul>
-<p>The answer is largely <strong>no</strong>.</p>
-<p>The Pegasus spyware isn&rsquo;t new. We&rsquo;ve known about it for a long time, and we know
+and the events have been used by various companies to market their product.</p><p>Frightened users might ask:</p><ul><li>Am I at risk?</li><li>What do I do now?</li><li>Does this affect the latest Android/iOS?</li><li>Should I stop using Android/iOS?</li></ul><p>The answer is largely <strong>no</strong>.</p><p>The Pegasus spyware isn&rsquo;t new. We&rsquo;ve known about it for a long time, and we know
 it takes advantage of a variety of exploits to exploit different types of
 devices. We also know about some specifics of these vulnerabilities, such as the
-usage of zero-clicks in iMessage.</p>
-<p>Apple has already taken steps to mitigate zero-click vulnerabilities in iMessage,
+usage of zero-clicks in iMessage.</p><p>Apple has already taken steps to mitigate zero-click vulnerabilities in iMessage,
 writing the Blastdoor sandbox, where all untrusted data parsing happens, in
 Swift. It has become extremely difficult to exploit iMessage via a zero-click as
-of iOS 14, and as such, users should not be worried.</p>
-<p>Not that the majority of users shuld should be worried anyway, because they are
+of iOS 14, and as such, users should not be worried.</p><p>Not that the majority of users shuld should be worried anyway, because they are
 <strong>not at risk</strong>, unless they are politically active and suspect someone might
-have reason to target them.</p>
-<p>Adding onto that, iOS and Android are leagues ahead of any other desktop
+have reason to target them.</p><p>Adding onto that, iOS and Android are leagues ahead of any other desktop
 operating systems. They both have world class security teams working on them,
 and it shows in the cost it takes to write an exploit of such impact. However,
 this point is largely moot if your device has stopped receiving updates; if your
 vendor is not providing updates then your device should be considered vulnerable
-regardless.</p>
-<p>If you&rsquo;re shopping for a new device because yours is outdated, buy an iPhone. It
+regardless.</p><p>If you&rsquo;re shopping for a new device because yours is outdated, buy an iPhone. It
 is common consensus among security researchers that an iPhone is one of the most
 secure devices you can get, leagues ahead of other phones. However, it isn&rsquo;t
-without its downsides, namely in components such as WebKit.</p>
-<p>If you&rsquo;re in the Android camp, get a Pixel. Google has world class security
+without its downsides, namely in components such as WebKit.</p><p>If you&rsquo;re in the Android camp, get a Pixel. Google has world class security
 engineers, and Titan M isn&rsquo;t found in any other phones. The
 <a href=https://grapheneos.org>GrapheneOS</a> project is also highly acclaimed by
 security researchers and is a hardened OS meant to defend against memory
 corruption and other common vulnerabilities. Neither iOS nor GrapheneOS will
 protect you from an adversary with unlimited resources and time, but they will
-raise the time and the cost to successfully exploit a device.</p>
-<p>In the end, Pegasus is not a concern for most users, and you should refrain from
-listening to people trying to sell you things in the wake of the news.</p>
-</main>
+raise the time and the cost to successfully exploit a device.</p><p>In the end, Pegasus is not a concern for most users, and you should refrain from
+listening to people trying to sell you things in the wake of the news.</p></main>
