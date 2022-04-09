@@ -55,6 +55,17 @@ it's not helpful nor necessary to disable them.
 Furthermore, the extensions that users rely on aren't updated automatically,
 posing an additional risk to users of the browser.
 
+## WebRTC
+
+A sad thing to note is that ungoogled-chromium chooses to build without mDNS
+support, meaning that instead of providing randomized/ephemeral ICE candidates,
+the browser provides the user's local IP address. Chrome switched to using mDNS
+for WebRTC in August 2019; ungoogled-chromium has disabled mDNS since 2017, as
+part of the chrome.mdns API. They have yet to recify this; instead, they are
+adopting patches to change the IP handling policy by default, which really
+doesn't address the problem in case a user decides to change it from the default
+when he's on a network without NAT loopback.
+
 ## An Alternative?
 
 Most people should be using Chrome. If one is looking for privacy, disable the
