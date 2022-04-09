@@ -29,7 +29,14 @@ It&rsquo;s responsible for updating Chrome&rsquo;s CRLSets, which are necessary 
 meaningful certificate revocation. Most of the components are delivered via the
 component updater because they have a need for out-of-band security updates, and
 it&rsquo;s not helpful nor necessary to disable them.</p><p>Furthermore, the extensions that users rely on aren&rsquo;t updated automatically,
-posing an additional risk to users of the browser.</p><h2 id=an-alternative>An Alternative?</h2><p>Most people should be using Chrome. If one is looking for privacy, disable the
+posing an additional risk to users of the browser.</p><h2 id=webrtc>WebRTC</h2><p>A sad thing to note is that ungoogled-chromium chooses to build without mDNS
+support, meaning that instead of providing randomized/ephemeral ICE candidates,
+the browser provides the user&rsquo;s local IP address. Chrome switched to using mDNS
+for WebRTC in August 2019; ungoogled-chromium has disabled mDNS since 2017, as
+part of the chrome.mdns API. They have yet to recify this; instead, they are
+adopting patches to change the IP handling policy by default, which really
+doesn&rsquo;t address the problem in case a user decides to change it from the default
+when he&rsquo;s on a network without NAT loopback.</p><h2 id=an-alternative>An Alternative?</h2><p>Most people should be using Chrome. If one is looking for privacy, disable the
 telemetry toggles within <code>chrome://settings</code>. Removing every mention of Google
 from the codebase is distinct from legitimate privacy/security improvements and
 it&rsquo;s evident that the patches cause regressions in security, not improvements.</p></main>
