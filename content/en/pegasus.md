@@ -28,7 +28,7 @@ writing the Blastdoor sandbox, where all untrusted data parsing happens, in
 Swift. It has become extremely difficult to exploit iMessage via a zero-click as
 of iOS 14, and as such, users should not be worried.
 
-Not that the majority of users shuld should be worried anyway, because they are
+Not that the majority of users should be worried anyway, because they are
 **not at risk**, unless they are politically active and suspect someone might
 have reason to target them.
 
